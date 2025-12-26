@@ -1,5 +1,5 @@
 (sym_lib_table
   (version 7)
   (lib (name "arduino-library")(type "KiCad")(uri "${KIPRJMOD}/../Libraries/symbols/com_github_alarm-siren_arduino-kicad-library/arduino-library.kicad_sym")(options "")(descr ""))
-  (lib (name "System_Connectors")(type "KiCad")(uri "D:/Projects/Button panels/Side panels/PCBs/Libraries/symbols/System_Connectors.kicad_sym")(options "")(descr ""))
+  (lib (name "System_Connectors")(type "KiCad")(uri "${KIPRJMOD}/../Libraries/symbols/System_Connectors.kicad_sym")(options "")(descr ""))
 )
