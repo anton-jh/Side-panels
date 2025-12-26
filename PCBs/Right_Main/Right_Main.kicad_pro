@@ -428,6 +428,14 @@
     [
       "b184a816-d02f-4ef9-897c-d31b5b062636",
       "Input register 4"
+    ],
+    [
+      "689e04ea-9ab8-44cb-ac25-fd1df69ea6ca",
+      "Input register 5"
+    ],
+    [
+      "ffdc2058-e5d3-4693-94cd-ce1a8b4b8c8e",
+      "Input register 6"
     ]
   ],
   "text_variables": {}
