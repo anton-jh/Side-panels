@@ -6,7 +6,7 @@
 	(descr "Generic SW PUSH 12mm, e.g https://sten-eswitch-13110800-production.s3.amazonaws.com/system/asset/product_line/data_sheet/143/TL1100.pdf")
 	(tags "tact sw push 12mm")
 	(property "Reference" "REF**"
-		(at 5.83 -5.41 0)
+		(at 5.842 -2.032 0)
 		(layer "F.SilkS")
 		(uuid "d1cacafe-8a76-44dc-b95c-ef5134b08eae")
 		(effects
@@ -16,8 +16,8 @@
 			)
 		)
 	)
-	(property "Value" "SW_PUSH-12mm_Grid"
-		(at 6.37 10.5 0)
+	(property "Value" "PUSH-12mm"
+		(at 6.37 7.112 0)
 		(layer "F.Fab")
 		(uuid "8d5892e0-1c39-434e-bda6-231825380cdd")
 		(effects
@@ -55,8 +55,8 @@
 	)
 	(attr through_hole)
 	(fp_line
-		(start 0 -3.81)
-		(end 0 -1.1)
+		(start 0.762 -3.048)
+		(end 0.762 -1.524)
 		(stroke
 			(width 0.12)
 			(type default)
@@ -65,8 +65,8 @@
 		(uuid "791de51c-3379-42ce-b9d6-855ca8f8997c")
 	)
 	(fp_line
-		(start 0 -3.81)
-		(end 12.7 -3.81)
+		(start 0.762 -3.048)
+		(end 11.938 -3.048)
 		(stroke
 			(width 0.12)
 			(type default)
@@ -75,8 +75,8 @@
 		(uuid "7e60b296-4907-4164-8089-996afbb9ecbc")
 	)
 	(fp_line
-		(start 0 1.27)
-		(end 0 3.81)
+		(start 0.762 1.524)
+		(end 0.762 3.556)
 		(stroke
 			(width 0.12)
 			(type default)
@@ -85,8 +85,8 @@
 		(uuid "a0d45b3b-a787-46a0-a9b0-8085cdd784f3")
 	)
 	(fp_line
-		(start 0 6.35)
-		(end 0 8.89)
+		(start 0.762 6.604)
+		(end 0.762 8.128)
 		(stroke
 			(width 0.12)
 			(type default)
@@ -95,8 +95,8 @@
 		(uuid "2a3bf812-03bb-4a32-9d27-ad550a3e0d9e")
 	)
 	(fp_line
-		(start 12.7 -3.81)
-		(end 12.7 -1.1)
+		(start 11.938 -3.048)
+		(end 11.938 -1.524)
 		(stroke
 			(width 0.12)
 			(type default)
@@ -105,8 +105,8 @@
 		(uuid "adf05890-c56e-4bad-93ea-8407e6e5dc48")
 	)
 	(fp_line
-		(start 12.7 1.27)
-		(end 12.7 3.81)
+		(start 11.938 1.524)
+		(end 11.938 3.556)
 		(stroke
 			(width 0.12)
 			(type default)
@@ -115,8 +115,8 @@
 		(uuid "3e1c6419-b94e-47bd-baac-c1a9612f3f2d")
 	)
 	(fp_line
-		(start 12.7 6.1)
-		(end 12.7 8.89)
+		(start 11.938 6.604)
+		(end 11.938 8.128)
 		(stroke
 			(width 0.12)
 			(type default)
@@ -125,8 +125,8 @@
 		(uuid "f37e27f8-9994-422e-8e3a-e1d2f27ab6ca")
 	)
 	(fp_line
-		(start 12.7 8.89)
-		(end 0 8.89)
+		(start 11.938 8.128)
+		(end 0.762 8.128)
 		(stroke
 			(width 0.12)
 			(type default)
@@ -146,11 +146,11 @@
 		(uuid "7f7bfec6-bd0b-4e96-9723-1158c7304ae6")
 	)
 	(fp_rect
-		(start -1.5 -4.75)
-		(end 14 9.75)
+		(start -1.016 -3.302)
+		(end 13.716 8.382)
 		(stroke
 			(width 0.05)
-			(type default)
+			(type solid)
 		)
 		(fill no)
 		(layer "F.CrtYd")
