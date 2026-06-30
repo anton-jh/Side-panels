@@ -3320,6 +3320,12 @@
 		(uuid "aed9bb73-2443-480c-a90f-c0f8b8f73fc7")
 	)
 	(junction
+		(at 22.86 151.13)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b07b5837-4f25-42db-9ff5-7e54bec47d54")
+	)
+	(junction
 		(at 255.27 68.58)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4581,6 +4587,16 @@
 	)
 	(wire
 		(pts
+			(xy 22.86 152.4) (xy 22.86 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd2a710d-e662-45ce-a79e-c0b766debf6a")
+	)
+	(wire
+		(pts
 			(xy 180.34 139.7) (xy 180.34 147.32)
 		)
 		(stroke
@@ -5197,7 +5213,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_TopBottom"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
 			(at 25.4 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -5237,6 +5253,85 @@
 			(project "Right_Keypad"
 				(path "/ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
 					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 22.86 151.13 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "319164c1-4f2c-48f8-8beb-5cfcf5048082")
+		(property "Reference" "#FLG03"
+			(at 24.765 151.13 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 26.67 151.1299 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 22.86 151.13 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 22.86 151.13 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 22.86 151.13 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a291b493-8d13-4aaa-bc94-70d504c0b802")
+		)
+		(instances
+			(project "Right_Keypad"
+				(path "/ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
+					(reference "#FLG03")
 					(unit 1)
 				)
 			)
@@ -7312,7 +7407,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_TopBottom"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
 			(at 25.4 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -7796,7 +7891,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_TopBottom"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
 			(at 25.4 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -9226,7 +9321,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_TopBottom"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
 			(at 25.4 142.24 0)
 			(hide yes)
 			(show_name no)
@@ -10065,7 +10160,7 @@
 	)
 	(symbol
 		(lib_id "power:Earth")
-		(at 22.86 151.13 0)
+		(at 22.86 152.4 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -10076,7 +10171,7 @@
 		(fields_autoplaced yes)
 		(uuid "cffcdd35-74c6-4083-b3f3-16533cae39fa")
 		(property "Reference" "#PWR06"
-			(at 22.86 157.48 0)
+			(at 22.86 158.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10087,7 +10182,7 @@
 			)
 		)
 		(property "Value" "Chassis"
-			(at 22.86 156.21 0)
+			(at 22.86 157.48 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10097,7 +10192,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 22.86 151.13 0)
+			(at 22.86 152.4 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10108,7 +10203,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 22.86 151.13 0)
+			(at 22.86 152.4 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10119,7 +10214,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"Earth\""
-			(at 22.86 151.13 0)
+			(at 22.86 152.4 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
