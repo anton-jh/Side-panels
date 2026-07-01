@@ -5,6 +5,7 @@
 **/*.kicad_pcb-bak
 **/*.kicad_pcb.lck
 **/*.kicad_sch.lck
+**/*.kicad_pro.lck
 **/*.tmp
 
 # Gerbers and fabrication outputs
