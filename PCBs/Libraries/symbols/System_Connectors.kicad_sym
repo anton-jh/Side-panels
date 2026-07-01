@@ -1284,7 +1284,7 @@
 			)
 		)
 		(property "Description" "Generic connector, double row, 02x05, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at -2.54 0 0)
+			(at -1.778 10.668 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(hide yes)
@@ -1558,7 +1558,7 @@
 					)
 				)
 			)
-			(pin passive line
+			(pin no_connect line
 				(at 12.7 2.54 180)
 				(length 3.81)
 				(name "PIN_4"
