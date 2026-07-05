@@ -244,7 +244,7 @@
           "drill": 0.0
         }
       ],
-      "zones_allow_external_fillets": false
+      "zones_allow_external_fillets": true
     },
     "ipc2581": {
       "bom_rev": "",
@@ -690,7 +690,7 @@
         "uuid": "ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
       }
     ],
-    "used_designators": "H1-4,#PWR6,#FLG3",
+    "used_designators": "H1-4,#PWR6-7,#FLG3",
     "variants": []
   },
   "sheets": [
