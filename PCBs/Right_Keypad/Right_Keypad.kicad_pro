@@ -532,9 +532,18 @@
         "clearance": 1.0,
         "name": "Chassis",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 0,
+        "priority": 1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 1.0,
+        "tuning_profile": ""
+      },
+      {
+        "clearance": 0.2,
+        "name": "PWR",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.5,
         "tuning_profile": ""
       }
     ],
@@ -547,6 +556,14 @@
       {
         "netclass": "Chassis",
         "pattern": "Chassis"
+      },
+      {
+        "netclass": "PWR",
+        "pattern": "+5V"
+      },
+      {
+        "netclass": "PWR",
+        "pattern": "GND"
       }
     ]
   },
@@ -690,7 +707,7 @@
         "uuid": "ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
       }
     ],
-    "used_designators": "H1-4,#PWR6-7,#FLG3",
+    "used_designators": "H1-4,#PWR6-7,#FLG3,U1",
     "variants": []
   },
   "sheets": [

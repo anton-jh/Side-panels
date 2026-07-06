@@ -268,7 +268,7 @@
 					)
 				)
 				(pin input line
-					(at -12.7 12.7 0)
+					(at -12.7 5.08 0)
 					(length 5.08)
 					(name "D0"
 						(effects
@@ -286,7 +286,7 @@
 					)
 				)
 				(pin input line
-					(at -12.7 10.16 0)
+					(at -12.7 7.62 0)
 					(length 5.08)
 					(name "D1"
 						(effects
@@ -304,7 +304,7 @@
 					)
 				)
 				(pin input line
-					(at -12.7 7.62 0)
+					(at -12.7 10.16 0)
 					(length 5.08)
 					(name "D2"
 						(effects
@@ -322,7 +322,7 @@
 					)
 				)
 				(pin input line
-					(at -12.7 5.08 0)
+					(at -12.7 12.7 0)
 					(length 5.08)
 					(name "D3"
 						(effects
@@ -3085,6 +3085,26 @@
 			(embedded_fonts no)
 		)
 	)
+	(text_box "A while after designing this: I think the transistors had something to do with the 3 row lines also being used as address lines for the analog multiplexers (which I removed later). Not sure. Not gonna remove them now."
+		(exclude_from_sim no)
+		(at 58.42 147.32 0)
+		(size 29.21 22.86)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "1abb4e97-b806-41c6-bbbb-c939c2796008")
+	)
 	(junction
 		(at 121.92 111.76)
 		(diameter 0)
@@ -3132,12 +3152,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "16523cf9-111e-4eb8-8063-a28025d7b1af")
-	)
-	(junction
-		(at 140.97 54.61)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "16aa69d2-8c88-4bcf-90b6-16ed2f01ce4b")
 	)
 	(junction
 		(at 22.86 137.16)
@@ -3212,6 +3226,12 @@
 		(uuid "4c71599d-1a21-4623-9cc5-7ed4ba5dd0e6")
 	)
 	(junction
+		(at 140.97 53.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4da20faf-4bcc-48a6-bb64-5a9826a9910a")
+	)
+	(junction
 		(at 160.02 111.76)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3242,6 +3262,12 @@
 		(uuid "685fa504-293c-485f-9023-6d7b0e7eae0e")
 	)
 	(junction
+		(at 121.92 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6c09d762-95b1-4722-95bc-d90f27c26604")
+	)
+	(junction
 		(at 236.22 129.54)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3258,6 +3284,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7e37dd73-e0aa-44ea-955b-2efdb1195f7e")
+	)
+	(junction
+		(at 78.74 40.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8a24959b-7796-438f-b2e1-da3cd414caf2")
 	)
 	(junction
 		(at 217.17 111.76)
@@ -3302,12 +3334,6 @@
 		(uuid "a3d9ff8c-720e-49e5-88ee-bcade2a44a20")
 	)
 	(junction
-		(at 160.02 55.88)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ac27bf6b-790e-466f-8349-34352dae1e8c")
-	)
-	(junction
 		(at 160.02 129.54)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3344,18 +3370,6 @@
 		(uuid "b4b8406c-c02d-4e73-b055-0dd65aa7231b")
 	)
 	(junction
-		(at 121.92 52.07)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b8bcee17-8caa-4d6e-a399-8106597d2054")
-	)
-	(junction
-		(at 179.07 58.42)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "be92b77c-7709-4a4a-a367-f8cf974c8d56")
-	)
-	(junction
 		(at 161.29 104.14)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3386,10 +3400,10 @@
 		(uuid "d9f61c58-e0d3-4b2c-91e8-7d348060e545")
 	)
 	(junction
-		(at 78.74 40.64)
+		(at 160.02 55.88)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "dce51c84-0048-4e1e-b48f-dde7ad1dbd6e")
+		(uuid "dc737c04-e504-49f6-896c-83b80b423cf5")
 	)
 	(junction
 		(at 198.12 111.76)
@@ -3402,6 +3416,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e6891c1e-7dba-4a8a-8d51-fec988066173")
+	)
+	(junction
+		(at 179.07 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e7f5ed79-0612-40f4-a18c-a11e705237b7")
 	)
 	(junction
 		(at 21.59 91.44)
@@ -3469,6 +3489,16 @@
 	)
 	(wire
 		(pts
+			(xy 91.44 53.34) (xy 140.97 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0bd7a05a-0ea2-4626-8e70-bbbf19a8978f")
+	)
+	(wire
+		(pts
 			(xy 123.19 139.7) (xy 123.19 147.32)
 		)
 		(stroke
@@ -3476,26 +3506,6 @@
 			(type default)
 		)
 		(uuid "101e1d0e-ea9d-44cf-98ba-eeb738b7a2f0")
-	)
-	(wire
-		(pts
-			(xy 118.11 52.07) (xy 121.92 52.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "121b70a4-f33c-49d5-b372-27007a0894c5")
-	)
-	(wire
-		(pts
-			(xy 91.44 58.42) (xy 118.11 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "130d6966-df0d-46ac-b660-e66701d9c4c6")
 	)
 	(wire
 		(pts
@@ -3559,16 +3569,6 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 54.61) (xy 140.97 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1b4edab1-4d65-4cf4-8788-360a80a502c1")
-	)
-	(wire
-		(pts
 			(xy 92.71 139.7) (xy 104.14 139.7)
 		)
 		(stroke
@@ -3586,16 +3586,6 @@
 			(type default)
 		)
 		(uuid "1d264019-0e5d-4b4f-a683-3006c318153d")
-	)
-	(wire
-		(pts
-			(xy 91.44 50.8) (xy 119.38 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1d7b61a8-c79e-4976-bcab-b99fdeb55e02")
 	)
 	(wire
 		(pts
@@ -3676,16 +3666,6 @@
 			(type default)
 		)
 		(uuid "28bc7fa4-d77b-4882-8d9c-7a88280db0e2")
-	)
-	(wire
-		(pts
-			(xy 116.84 55.88) (xy 160.02 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "29769230-6be0-401f-b52f-9dfff64c7064")
 	)
 	(wire
 		(pts
@@ -3819,16 +3799,6 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 52.07) (xy 121.92 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3e779fed-06c4-4a62-9163-0e1291f05fe4")
-	)
-	(wire
-		(pts
 			(xy 104.14 139.7) (xy 123.19 139.7)
 		)
 		(stroke
@@ -3919,16 +3889,6 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 55.88) (xy 115.57 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "46d9ca76-067d-4356-add6-dab4bc60ec76")
-	)
-	(wire
-		(pts
 			(xy 199.39 121.92) (xy 218.44 121.92)
 		)
 		(stroke
@@ -3936,16 +3896,6 @@
 			(type default)
 		)
 		(uuid "47b8b2ce-6c30-4b7d-a8a5-016b90a3eee8")
-	)
-	(wire
-		(pts
-			(xy 115.57 55.88) (xy 115.57 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4a427cbd-d4f3-42b9-ac1c-14e0346bf097")
 	)
 	(wire
 		(pts
@@ -4109,16 +4059,6 @@
 	)
 	(wire
 		(pts
-			(xy 116.84 53.34) (xy 116.84 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "773e86bf-5b13-40b5-acde-69f8886701fe")
-	)
-	(wire
-		(pts
 			(xy 21.59 101.6) (xy 21.59 104.14)
 		)
 		(stroke
@@ -4249,6 +4189,16 @@
 	)
 	(wire
 		(pts
+			(xy 91.44 58.42) (xy 179.07 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "96157349-b2f4-4c4b-a501-f5fd21c97172")
+	)
+	(wire
+		(pts
 			(xy 80.01 127) (xy 76.2 127)
 		)
 		(stroke
@@ -4359,7 +4309,7 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 50.8) (xy 121.92 52.07)
+			(xy 121.92 50.8) (xy 121.92 111.76)
 		)
 		(stroke
 			(width 0)
@@ -4379,13 +4329,13 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 50.8) (xy 119.38 58.42)
+			(xy 91.44 50.8) (xy 121.92 50.8)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "abb9f167-f1a3-4e41-9e17-fbea091f9196")
+		(uuid "ab22922a-dae4-4609-b63c-0c170cf45d90")
 	)
 	(wire
 		(pts
@@ -4399,7 +4349,7 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 53.34) (xy 140.97 54.61)
+			(xy 140.97 53.34) (xy 140.97 111.76)
 		)
 		(stroke
 			(width 0)
@@ -4449,16 +4399,6 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 53.34) (xy 116.84 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bb05cccc-fb58-49bd-a2d2-2a3ba17c31d7")
-	)
-	(wire
-		(pts
 			(xy 73.66 144.78) (xy 73.66 109.22)
 		)
 		(stroke
@@ -4469,16 +4409,6 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 58.42) (xy 118.11 52.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c3428224-9468-43e4-92c6-2028e2f950fc")
-	)
-	(wire
-		(pts
 			(xy 21.59 99.06) (xy 21.59 101.6)
 		)
 		(stroke
@@ -4486,16 +4416,6 @@
 			(type default)
 		)
 		(uuid "c7259af4-83c4-4fc8-bb7e-60a8d7e89f8d")
-	)
-	(wire
-		(pts
-			(xy 119.38 58.42) (xy 179.07 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c72c4a0f-55d5-4e6b-a596-ffb5699324d7")
 	)
 	(wire
 		(pts
@@ -4679,16 +4599,6 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 54.61) (xy 140.97 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f840e3cb-2ac9-431a-b189-bc225b7d9d00")
-	)
-	(wire
-		(pts
 			(xy 198.12 60.96) (xy 261.62 60.96)
 		)
 		(stroke
@@ -4696,6 +4606,16 @@
 			(type default)
 		)
 		(uuid "f89f3d03-bf88-4a57-ada1-9edbc70456bf")
+	)
+	(wire
+		(pts
+			(xy 91.44 55.88) (xy 160.02 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fbe281ff-72d9-458c-9ae7-c9dbb40e1cf8")
 	)
 	(wire
 		(pts
@@ -4802,6 +4722,130 @@
 			(project "Right_Keypad"
 				(path "/ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
 					(reference "SW10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx:74HC165")
+		(at 78.74 63.5 0)
+		(mirror y)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "0889b9ba-86d9-4922-890d-1262333aa9f5")
+		(property "Reference" "U1"
+			(at 76.5967 40.64 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "74HC165"
+			(at 76.5967 43.18 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_DIP:DIP-16_W7.62mm"
+			(at 78.74 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT165.pdf"
+			(at 78.74 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Shift Register, 8-bit, Parallel Load"
+			(at 78.74 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "10"
+			(uuid "83f9b4a2-54f6-4f01-8bac-c66c569473f7")
+		)
+		(pin "8"
+			(uuid "d84e4962-7b6f-48ee-a1ed-732870072064")
+		)
+		(pin "1"
+			(uuid "f628c7c7-7fb3-4f97-b4d8-0a4123c3bcda")
+		)
+		(pin "7"
+			(uuid "a8715453-7900-4f56-9914-57f6c989ceea")
+		)
+		(pin "4"
+			(uuid "ef74ead9-0025-4041-8d25-52dfedbd9871")
+		)
+		(pin "9"
+			(uuid "24118157-e62e-4df8-94d4-75b5ba3b67a0")
+		)
+		(pin "11"
+			(uuid "e13b34c9-45d2-4419-8058-ed2bc4b95cc3")
+		)
+		(pin "2"
+			(uuid "cb6ca53b-4a48-4610-8c9f-15a2d312202f")
+		)
+		(pin "15"
+			(uuid "227fe63b-e173-4002-8e65-dbacfc5c3ab7")
+		)
+		(pin "12"
+			(uuid "c9b0a144-2b10-48ad-8aff-d6051a586eb4")
+		)
+		(pin "13"
+			(uuid "99f8c894-07f2-4600-8d15-ff717766a666")
+		)
+		(pin "5"
+			(uuid "f108203e-6972-4195-b42d-43f3b4ef4a6d")
+		)
+		(pin "3"
+			(uuid "2a55f8f6-436f-46c8-b6ca-791dd91d400d")
+		)
+		(pin "6"
+			(uuid "45c5b9a7-a1f4-4624-84e1-3aa677a07ebc")
+		)
+		(pin "16"
+			(uuid "208743f4-2810-4c9b-97ab-7db04fbd78dd")
+		)
+		(pin "14"
+			(uuid "56f8e2c1-bcfe-4bf1-bb22-f757552042a1")
+		)
+		(instances
+			(project "Right_Keypad"
+				(path "/ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
+					(reference "U1")
 					(unit 1)
 				)
 			)
@@ -9995,156 +10039,6 @@
 			(project "Right_Keypad"
 				(path "/ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
 					(reference "Q1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "74xx:74HC165")
-		(at 78.74 63.5 0)
-		(mirror y)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "c0b203df-1afe-48b1-a3e6-3a135f810dad")
-		(property "Reference" "U1"
-			(at 71.12 40.64 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "74HC165"
-			(at 76.5967 43.18 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_DIP:DIP-16_W7.62mm"
-			(at 78.74 63.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74HC_HCT165.pdf"
-			(at 78.74 63.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Shift Register, 8-bit, Parallel Load"
-			(at 78.74 63.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "3"
-			(uuid "0c2e8a10-356e-497f-8d1b-7b5c4e38c494")
-		)
-		(pin "11"
-			(uuid "b65e911b-fbfe-478d-9cc5-543080c260c5")
-		)
-		(pin "12"
-			(uuid "9066c8f2-9177-4892-b8f2-7c46bc7ed8ef")
-		)
-		(pin "13"
-			(uuid "1b7e6e03-6218-4976-9429-699a0f9fcc72")
-		)
-		(pin "14"
-			(uuid "70bd5953-b624-4a49-bc49-6c9cc8a74c9b")
-		)
-		(pin "10"
-			(uuid "47bfb937-4fd7-463d-b890-7bba29144dd2")
-		)
-		(pin "9"
-			(uuid "6e441a5f-e1cc-4516-aaf6-915e1ed42fd4")
-		)
-		(pin "4"
-			(uuid "a2963375-7198-4436-a90e-2ad5c7b73dc1")
-		)
-		(pin "1"
-			(uuid "1a085fe5-a31f-412f-963e-754a69c1bd47")
-		)
-		(pin "16"
-			(uuid "b18c292d-7416-4bad-8e96-03dcb3755131")
-		)
-		(pin "5"
-			(uuid "0cbe4622-2aea-4a95-95e3-4ca417e50d4f")
-		)
-		(pin "2"
-			(uuid "7daaf39f-4d84-468f-bb31-e203f02155c4")
-		)
-		(pin "15"
-			(uuid "83920a0b-f3b6-428a-9b45-bfbf0340388e")
-		)
-		(pin "8"
-			(uuid "fd095aa6-026a-4854-8489-f04afdf85d61")
-		)
-		(pin "7"
-			(uuid "907cdee2-f56c-427c-93d9-7a412c6ce29f")
-		)
-		(pin "6"
-			(uuid "43b1d526-752b-4dbc-9ec0-1a69bf27805a")
-		)
-		(instances
-			(project ""
-				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9/06890bf6-dd23-4e88-9f1e-ae85625d1e22"
-					(reference "U2")
-					(unit 1)
-				)
-				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9/1118328f-a1b2-4dcf-b1c5-36c97ae5f908"
-					(reference "U2")
-					(unit 1)
-				)
-				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9/689e04ea-9ab8-44cb-ac25-fd1df69ea6ca"
-					(reference "U8")
-					(unit 1)
-				)
-				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9/69476812-841e-42e1-9ee1-30f93f6ede61"
-					(reference "U2")
-					(unit 1)
-				)
-				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9/b184a816-d02f-4ef9-897c-d31b5b062636"
-					(reference "U2")
-					(unit 1)
-				)
-				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9/ffdc2058-e5d3-4693-94cd-ce1a8b4b8c8e"
-					(reference "U1")
-					(unit 1)
-				)
-			)
-			(project "Right_Keypad"
-				(path "/ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
-					(reference "U1")
 					(unit 1)
 				)
 			)
