@@ -76,7 +76,16 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        [
+          "silk_edge_clearance|66535000|63500000|da8c2540-4d40-444d-b222-bc785d7833ce|2a47a2af-95c4-47ee-8a3d-6f5b04663549",
+          ""
+        ],
+        [
+          "silk_edge_clearance|82055000|63500000|da8c2540-4d40-444d-b222-bc785d7833ce|59f978f2-c734-410a-a3e6-6b06841661c4",
+          ""
+        ]
+      ],
       "meta": {
         "version": 2
       },
@@ -674,7 +683,7 @@
         "uuid": "70ceab5e-e31b-4508-a755-c321a835a8c9"
       }
     ],
-    "used_designators": "R4-6,#FLG3,J17,#PWR1,#PWR5,#PWR19,#PWR21",
+    "used_designators": "R4-6,#FLG3,J1,J17,#PWR1-2,#PWR5,#PWR19,#PWR21",
     "variants": []
   },
   "sheets": [
