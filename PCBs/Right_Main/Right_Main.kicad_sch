@@ -5999,6 +5999,19 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "TODO: ESD protection? TVS diodes? For both RS485 and power"
+		(exclude_from_sim no)
+		(at 49.53 53.34 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+				(color 255 0 0 1)
+			)
+		)
+		(uuid "a515440b-b33b-4e9f-bea8-93fbd885ae38")
+	)
 	(text "TODO: termination resistors?"
 		(exclude_from_sim no)
 		(at 48.26 58.42 0)
