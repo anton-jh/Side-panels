@@ -683,7 +683,7 @@
         "uuid": "70ceab5e-e31b-4508-a755-c321a835a8c9"
       }
     ],
-    "used_designators": "R4-6,#FLG1-3,J1-2,J6,J17,#PWR1-5,#PWR13-16,#PWR19,#PWR21-25,A2",
+    "used_designators": "#FLG1-3,R1,R4-6,J1-3,J6,J17,#PWR1-25,Q1-8,A2,U1-2,C1,RN7-8",
     "variants": []
   },
   "sheets": [
@@ -714,6 +714,10 @@
     [
       "ffdc2058-e5d3-4693-94cd-ce1a8b4b8c8e",
       "Input register 6"
+    ],
+    [
+      "2c033bb2-1374-45cf-aa06-3900b522ab1f",
+      "Rotary Switch Stuff"
     ]
   ],
   "text_variables": {},
