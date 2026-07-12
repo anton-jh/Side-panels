@@ -511,7 +511,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Right_Main.kicad_pro",
+    "filename": "Shared_Main.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -678,18 +678,18 @@
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "Right_Main.kicad_sch",
-        "name": "Right_Main",
+        "filename": "Shared_Main.kicad_sch",
+        "name": "Shared_Main",
         "uuid": "70ceab5e-e31b-4508-a755-c321a835a8c9"
       }
     ],
-    "used_designators": "R4-6,#FLG3,J1,J17,#PWR1-5,#PWR13,#PWR19,#PWR21",
+    "used_designators": "R4-6,#FLG1-3,J1-2,J6,J17,#PWR1-5,#PWR13-16,#PWR19,#PWR21-25,A2",
     "variants": []
   },
   "sheets": [
     [
       "70ceab5e-e31b-4508-a755-c321a835a8c9",
-      "Right_Main"
+      "Shared_Main"
     ],
     [
       "1118328f-a1b2-4dcf-b1c5-36c97ae5f908",

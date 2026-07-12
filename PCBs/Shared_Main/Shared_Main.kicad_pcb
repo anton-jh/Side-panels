@@ -604,7 +604,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/e1c36692-0cdf-4f1c-ae2c-a32d6d332b37")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -1504,7 +1504,7 @@
 		(property ki_fp_filters "Arduino_Micro_Socket")
 		(path "/71569c70-1a70-46ff-b6a0-4e0b90c69a65")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -3852,7 +3852,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/d5ab9ef5-f40c-47ee-8a4c-c1cfc9fdb6af")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -5222,7 +5222,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/5d7b47d5-0807-4d3f-8a1e-063ae3ba22a8")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -5578,7 +5578,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/d4a409f8-6c8b-4e2b-b994-8cd5c7fc69e2")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -6361,7 +6361,7 @@
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/49d3f216-fdca-417e-88e0-83bca07a6f73")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -7570,7 +7570,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/b3fae258-a9a2-4dda-9110-a6765d1f0dd6")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -7772,7 +7772,7 @@
 		(property ki_fp_filters "8P8C* RJ31* RJ32* RJ33* RJ34* RJ35* RJ41* RJ45* RJ49* RJ61*")
 		(path "/9d1d0a92-519c-4502-a561-4901c126dcea")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -8120,7 +8120,7 @@
 		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/5b975c53-f3af-415c-8612-e04c403dfed8")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -8973,7 +8973,7 @@
 		(property ki_fp_filters "DIP*W7.62mm* SOIC*3.9x4.9mm*P1.27mm*")
 		(path "/7e583e48-f913-4e9b-8e38-beec4cfb5125")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -9516,7 +9516,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/dab03d52-4fde-4ccf-bec0-df15bcb3d86d")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -9713,7 +9713,7 @@
 		(property ki_fp_filters "DIP*W7.62mm*")
 		(path "/fdf4de9d-b10f-4a42-bdc6-24dcb42211f5")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -10239,7 +10239,7 @@
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/6689574f-d8a9-4616-8597-7755b8cc37a7")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -10825,7 +10825,7 @@
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/7f941633-1029-4562-9c8b-b942b3c345b9")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -11795,7 +11795,7 @@
 		(property ki_fp_filters "C_*")
 		(path "/7f874866-cba0-40ae-a59c-4cf840f131a4")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -12192,7 +12192,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/078a1ee5-74c3-4bad-9bed-a01c924728e9")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -13177,7 +13177,7 @@
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/73971d27-640f-4b61-a617-81d7e9b36488")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -14707,7 +14707,7 @@
 		(property ki_fp_filters "TerminalBlock*:*")
 		(path "/96f2c006-7488-47dc-b1af-c52169a7a725")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -15251,7 +15251,7 @@
 		(property ki_fp_filters "DIP*W7.62mm* SOIC*3.9x9.9mm*P1.27mm* SSOP*4.4x5.2mm*P0.65mm* TSSOP*4.4x5mm*P0.65mm* SOIC*W*5.3x10.2mm*P1.27mm*")
 		(path "/a7dca055-9d08-41a3-ba1c-6f5a8d3c0e1a")
 		(sheetname "/")
-		(sheetfile "Right_Main.kicad_sch")
+		(sheetfile "Shared_Main.kicad_sch")
 		(units
 			(unit
 				(name "A")
