@@ -540,7 +540,7 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 1.0,
+        "track_width": 0.8,
         "tuning_profile": ""
       }
     ],
@@ -696,7 +696,7 @@
         "uuid": "70ceab5e-e31b-4508-a755-c321a835a8c9"
       }
     ],
-    "used_designators": "#FLG1-3,R1,R4-6,J1-4,J6,J17,#PWR1-25,Q1-8,A2,U1-2,C1,RN7-8",
+    "used_designators": "#FLG1-3,R1-6,J1-4,J6,J17,#PWR1-26,#PWR28,#PWR31,#PWR33,#PWR36,#PWR38,#PWR41,Q1-8,A2,U1-2,C1,RN7-8,H1-4",
     "variants": []
   },
   "sheets": [
