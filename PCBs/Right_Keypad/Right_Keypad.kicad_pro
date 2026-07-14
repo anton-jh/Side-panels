@@ -707,7 +707,7 @@
         "uuid": "ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
       }
     ],
-    "used_designators": "H1-4,#PWR6-7,#FLG3,U1",
+    "used_designators": "H1-4,#PWR2,#PWR6-9,#FLG3,U1",
     "variants": []
   },
   "sheets": [
