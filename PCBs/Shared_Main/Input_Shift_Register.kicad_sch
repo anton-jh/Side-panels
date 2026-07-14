@@ -2370,7 +2370,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Screw_Terminal_01x08"
+		(property "Value" "Digital inputs"
 			(at 100.33 91.4399 0)
 			(show_name no)
 			(do_not_autoplace no)

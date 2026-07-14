@@ -2121,7 +2121,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
 			(at 110.49 92.71 0)
 			(hide yes)
 			(show_name no)
@@ -2228,7 +2228,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
 			(at 148.59 92.71 0)
 			(hide yes)
 			(show_name no)
@@ -2334,7 +2334,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
 			(at 232.41 82.55 0)
 			(hide yes)
 			(show_name no)
@@ -2416,7 +2416,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
 			(at 186.69 92.71 0)
 			(hide yes)
 			(show_name no)
@@ -2523,7 +2523,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
 			(at 129.54 92.71 0)
 			(hide yes)
 			(show_name no)
@@ -2630,7 +2630,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
 			(at 224.79 92.71 0)
 			(hide yes)
 			(show_name no)
@@ -2737,7 +2737,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
 			(at 91.44 92.71 0)
 			(hide yes)
 			(show_name no)
@@ -2844,7 +2844,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
 			(at 205.74 92.71 0)
 			(hide yes)
 			(show_name no)
@@ -2950,7 +2950,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-8-2.54_1x08_P2.54mm_Horizontal"
 			(at 240.03 109.22 0)
 			(hide yes)
 			(show_name no)
@@ -3152,7 +3152,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_Inline"
 			(at 167.64 92.71 0)
 			(hide yes)
 			(show_name no)
