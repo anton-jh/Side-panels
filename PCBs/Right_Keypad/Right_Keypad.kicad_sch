@@ -268,7 +268,7 @@
 					)
 				)
 				(pin input line
-					(at -12.7 5.08 0)
+					(at -12.7 12.7 0)
 					(length 5.08)
 					(name "D0"
 						(effects
@@ -286,7 +286,7 @@
 					)
 				)
 				(pin input line
-					(at -12.7 7.62 0)
+					(at -12.7 10.16 0)
 					(length 5.08)
 					(name "D1"
 						(effects
@@ -304,7 +304,7 @@
 					)
 				)
 				(pin input line
-					(at -12.7 10.16 0)
+					(at -12.7 7.62 0)
 					(length 5.08)
 					(name "D2"
 						(effects
@@ -322,7 +322,7 @@
 					)
 				)
 				(pin input line
-					(at -12.7 12.7 0)
+					(at -12.7 5.08 0)
 					(length 5.08)
 					(name "D3"
 						(effects
@@ -3240,6 +3240,16 @@
 	)
 	(wire
 		(pts
+			(xy 91.44 50.8) (xy 104.14 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0563c516-19c1-d99d-29cc-d518068db3a2")
+	)
+	(wire
+		(pts
 			(xy 255.27 111.76) (xy 255.27 129.54)
 		)
 		(stroke
@@ -3260,7 +3270,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 53.34) (xy 140.97 53.34)
+			(xy 106.68 53.34) (xy 140.97 53.34)
 		)
 		(stroke
 			(width 0)
@@ -3720,6 +3730,16 @@
 	)
 	(wire
 		(pts
+			(xy 91.44 53.34) (xy 104.14 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6af9305e-72b4-2eda-f1b6-5338d92c2028")
+	)
+	(wire
+		(pts
 			(xy 123.19 121.92) (xy 142.24 121.92)
 		)
 		(stroke
@@ -3940,7 +3960,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 58.42) (xy 179.07 58.42)
+			(xy 106.68 58.42) (xy 179.07 58.42)
 		)
 		(stroke
 			(width 0)
@@ -4070,7 +4090,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 50.8) (xy 121.92 50.8)
+			(xy 106.68 50.8) (xy 121.92 50.8)
 		)
 		(stroke
 			(width 0)
@@ -4130,6 +4150,16 @@
 	)
 	(wire
 		(pts
+			(xy 91.44 55.88) (xy 104.14 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c6a7a728-0638-1555-4e18-6ffcc717f083")
+	)
+	(wire
+		(pts
 			(xy 21.59 99.06) (xy 21.59 101.6)
 		)
 		(stroke
@@ -4147,6 +4177,16 @@
 			(type default)
 		)
 		(uuid "c7b9171b-ae54-4585-ae4a-38fc9808ad66")
+	)
+	(wire
+		(pts
+			(xy 91.44 58.42) (xy 104.14 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c9fe0691-2931-d542-1ea9-26ec19814478")
 	)
 	(wire
 		(pts
@@ -4330,7 +4370,7 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 55.88) (xy 160.02 55.88)
+			(xy 106.68 55.88) (xy 160.02 55.88)
 		)
 		(stroke
 			(width 0)
@@ -4367,6 +4407,126 @@
 			(type default)
 		)
 		(uuid "fea986ff-e419-4dd6-8454-7c5ced7f9fc9")
+	)
+	(label "COL8"
+		(at 104.14 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "12f53a3a-a73d-760c-0726-fc5a9f496f0e")
+	)
+	(label "COL3"
+		(at 104.14 53.34 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1a7196c6-7499-fcf5-6f1f-2c9c986cd598")
+	)
+	(label "COL2"
+		(at 106.68 53.34 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "51b997d1-ec66-3b77-e2c6-f049c3cac1ae")
+	)
+	(label "COL1"
+		(at 104.14 58.42 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6f0bf9cf-8095-e2ff-b0d4-0ff621571ea0")
+	)
+	(label "COL5"
+		(at 104.14 60.96 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7709e5af-3296-0726-3ac3-95bfe43e811e")
+	)
+	(label "COL6"
+		(at 104.14 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "984b00eb-c8c4-9a0c-0942-7afedd6b00d7")
+	)
+	(label "COL4"
+		(at 106.68 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a02ec1db-f972-4b83-24d1-b0373b6df268")
+	)
+	(label "COL2"
+		(at 104.14 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "aa0eaa8a-c022-634c-05b8-6efc991b7ea0")
+	)
+	(label "COL4"
+		(at 104.14 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "abe452e8-1d11-214c-8cab-0d88fe5cd7a5")
+	)
+	(label "COL3"
+		(at 106.68 55.88 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c3fe6d9e-dc8e-7dec-a056-5867d47a1e79")
+	)
+	(label "COL7"
+		(at 104.14 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f0fe47c8-e97b-e678-497d-393fe20abf39")
+	)
+	(label "COL1"
+		(at 106.68 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f2ae4472-90b4-bdc2-0eba-9b32a3a17fa5")
 	)
 	(symbol
 		(lib_id "Switch:SW_Push")
@@ -7628,7 +7788,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_Network08"
+		(property "Value" "10k"
 			(at 265.1761 48.26 0)
 			(show_name no)
 			(do_not_autoplace no)

@@ -2887,7 +2887,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "R_Network08"
+		(property "Value" "10k"
 			(at 137.16 65.0239 0)
 			(show_name no)
 			(do_not_autoplace no)
