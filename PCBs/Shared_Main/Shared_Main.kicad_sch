@@ -1508,7 +1508,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -12.7 0)
+					(at -5.08 -7.62 0)
 					(length 3.81)
 					(name "Pin_8"
 						(effects
@@ -1544,7 +1544,7 @@
 					)
 				)
 				(pin passive line
-					(at -5.08 -7.62 0)
+					(at -5.08 -12.7 0)
 					(length 3.81)
 					(name "Pin_10"
 						(effects
@@ -4500,6 +4500,16 @@
 	)
 	(wire
 		(pts
+			(xy 232.41 144.78) (xy 238.76 144.78)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6eef3177-9fda-4406-95c9-4015561bef53")
+	)
+	(wire
+		(pts
 			(xy 185.42 54.61) (xy 185.42 62.23)
 		)
 		(stroke
@@ -4700,16 +4710,6 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 149.86) (xy 232.41 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b5491b57-7b19-40fe-80f4-19ea2cd6043b")
-	)
-	(wire
-		(pts
 			(xy 167.64 54.61) (xy 167.64 59.69)
 		)
 		(stroke
@@ -4750,13 +4750,13 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 144.78) (xy 232.41 144.78)
+			(xy 232.41 149.86) (xy 238.76 149.86)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c05e4848-ee76-421f-86cf-9d1d480adffa")
+		(uuid "c2efb875-4b82-4e45-912f-6223125e807b")
 	)
 	(wire
 		(pts
@@ -15930,7 +15930,7 @@
 		(uuid "1e60ae23-c377-4ac3-8bca-1cf3839b1a5f")
 	)
 	(label "ADDR0"
-		(at 232.41 144.78 0)
+		(at 232.41 149.86 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -15950,7 +15950,7 @@
 		(uuid "33b7274f-b082-494c-bf10-8308e211a403")
 	)
 	(label "ADDR2"
-		(at 232.41 149.86 0)
+		(at 232.41 144.78 0)
 		(effects
 			(font
 				(size 1.27 1.27)

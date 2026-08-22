@@ -2,4 +2,5 @@
 	(version 7)
 	(lib (name "arduino-library") (type "KiCad") (uri "${KIPRJMOD}/../Libraries/footprints/com_github_alarm-siren_arduino-kicad-library/arduino-library.pretty") (options "") (descr ""))
 	(lib (name "ESP32-S3-ZERO") (type "KiCad") (uri "${KIPRJMOD}/../Libraries/footprints/ESP32-S3-ZERO") (options "") (descr ""))
+	(lib (name "Custom_Footprints") (type "KiCad") (uri "${KIPRJMOD}/../Libraries/footprints/Custom_Footprints") (options "") (descr ""))
 )
