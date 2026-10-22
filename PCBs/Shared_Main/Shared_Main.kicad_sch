@@ -17603,7 +17603,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-8-2.54_1x08_P2.54mm_Horizontal"
+		(property "Footprint" "Custom_Footprints:SpringTerminal_1x08_P2.54mm_Vertical"
 			(at 66.04 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -18795,7 +18795,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_PT-1,5-3-5.0-H_1x03_P5.00mm_Horizontal"
+		(property "Footprint" "Custom_Footprints:SpringTerminal_1x03_P2.54mm_Vertical"
 			(at 129.54 173.99 0)
 			(hide yes)
 			(show_name no)
