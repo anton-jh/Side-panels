@@ -600,12 +600,6 @@
 		(path "/619fc7d5-af4a-4f08-bf72-aaf3ceb0fec6")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -734,7 +728,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -745,7 +739,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -756,7 +750,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -767,7 +761,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -847,12 +841,6 @@
 		(path "/b3962b86-962f-455f-8d6c-a87d49cf07c5")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -981,7 +969,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -992,7 +980,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1003,7 +991,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1014,7 +1002,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1094,12 +1082,6 @@
 		(path "/4e6cb166-a53b-4f46-b6be-78352a81585a")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -1228,7 +1210,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1239,7 +1221,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1250,7 +1232,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1261,7 +1243,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1341,12 +1323,6 @@
 		(path "/34c9e2c5-2f5e-43cd-8a5e-63a89f74430b")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -1475,7 +1451,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1486,7 +1462,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1497,7 +1473,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1508,7 +1484,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1788,12 +1764,6 @@
 		(path "/47ac68e2-d3ae-4647-b027-1603c7db8bb2")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -1922,7 +1892,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1933,7 +1903,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1944,7 +1914,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -1955,7 +1925,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -2146,12 +2116,6 @@
 		(path "/fdcfbda5-8dd0-4bae-ad27-3163f209ec29")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -2280,7 +2244,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -2291,7 +2255,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -2302,7 +2266,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -2313,7 +2277,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -2393,12 +2357,6 @@
 		(path "/b316e194-c724-4c40-a3d3-a30a8ba5d124")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -2527,7 +2485,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -2538,7 +2496,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -2549,7 +2507,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -2560,7 +2518,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3036,12 +2994,6 @@
 		(path "/f01cb470-5e19-4cb1-852f-51791f0d6193")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -3170,7 +3122,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3181,7 +3133,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3192,7 +3144,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3203,7 +3155,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3283,12 +3235,6 @@
 		(path "/d412b276-f836-4033-b87d-ac5f57fad50e")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -3417,7 +3363,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3428,7 +3374,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3439,7 +3385,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3450,7 +3396,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3530,12 +3476,6 @@
 		(path "/5ec95399-a77b-4852-acfd-45e5d0eeb43d")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -3664,7 +3604,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3675,7 +3615,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3686,7 +3626,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3697,7 +3637,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3777,12 +3717,6 @@
 		(path "/dc4a7e09-f420-402d-a74e-6e1a9d968e96")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -3911,7 +3845,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3922,7 +3856,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3933,7 +3867,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -3944,7 +3878,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4135,12 +4069,6 @@
 		(path "/5a7c92cd-714f-4f72-b77a-8a2166003ac9")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -4269,7 +4197,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4280,7 +4208,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4291,7 +4219,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4302,7 +4230,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4493,12 +4421,6 @@
 		(path "/7b18e2b6-9d8f-4482-a022-fbe41887b406")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -4627,7 +4549,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4638,7 +4560,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4649,7 +4571,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4660,7 +4582,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4740,12 +4662,6 @@
 		(path "/ff6d4f3c-a79d-4253-8d38-f3e60d0db122")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -4874,7 +4790,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4885,7 +4801,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4896,7 +4812,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4907,7 +4823,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -4987,12 +4903,6 @@
 		(path "/1f1067eb-bd24-4572-9453-9cacf4252f36")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5121,7 +5031,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5132,7 +5042,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5143,7 +5053,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5154,7 +5064,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5234,12 +5144,6 @@
 		(path "/086dd3bc-d88d-4938-82b0-9cd625211845")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5368,7 +5272,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5379,7 +5283,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5390,7 +5294,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5401,7 +5305,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5481,12 +5385,6 @@
 		(path "/6159ead2-c56d-46e2-8b64-8f5ecbfc13e1")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5615,7 +5513,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5626,7 +5524,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5637,7 +5535,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5648,7 +5546,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5728,12 +5626,6 @@
 		(path "/81ac5642-b157-4a0b-819c-0deb3315e87a")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -5862,7 +5754,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5873,7 +5765,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5884,7 +5776,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5895,7 +5787,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -5975,12 +5867,6 @@
 		(path "/1f750241-232f-4dd8-939d-b5ea392f7f48")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -6109,7 +5995,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6120,7 +6006,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6131,7 +6017,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6142,7 +6028,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6222,12 +6108,6 @@
 		(path "/4f46d3e4-1de5-407e-aa46-c0a2ddeef124")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -6356,7 +6236,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6367,7 +6247,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6378,7 +6258,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6389,7 +6269,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6580,12 +6460,6 @@
 		(path "/affdefec-872e-4243-a51e-30c22d8c754b")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -6714,7 +6588,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6725,7 +6599,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6736,7 +6610,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6747,7 +6621,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 90)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6827,12 +6701,6 @@
 		(path "/b152dc0a-706a-4227-accd-41be18691d89")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -6961,7 +6829,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6972,7 +6840,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6983,7 +6851,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -6994,7 +6862,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -7074,12 +6942,6 @@
 		(path "/9df74374-404d-498f-991f-8e276ffca35c")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -7208,7 +7070,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -7219,7 +7081,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -7230,7 +7092,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -7241,7 +7103,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -7861,12 +7723,6 @@
 		(path "/b495e897-8669-403c-a3dd-9b8cacb512c0")
 		(sheetname "/")
 		(sheetfile "Right_Keypad.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
@@ -7995,7 +7851,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 0 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -8006,7 +7862,7 @@
 		)
 		(pad "1" thru_hole oval
 			(at 12.7 0 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -8017,7 +7873,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 0 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -8028,7 +7884,7 @@
 		)
 		(pad "2" thru_hole oval
 			(at 12.7 5.08 180)
-			(size 3.2 1.9)
+			(size 3.2 2)
 			(drill 1.3)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
@@ -16643,6 +16499,14 @@
 		(uuid "fd15fdae-db8a-4f11-b3cc-923286130476")
 	)
 	(segment
+		(start 143.941522 121.54)
+		(end 142.037522 123.444)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL7")
+		(uuid "04edd940-3cfb-4e48-ac7d-9eb2a73345d4")
+	)
+	(segment
 		(start 147.64 85.000592)
 		(end 147.64 95.19)
 		(width 0.3)
@@ -16691,6 +16555,14 @@
 		(uuid "32b8ffa2-93ad-47eb-a5f9-6135fa84a25c")
 	)
 	(segment
+		(start 141.732 123.444)
+		(end 135.516 129.66)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL7")
+		(uuid "35bbdf3f-f9c6-4730-b6a3-03770c052c60")
+	)
+	(segment
 		(start 149.54 81.700592)
 		(end 149.54 83.100592)
 		(width 0.3)
@@ -16713,14 +16585,6 @@
 		(layer "B.Cu")
 		(net "/COL7")
 		(uuid "43f20908-3f0f-4729-8aba-4102a72b29dc")
-	)
-	(segment
-		(start 118.75 137.795)
-		(end 126.885 129.66)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL7")
-		(uuid "469c4a90-3797-40e1-b29a-52d56e5451a9")
 	)
 	(segment
 		(start 147.32 111.529408)
@@ -16763,6 +16627,14 @@
 		(uuid "68d76959-2700-4ba7-96f3-d18a5c230d36")
 	)
 	(segment
+		(start 148.59 121.54)
+		(end 143.941522 121.54)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL7")
+		(uuid "90ea6f32-a2e9-4a1f-ba55-c4a8e0232e93")
+	)
+	(segment
 		(start 149.54 109.309408)
 		(end 147.32 111.529408)
 		(width 0.3)
@@ -16771,28 +16643,12 @@
 		(uuid "917ed7f5-e9d8-4c7d-9a02-4c1b8c0a91dc")
 	)
 	(segment
-		(start 143.941522 121.54)
-		(end 148.59 121.54)
+		(start 142.037522 123.444)
+		(end 141.732 123.444)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL7")
-		(uuid "a22a4ce1-63df-4942-939c-882aab559eaf")
-	)
-	(segment
-		(start 135.821522 129.66)
-		(end 143.941522 121.54)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL7")
-		(uuid "a93917ba-cb92-493e-8573-9c76b9ccd67f")
-	)
-	(segment
-		(start 126.885 129.66)
-		(end 135.821522 129.66)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL7")
-		(uuid "bbf9c2b4-7d84-4490-9793-2d4fa673cf5d")
+		(uuid "98bcfb15-3867-4528-bbd7-1d8fff287a1a")
 	)
 	(segment
 		(start 148.59 120.65)
@@ -16843,6 +16699,22 @@
 		(uuid "ecad60a3-1ff9-4994-a6a5-d888576d8075")
 	)
 	(segment
+		(start 126.885 129.66)
+		(end 118.75 137.795)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL7")
+		(uuid "f2eb17de-9460-4d70-b7d0-eb5fbb44c161")
+	)
+	(segment
+		(start 135.516 129.66)
+		(end 126.885 129.66)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL7")
+		(uuid "fc7912cb-5516-479a-b6f8-a5baf7dfe317")
+	)
+	(segment
 		(start 149.54 83.100592)
 		(end 147.64 85.000592)
 		(width 0.3)
@@ -16883,20 +16755,12 @@
 		(uuid "0dcd45f3-1859-4b07-8db7-21bb3255a05e")
 	)
 	(segment
-		(start 142.291522 110.49)
-		(end 140.2 112.581522)
+		(start 146.05 110.49)
+		(end 141.986 110.49)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL6")
-		(uuid "15fcfe42-0a2b-40c3-ab90-27600667cc71")
-	)
-	(segment
-		(start 119.74598 135.255)
-		(end 118.11 135.255)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL6")
-		(uuid "1f651622-d591-4e29-a8c0-053f97bdc433")
+		(uuid "131fcd63-252d-4a87-ab96-51fc0c719d24")
 	)
 	(segment
 		(start 161.925 80.265)
@@ -16915,14 +16779,6 @@
 		(uuid "31ac188e-0489-4c4c-b075-e9aef5876546")
 	)
 	(segment
-		(start 146.05 110.49)
-		(end 142.291522 110.49)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL6")
-		(uuid "4e209723-4cc7-4788-bef2-f643de1de017")
-	)
-	(segment
 		(start 113.313654 139.065)
 		(end 115.57 139.065)
 		(width 0.3)
@@ -16936,15 +16792,23 @@
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL6")
-		(uuid "63a485b3-e9ab-4884-bad1-54fdba27d702")
+		(uuid "65303ade-85db-4956-9a0d-39c1b83f70d7")
 	)
 	(segment
-		(start 140.2 112.581522)
+		(start 140.2 112.276)
 		(end 140.2 116.696346)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL6")
-		(uuid "89508443-9ca0-4b2f-8e1b-7a077440f60d")
+		(uuid "6dfbcfc9-6239-4628-ac73-1d3ca93f3925")
+	)
+	(segment
+		(start 119.74598 135.255)
+		(end 118.11 135.255)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL6")
+		(uuid "86993122-f19f-4039-a5d6-63c88a9a40c0")
 	)
 	(segment
 		(start 110.49 136.241346)
@@ -16963,6 +16827,14 @@
 		(uuid "8e9efb5e-72c3-4fa8-bbd0-72edc7502471")
 	)
 	(segment
+		(start 141.986 110.49)
+		(end 140.2 112.276)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL6")
+		(uuid "92218471-d45b-4ec9-a6a0-4aac0d489da1")
+	)
+	(segment
 		(start 151.13 110.49)
 		(end 162.18 110.49)
 		(width 0.3)
@@ -16979,20 +16851,20 @@
 		(uuid "93244fda-bb49-4a01-891a-d9f5fc578929")
 	)
 	(segment
+		(start 126.23098 128.77)
+		(end 119.74598 135.255)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL6")
+		(uuid "a03d6c49-af27-46c6-93e2-98e45c6c5e77")
+	)
+	(segment
 		(start 162.18 110.49)
 		(end 163.83 108.84)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL6")
 		(uuid "a4880ad3-9dd1-4dd6-8b87-796589388a7b")
-	)
-	(segment
-		(start 140.2 116.696346)
-		(end 128.126346 128.77)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL6")
-		(uuid "a87f37ae-b7b8-4793-8121-68a43350193c")
 	)
 	(segment
 		(start 116.205 138.43)
@@ -17011,6 +16883,14 @@
 		(uuid "b90be4b2-6bea-4b5a-ba22-06efca059ed6")
 	)
 	(segment
+		(start 140.2 116.696346)
+		(end 128.126346 128.77)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL6")
+		(uuid "c73e2cef-750e-4705-9f21-6a946760cb1f")
+	)
+	(segment
 		(start 163.83 82.17)
 		(end 161.925 80.265)
 		(width 0.3)
@@ -17025,14 +16905,6 @@
 		(layer "B.Cu")
 		(net "/COL6")
 		(uuid "d7d5ed47-2a3b-46b2-936f-38eab7341775")
-	)
-	(segment
-		(start 126.23098 128.77)
-		(end 119.74598 135.255)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL6")
-		(uuid "dc375eeb-7917-4a8a-9acd-e53e3f014957")
 	)
 	(segment
 		(start 161.925 58.675)
@@ -17051,6 +16923,30 @@
 		(uuid "fb4ef1a7-86d9-41e3-a0bb-b8b6e1aa4af1")
 	)
 	(segment
+		(start 118.909999 131.915001)
+		(end 119.853892 131.915001)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL5")
+		(uuid "000c472a-56b1-4d55-b4c8-5aa0bacc416b")
+	)
+	(segment
+		(start 119.853892 131.915001)
+		(end 141.868893 109.9)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL5")
+		(uuid "32760c05-69da-4f48-b0ac-502259b41130")
+	)
+	(segment
+		(start 141.868893 109.9)
+		(end 144.735 109.9)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL5")
+		(uuid "4d4a4684-6180-463e-b4be-866de07f097d")
+	)
+	(segment
 		(start 146.685 58.675)
 		(end 146.685 80.265)
 		(width 0.3)
@@ -17059,20 +16955,20 @@
 		(uuid "55327cef-ac5f-4758-b18d-9522ece8cb55")
 	)
 	(segment
-		(start 139.7 112.199766)
-		(end 139.7 113.857437)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL5")
-		(uuid "6b40dcf4-bfdb-403a-9909-c801ae0cd1f8")
-	)
-	(segment
 		(start 144.735 109.9)
 		(end 147.1925 107.4425)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL5")
-		(uuid "6fc5bd61-d0df-43e8-8650-e2b2a23b09b6")
+		(uuid "660bac7a-6c7d-488a-b0c5-8bd6a8bcd34d")
+	)
+	(segment
+		(start 118.11 132.715)
+		(end 118.909999 131.915001)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL5")
+		(uuid "78a49bc1-40e6-4ee5-9c2d-c3768e81f455")
 	)
 	(segment
 		(start 110.49 133.701346)
@@ -17097,14 +16993,6 @@
 		(layer "B.Cu")
 		(net "/COL5")
 		(uuid "a097d96d-b320-4152-bd77-a7fd954477d2")
-	)
-	(segment
-		(start 139.7 112.199766)
-		(end 141.999766 109.9)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL5")
-		(uuid "a342b8d7-b9d1-49c4-8cfb-186a4ceb9050")
 	)
 	(segment
 		(start 116.205 135.89)
@@ -17147,28 +17035,12 @@
 		(uuid "c3fbab3a-8df2-4e59-a028-0d56c0f241dc")
 	)
 	(segment
-		(start 120.842437 132.715)
-		(end 118.11 132.715)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL5")
-		(uuid "c7434da9-977b-46f8-98e5-fa4af4047662")
-	)
-	(segment
 		(start 146.82 83.94)
 		(end 146.82 107.07)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL5")
 		(uuid "c8c2733f-cafe-4f46-ab83-a396f77c60e9")
-	)
-	(segment
-		(start 139.7 113.857437)
-		(end 120.842437 132.715)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL5")
-		(uuid "c9820ebb-5129-4f2f-ad71-c8be4265b046")
 	)
 	(segment
 		(start 115.57 136.525)
@@ -17195,20 +17067,20 @@
 		(uuid "dd03aefe-3202-4d3d-88ea-b06854614d77")
 	)
 	(segment
-		(start 141.999766 109.9)
-		(end 144.735 109.9)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL5")
-		(uuid "eecfe9e0-dfca-4e21-b80f-23a75391efbe")
-	)
-	(segment
 		(start 110.49 132.075)
 		(end 110.49 133.701346)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL5")
 		(uuid "fa668ff5-af59-4785-ab6f-f713d3820115")
+	)
+	(segment
+		(start 132.67 61.93)
+		(end 132.67 115.615)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL4")
+		(uuid "1040bcd3-f7db-47d7-ad00-c517ddb77c63")
 	)
 	(segment
 		(start 129.48 60.64)
@@ -17219,12 +17091,12 @@
 		(uuid "1cef8c27-f379-411e-81c6-ccd7d279dc86")
 	)
 	(segment
-		(start 129.78 116.6)
+		(start 129.556 116.824)
 		(end 119.38 127)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL4")
-		(uuid "35b38916-ccd9-42e7-9635-00bdbbb3c809")
+		(uuid "353edd6c-dbab-4ebd-a828-a28b6b0c6aac")
 	)
 	(segment
 		(start 116.205 132.08)
@@ -17235,6 +17107,14 @@
 		(uuid "3760a2e7-57d7-4761-9dcf-572376e5841f")
 	)
 	(segment
+		(start 130.43 59.69)
+		(end 132.67 61.93)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL4")
+		(uuid "42122593-67f1-4293-be25-ab5cf1f81ab8")
+	)
+	(segment
 		(start 117.73 59.69)
 		(end 118.68 60.64)
 		(width 0.3)
@@ -17243,20 +17123,20 @@
 		(uuid "4a93c529-b89a-4bf7-90e3-844426577d88")
 	)
 	(segment
-		(start 118.11 130.175)
-		(end 119.38 128.905)
+		(start 131.461 116.824)
+		(end 129.556 116.824)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL4")
-		(uuid "4d41f647-0d79-4d75-acd2-605217fa8846")
+		(uuid "51e240ca-d03f-4189-93c2-55a379cada65")
 	)
 	(segment
-		(start 132.67 61.93)
-		(end 132.67 115.615)
+		(start 132.67 115.615)
+		(end 131.461 116.824)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL4")
-		(uuid "767f5ff3-fe3c-42ec-ab68-fadf02eb4716")
+		(uuid "7d7fe3f7-1cc8-457d-88dc-d7ad1be2a561")
 	)
 	(segment
 		(start 116.46 60.96)
@@ -17275,22 +17155,6 @@
 		(uuid "a4a704e5-b7a4-433d-9df8-39f639604f85")
 	)
 	(segment
-		(start 131.685 116.6)
-		(end 129.78 116.6)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL4")
-		(uuid "aa2e2359-0147-416f-b253-62426d5d6c91")
-	)
-	(segment
-		(start 130.43 59.69)
-		(end 132.67 61.93)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL4")
-		(uuid "aa914829-ea4d-4504-96e1-7d056fb26e81")
-	)
-	(segment
 		(start 105.03 59.69)
 		(end 106.3 60.96)
 		(width 0.3)
@@ -17305,6 +17169,14 @@
 		(layer "B.Cu")
 		(net "/COL4")
 		(uuid "cd107dad-0922-4dcb-ba61-cedb37f5ab7f")
+	)
+	(segment
+		(start 119.38 128.905)
+		(end 118.11 130.175)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL4")
+		(uuid "e1effe30-2b2e-46cf-95dc-9be9a41058b2")
 	)
 	(segment
 		(start 118.11 130.175)
@@ -17323,28 +17195,28 @@
 		(uuid "e58a2431-9ca0-4f94-b777-d1c8a0a9dfa3")
 	)
 	(segment
-		(start 132.67 115.615)
-		(end 131.685 116.6)
+		(start 119.38 127)
+		(end 119.38 128.905)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL4")
-		(uuid "fc357485-1c09-4289-a5c2-67131b205b74")
+		(uuid "fad65a9d-b55b-4d3a-b57c-027779c71cff")
 	)
 	(segment
-		(start 119.38 128.905)
-		(end 119.38 127)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL4")
-		(uuid "fe7c77e0-1f5f-4617-8c5e-9cf8365c849e")
-	)
-	(segment
-		(start 118.11 127.635)
-		(end 118.11 126.721346)
+		(start 131.010421 116.324)
+		(end 132.08 115.254421)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL3")
-		(uuid "2e953f09-54dd-4288-8462-7df82f3fbd41")
+		(uuid "007af28b-5399-4786-82cb-f3ffb3a9b429")
+	)
+	(segment
+		(start 132.08 76.58)
+		(end 130.43 74.93)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL3")
+		(uuid "1728e7f7-e133-4dbb-a436-75361ce594b2")
 	)
 	(segment
 		(start 118.68 75.88)
@@ -17355,20 +17227,12 @@
 		(uuid "3d280bed-8a3c-4e94-9a89-83b151bdce05")
 	)
 	(segment
-		(start 132.08 115.254421)
-		(end 132.08 76.58)
+		(start 118.11 126.721346)
+		(end 128.507346 116.324)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL3")
-		(uuid "410f9aaa-ee86-43bc-8bc7-2eeb9fb1a6b0")
-	)
-	(segment
-		(start 132.08 76.58)
-		(end 130.43 74.93)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL3")
-		(uuid "4b253a09-b41c-4a21-b550-9892771d10d3")
+		(uuid "4cb609e7-2ecf-4417-9375-eac64ca01b7f")
 	)
 	(segment
 		(start 116.205 130.815)
@@ -17395,6 +17259,14 @@
 		(uuid "936b496c-8739-4cf0-a581-c3907592f9e3")
 	)
 	(segment
+		(start 118.11 127.635)
+		(end 118.11 126.721346)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL3")
+		(uuid "a382825b-9e49-48f3-b6a1-b02efd0be86a")
+	)
+	(segment
 		(start 129.48 75.88)
 		(end 130.43 74.93)
 		(width 0.3)
@@ -17409,30 +17281,6 @@
 		(layer "B.Cu")
 		(net "/COL3")
 		(uuid "b0334e6e-3db1-41ec-8aa5-80be647d3f5d")
-	)
-	(segment
-		(start 131.234421 116.1)
-		(end 132.08 115.254421)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL3")
-		(uuid "b1e57c75-0dc0-4479-abb6-4c538fc34840")
-	)
-	(segment
-		(start 118.11 126.721346)
-		(end 128.731346 116.1)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL3")
-		(uuid "b2838d60-c9cf-4707-b444-9cf1b5b1dbe6")
-	)
-	(segment
-		(start 128.731346 116.1)
-		(end 131.234421 116.1)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL3")
-		(uuid "cbe4b421-1a6c-480d-b830-a53bc533def6")
 	)
 	(segment
 		(start 116.205 129.54)
@@ -17459,12 +17307,44 @@
 		(uuid "e52511af-92be-4e87-922a-64ecef9006a0")
 	)
 	(segment
+		(start 128.507346 116.324)
+		(end 131.010421 116.324)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL3")
+		(uuid "f247f14b-89c1-4ed6-887e-29b377f3e156")
+	)
+	(segment
+		(start 132.08 115.254421)
+		(end 132.08 76.58)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL3")
+		(uuid "f7d404bf-99b5-4f66-b4f6-2f13139331d6")
+	)
+	(segment
 		(start 116.205 128.275)
 		(end 114.305 130.175)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL2")
 		(uuid "04da3ea6-be45-4bcd-a32a-b3513c4d3a78")
+	)
+	(segment
+		(start 131.49 91.23)
+		(end 130.43 90.17)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL2")
+		(uuid "0cacd124-16c9-409a-b9c1-1c5643249eb7")
+	)
+	(segment
+		(start 131.49 114.859188)
+		(end 131.49 91.23)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL2")
+		(uuid "16e7f859-74a7-4563-8dee-d16512c0107e")
 	)
 	(segment
 		(start 116.205 127)
@@ -17483,14 +17363,6 @@
 		(uuid "2e27879a-9245-4fc4-a316-0fd4b5f0df60")
 	)
 	(segment
-		(start 131.49 91.23)
-		(end 130.43 90.17)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL2")
-		(uuid "372f2270-23da-4b4c-ace5-0309a60174c1")
-	)
-	(segment
 		(start 105.03 90.17)
 		(end 105.98 91.12)
 		(width 0.3)
@@ -17499,20 +17371,12 @@
 		(uuid "4102dec5-7524-4f1d-a19c-2f0ef5d8d322")
 	)
 	(segment
-		(start 130.728478 115.6)
-		(end 131.49 114.838478)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL2")
-		(uuid "61dfc8bf-8081-4de0-a7d9-4fd8c5013190")
-	)
-	(segment
 		(start 118.11 125.095)
-		(end 127.605 115.6)
+		(end 127.381 115.824)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL2")
-		(uuid "6b829bd5-b2a6-442f-b554-bb8cfb2b792a")
+		(uuid "8e5b63bc-4604-411f-af19-29ee7a4d0386")
 	)
 	(segment
 		(start 129.16 91.44)
@@ -17523,12 +17387,12 @@
 		(uuid "9de541bf-bc88-4f3e-985d-e42e5c467284")
 	)
 	(segment
-		(start 127.605 115.6)
-		(end 130.728478 115.6)
+		(start 127.381 115.824)
+		(end 130.525188 115.824)
 		(width 0.3)
 		(layer "B.Cu")
 		(net "/COL2")
-		(uuid "9e5fb19f-2d0c-46e6-b13b-f5ca39b1f7cb")
+		(uuid "a4c25eb3-b900-443b-ba18-5c72f21fa632")
 	)
 	(segment
 		(start 117.73 90.17)
@@ -17537,14 +17401,6 @@
 		(layer "B.Cu")
 		(net "/COL2")
 		(uuid "aad33146-f393-4d75-983f-c897d58414c3")
-	)
-	(segment
-		(start 131.49 114.838478)
-		(end 131.49 91.23)
-		(width 0.3)
-		(layer "B.Cu")
-		(net "/COL2")
-		(uuid "bf370143-a51e-48fc-b322-4762d9fadc91")
 	)
 	(segment
 		(start 116.78 91.12)
@@ -17561,6 +17417,14 @@
 		(layer "B.Cu")
 		(net "/COL2")
 		(uuid "c99e9aa1-5c26-4c75-9932-2087a64ff643")
+	)
+	(segment
+		(start 130.525188 115.824)
+		(end 131.49 114.859188)
+		(width 0.3)
+		(layer "B.Cu")
+		(net "/COL2")
+		(uuid "cac7aeef-f4c1-4c2a-aaf4-0aad8824c8d9")
 	)
 	(segment
 		(start 119 91.44)
@@ -18355,14 +18219,6 @@
 		(uuid "88a0a972-d909-4a24-b30e-23c6771af23e")
 	)
 	(segment
-		(start 138.43 72.39)
-		(end 138.43 95.198478)
-		(width 0.3)
-		(layer "F.Cu")
-		(net "Net-(J1-ROW_1)")
-		(uuid "0434ed76-607e-492c-bf8c-e598cbbac7f5")
-	)
-	(segment
 		(start 139.7 67.31)
 		(end 139.7 57.15)
 		(width 0.3)
@@ -18379,28 +18235,12 @@
 		(uuid "0a6457f7-9312-4c47-a109-4d2f97bddcc4")
 	)
 	(segment
-		(start 138.43 95.198478)
-		(end 135.203478 98.425)
-		(width 0.3)
-		(layer "F.Cu")
-		(net "Net-(J1-ROW_1)")
-		(uuid "0f5980a7-c498-4b21-999f-ab845a2ed89f")
-	)
-	(segment
 		(start 142.24 68.58)
 		(end 140.97 68.58)
 		(width 0.3)
 		(layer "F.Cu")
 		(net "Net-(J1-ROW_1)")
 		(uuid "14467c9c-89df-4a40-8084-c36043caf634")
-	)
-	(segment
-		(start 142.24 68.58)
-		(end 138.43 72.39)
-		(width 0.3)
-		(layer "F.Cu")
-		(net "Net-(J1-ROW_1)")
-		(uuid "15857dac-8fa9-48c7-8939-0e6e1a5fa66d")
 	)
 	(segment
 		(start 104.14 68.58)
@@ -18459,12 +18299,20 @@
 		(uuid "57c0dad2-b7e3-4426-9e3d-f68ab5a53b7e")
 	)
 	(segment
-		(start 135.203478 98.425)
-		(end 130.81 98.425)
+		(start 138.43 95.504)
+		(end 135.509 98.425)
 		(width 0.3)
 		(layer "F.Cu")
 		(net "Net-(J1-ROW_1)")
-		(uuid "5b3317a1-98a8-47f7-b56b-437481466ec9")
+		(uuid "64aebebc-a0a8-42ea-bcf0-c8dc8b6f3289")
+	)
+	(segment
+		(start 142.24 68.58)
+		(end 138.43 72.39)
+		(width 0.3)
+		(layer "F.Cu")
+		(net "Net-(J1-ROW_1)")
+		(uuid "655cf08c-6e4d-4750-b514-66458ee4be17")
 	)
 	(segment
 		(start 140.97 55.88)
@@ -18515,6 +18363,14 @@
 		(uuid "875f4118-aca2-4e30-8b0b-23f0106a9da8")
 	)
 	(segment
+		(start 135.509 98.425)
+		(end 130.81 98.425)
+		(width 0.3)
+		(layer "F.Cu")
+		(net "Net-(J1-ROW_1)")
+		(uuid "8b9f873c-769f-4ef1-a8d4-c7382c5360e2")
+	)
+	(segment
 		(start 109.855 120.65)
 		(end 120.015 120.65)
 		(width 0.3)
@@ -18553,6 +18409,14 @@
 		(layer "F.Cu")
 		(net "Net-(J1-ROW_1)")
 		(uuid "c00dc30f-4cf6-4741-9064-94b0a1b22c13")
+	)
+	(segment
+		(start 138.43 72.39)
+		(end 138.43 95.504)
+		(width 0.3)
+		(layer "F.Cu")
+		(net "Net-(J1-ROW_1)")
+		(uuid "ea4a4a29-e5db-434c-bde1-bfbe62b78bcf")
 	)
 	(segment
 		(start 157.48 68.58)
