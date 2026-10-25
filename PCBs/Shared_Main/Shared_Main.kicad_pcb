@@ -8005,7 +8005,7 @@
 			(at 1.27 -6.1 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "ee61b7b8-fdb0-48e6-bbd1-54ab1f883b26")
+			(uuid "ced4957d-cd77-4c32-a3be-428944d3d9cb")
 			(effects
 				(font
 					(size 1 1)
@@ -8016,7 +8016,7 @@
 		(property "Value" "Keypad"
 			(at 1.27 -6.985 0)
 			(layer "F.SilkS")
-			(uuid "8812d3d6-bb0e-4424-94e1-7db988052079")
+			(uuid "909603f4-6d69-488c-9220-1672edc85a11")
 			(effects
 				(font
 					(size 1 1)
@@ -8028,7 +8028,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "e8975dc3-04ce-43a0-a246-714b55f727b9")
+			(uuid "1388fc22-58d7-4f67-bea4-d496a52a6128")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8039,7 +8039,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "a75e2a4d-6694-4b00-8f08-0c08d5cc645a")
+			(uuid "c4b156ef-4a49-4f55-8932-d9629b92da3a")
 			(effects
 				(font
 					(size 1.27 1.27)
