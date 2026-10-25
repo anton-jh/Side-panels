@@ -7,6 +7,7 @@
 **/*.kicad_sch.lck
 **/*.kicad_pro.lck
 **/*.tmp
+**/_autosave*
 
 # Gerbers and fabrication outputs
 /fab/
