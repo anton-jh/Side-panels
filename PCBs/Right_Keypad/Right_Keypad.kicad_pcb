@@ -7,9 +7,6 @@
 		(legacy_teardrops no)
 	)
 	(paper "A4")
-	(title_block
-		(comment 4 "AISLER Project ID: GSMLJYND")
-	)
 	(layers
 		(0 "F.Cu" signal)
 		(2 "B.Cu" signal)
@@ -129,6 +126,7 @@
 			(outputdirectory "fab/gerber/drill")
 		)
 	)
+	(property "aisler_export_locally" "1")
 	(footprint "Resistor_THT:R_Array_SIP9"
 		(layer "F.Cu")
 		(uuid "0e803cae-0fe4-4d00-90fa-dd85dd4837b7")

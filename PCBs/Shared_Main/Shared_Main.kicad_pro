@@ -724,7 +724,9 @@
       "Rotary Switch Stuff"
     ]
   ],
-  "text_variables": {},
+  "text_variables": {
+    "aisler_export_locally": "1"
+  },
   "tuning_profiles": {
     "meta": {
       "version": 0

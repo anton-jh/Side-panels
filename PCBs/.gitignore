@@ -13,3 +13,6 @@
 /fab/
 /gerbers/
 /outputs/
+
+# Aisler
+**/aisler*
