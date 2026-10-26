@@ -5001,16 +5001,6 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 110.49) (xy 195.58 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "84c5943c-3b39-4725-9fa4-cac4a81287ce")
-	)
-	(wire
-		(pts
 			(xy 81.28 93.98) (xy 81.28 96.52)
 		)
 		(stroke
@@ -5131,16 +5121,6 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 113.03) (xy 195.58 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a7157cbd-0606-4dd5-b893-13a768be9216")
-	)
-	(wire
-		(pts
 			(xy 81.28 91.44) (xy 81.28 93.98)
 		)
 		(stroke
@@ -5211,6 +5191,16 @@
 	)
 	(wire
 		(pts
+			(xy 194.31 113.03) (xy 201.93 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c653fdac-4247-440b-983f-8e2ab623a810")
+	)
+	(wire
+		(pts
 			(xy 190.5 100.33) (xy 189.23 100.33)
 		)
 		(stroke
@@ -5238,6 +5228,16 @@
 			(type default)
 		)
 		(uuid "d808ae91-0758-4827-a383-c4c9b7a45ac4")
+	)
+	(wire
+		(pts
+			(xy 194.31 110.49) (xy 201.93 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d990a5c5-b0bf-4d54-a774-57ef84ebaaac")
 	)
 	(wire
 		(pts
@@ -16661,7 +16661,7 @@
 		(uuid "a756f156-a49e-46fa-928b-a8525d683952")
 	)
 	(label "SR_PL"
-		(at 195.58 113.03 180)
+		(at 201.93 113.03 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -16721,7 +16721,7 @@
 		(uuid "d7446c34-e8aa-4b94-9697-d057eb110975")
 	)
 	(label "SR_CP"
-		(at 195.58 110.49 180)
+		(at 201.93 110.49 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -17248,6 +17248,86 @@
 			(project "Shared_Main"
 				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9"
 					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 191.77 113.03 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "3ad28f59-ddea-4183-a6e0-04825f4aa3b5")
+		(property "Reference" "R9"
+			(at 191.77 107.95 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+			)
+		)
+		(property "Value" "47"
+			(at 191.77 113.03 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
+			(at 191.77 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 191.77 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 191.77 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "d648e8dd-28cd-47d7-9118-46affc92b931")
+		)
+		(pin "1"
+			(uuid "06330d87-fcce-44f6-b16b-4fc9a942a982")
+		)
+		(instances
+			(project "Shared_Main"
+				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9"
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -20015,6 +20095,86 @@
 			(project "Shared_Main"
 				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9"
 					(reference "#PWR018")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 191.77 110.49 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ec3e4c21-de28-4caa-8d5b-2c2224edda42")
+		(property "Reference" "R10"
+			(at 191.77 105.41 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+			)
+		)
+		(property "Value" "47"
+			(at 191.77 110.49 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
+			(at 191.77 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 191.77 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 191.77 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "51b32071-c14a-4617-b511-03a6b4516e63")
+		)
+		(pin "1"
+			(uuid "80844e56-0bab-41f3-8efa-723cb9d03aac")
+		)
+		(instances
+			(project "Shared_Main"
+				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9"
+					(reference "R10")
 					(unit 1)
 				)
 			)

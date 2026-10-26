@@ -559,7 +559,7 @@
       },
       {
         "netclass": "PWR",
-        "pattern": "+5V"
+        "pattern": "+3V3"
       },
       {
         "netclass": "PWR",
