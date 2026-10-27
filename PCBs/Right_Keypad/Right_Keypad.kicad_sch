@@ -547,7 +547,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Device:D"
+		(symbol "Device:D_Schottky"
 			(pin_numbers
 				(hide yes)
 			)
@@ -570,7 +570,7 @@
 					)
 				)
 			)
-			(property "Value" "D"
+			(property "Value" "D_Schottky"
 				(at 0 -2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -602,7 +602,7 @@
 					)
 				)
 			)
-			(property "Description" "Diode"
+			(property "Description" "Schottky diode"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -613,29 +613,7 @@
 					)
 				)
 			)
-			(property "Sim.Device" "D"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Sim.Pins" "1=K 2=A"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "diode"
+			(property "ki_keywords" "diode Schottky"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -657,10 +635,10 @@
 					)
 				)
 			)
-			(symbol "D_0_1"
+			(symbol "D_Schottky_0_1"
 				(polyline
 					(pts
-						(xy -1.27 1.27) (xy -1.27 -1.27)
+						(xy -1.905 0.635) (xy -1.905 1.27) (xy -1.27 1.27) (xy -1.27 -1.27) (xy -0.635 -1.27) (xy -0.635 -0.635)
 					)
 					(stroke
 						(width 0.254)
@@ -695,7 +673,7 @@
 					)
 				)
 			)
-			(symbol "D_1_1"
+			(symbol "D_Schottky_1_1"
 				(pin passive line
 					(at -3.81 0 0)
 					(length 2.54)
@@ -4713,7 +4691,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 194.31 147.32 0)
 		(unit 1)
 		(body_style 1)
@@ -4724,7 +4702,7 @@
 		(dnp no)
 		(uuid "169d6dbd-2606-4831-887d-97c0332fbfbe")
 		(property "Reference" "D21"
-			(at 194.31 142.24 0)
+			(at 194.31 144.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4733,8 +4711,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 194.31 143.51 0)
+		(property "Value" "D_Schottky"
+			(at 194.31 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4744,7 +4722,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 194.31 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -4766,7 +4744,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 194.31 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -4815,7 +4793,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 175.26 147.32 0)
 		(unit 1)
 		(body_style 1)
@@ -4826,7 +4804,7 @@
 		(dnp no)
 		(uuid "1e5ed9f7-bc0c-4ad8-877e-5e182cda70a3")
 		(property "Reference" "D20"
-			(at 175.26 142.24 0)
+			(at 175.26 144.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4835,8 +4813,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 175.26 143.51 0)
+		(property "Value" "D_Schottky"
+			(at 175.26 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4846,7 +4824,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 175.26 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -4868,7 +4846,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 175.26 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -5394,7 +5372,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 156.21 147.32 0)
 		(unit 1)
 		(body_style 1)
@@ -5405,7 +5383,7 @@
 		(dnp no)
 		(uuid "37ed2de9-7d39-47e1-a786-a9d2600b7f1d")
 		(property "Reference" "D19"
-			(at 156.21 142.24 0)
+			(at 156.21 144.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5414,8 +5392,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 156.21 143.51 0)
+		(property "Value" "D_Schottky"
+			(at 156.21 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5425,7 +5403,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 156.21 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -5447,7 +5425,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 156.21 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -5896,7 +5874,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 251.46 129.54 0)
 		(unit 1)
 		(body_style 1)
@@ -5907,7 +5885,7 @@
 		(dnp no)
 		(uuid "614c19dc-c094-4fda-ba92-4dcab01d7ec4")
 		(property "Reference" "D16"
-			(at 251.46 124.46 0)
+			(at 251.46 127 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5916,8 +5894,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 251.46 125.73 0)
+		(property "Value" "D_Schottky"
+			(at 251.46 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5927,7 +5905,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 251.46 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -5949,7 +5927,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 251.46 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -6263,7 +6241,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 213.36 111.76 0)
 		(unit 1)
 		(body_style 1)
@@ -6274,7 +6252,7 @@
 		(dnp no)
 		(uuid "6ca49b56-b935-4b28-b5ec-356b680838e1")
 		(property "Reference" "D6"
-			(at 213.36 106.68 0)
+			(at 213.36 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6283,8 +6261,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 213.36 107.95 0)
+		(property "Value" "D_Schottky"
+			(at 213.36 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6294,7 +6272,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 213.36 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -6316,7 +6294,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 213.36 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -6630,7 +6608,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 232.41 129.54 0)
 		(unit 1)
 		(body_style 1)
@@ -6641,7 +6619,7 @@
 		(dnp no)
 		(uuid "7e5ee067-da4f-4b5a-a729-d9b5467f7873")
 		(property "Reference" "D15"
-			(at 232.41 124.46 0)
+			(at 232.41 127 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6650,8 +6628,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 232.41 125.73 0)
+		(property "Value" "D_Schottky"
+			(at 232.41 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6661,7 +6639,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 232.41 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -6683,7 +6661,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 232.41 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -6811,7 +6789,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 213.36 147.32 0)
 		(unit 1)
 		(body_style 1)
@@ -6822,7 +6800,7 @@
 		(dnp no)
 		(uuid "7f8474e5-7af5-42a4-984b-9aeda1afc189")
 		(property "Reference" "D22"
-			(at 213.36 142.24 0)
+			(at 213.36 144.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6831,8 +6809,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 213.36 143.51 0)
+		(property "Value" "D_Schottky"
+			(at 213.36 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6842,7 +6820,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 213.36 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -6864,7 +6842,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 213.36 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -7177,7 +7155,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 232.41 111.76 0)
 		(unit 1)
 		(body_style 1)
@@ -7188,7 +7166,7 @@
 		(dnp no)
 		(uuid "918aed1a-c183-4567-8ec5-21c25741e427")
 		(property "Reference" "D7"
-			(at 232.41 106.68 0)
+			(at 232.41 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7197,8 +7175,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 232.41 107.95 0)
+		(property "Value" "D_Schottky"
+			(at 232.41 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7208,7 +7186,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 232.41 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -7230,7 +7208,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 232.41 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -7359,7 +7337,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 175.26 111.76 0)
 		(unit 1)
 		(body_style 1)
@@ -7370,7 +7348,7 @@
 		(dnp no)
 		(uuid "950b1d83-647a-4f35-81cc-28776cdf03b1")
 		(property "Reference" "D4"
-			(at 175.26 106.68 0)
+			(at 175.26 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7379,8 +7357,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 175.26 107.95 0)
+		(property "Value" "D_Schottky"
+			(at 175.26 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7390,7 +7368,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 175.26 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -7412,7 +7390,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 175.26 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -7461,7 +7439,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 137.16 129.54 0)
 		(unit 1)
 		(body_style 1)
@@ -7472,7 +7450,7 @@
 		(dnp no)
 		(uuid "9a61c23c-4513-48a4-a5d8-1ae20185da76")
 		(property "Reference" "D10"
-			(at 137.16 124.46 0)
+			(at 137.16 127 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7481,8 +7459,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 137.16 125.73 0)
+		(property "Value" "D_Schottky"
+			(at 137.16 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7492,7 +7470,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 137.16 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -7514,7 +7492,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 137.16 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -7563,7 +7541,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 213.36 129.54 0)
 		(unit 1)
 		(body_style 1)
@@ -7574,7 +7552,7 @@
 		(dnp no)
 		(uuid "9d6d35b2-0238-425d-a11e-400c26853406")
 		(property "Reference" "D14"
-			(at 213.36 124.46 0)
+			(at 213.36 127 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7583,8 +7561,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 213.36 125.73 0)
+		(property "Value" "D_Schottky"
+			(at 213.36 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7594,7 +7572,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 213.36 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -7616,7 +7594,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 213.36 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -8059,7 +8037,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 137.16 111.76 0)
 		(unit 1)
 		(body_style 1)
@@ -8070,7 +8048,7 @@
 		(dnp no)
 		(uuid "aee8ce2b-b64c-4b37-992e-196472cb702d")
 		(property "Reference" "D2"
-			(at 137.16 106.68 0)
+			(at 137.16 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8079,8 +8057,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 137.16 107.95 0)
+		(property "Value" "D_Schottky"
+			(at 137.16 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8090,7 +8068,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 137.16 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -8112,7 +8090,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 137.16 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -8161,7 +8139,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 156.21 111.76 0)
 		(unit 1)
 		(body_style 1)
@@ -8172,7 +8150,7 @@
 		(dnp no)
 		(uuid "aff7b755-ccfb-4ec6-aeae-ca9ada9c986f")
 		(property "Reference" "D3"
-			(at 156.21 106.68 0)
+			(at 156.21 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8181,8 +8159,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 156.21 107.95 0)
+		(property "Value" "D_Schottky"
+			(at 156.21 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8192,7 +8170,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 156.21 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -8214,7 +8192,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 156.21 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -8502,7 +8480,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 156.21 129.54 0)
 		(unit 1)
 		(body_style 1)
@@ -8513,7 +8491,7 @@
 		(dnp no)
 		(uuid "b260d81e-0870-4b91-910d-318bac4a90c1")
 		(property "Reference" "D11"
-			(at 156.21 124.46 0)
+			(at 156.21 127 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8522,8 +8500,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 156.21 125.73 0)
+		(property "Value" "D_Schottky"
+			(at 156.21 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8533,7 +8511,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 156.21 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -8555,7 +8533,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 156.21 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -8844,7 +8822,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 175.26 129.54 0)
 		(unit 1)
 		(body_style 1)
@@ -8855,7 +8833,7 @@
 		(dnp no)
 		(uuid "ba43e40b-5ce2-4648-a9d9-23d3809234ec")
 		(property "Reference" "D12"
-			(at 175.26 124.46 0)
+			(at 175.26 127 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8864,8 +8842,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 175.26 125.73 0)
+		(property "Value" "D_Schottky"
+			(at 175.26 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8875,7 +8853,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 175.26 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -8897,7 +8875,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 175.26 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -9304,7 +9282,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 251.46 111.76 0)
 		(unit 1)
 		(body_style 1)
@@ -9315,7 +9293,7 @@
 		(dnp no)
 		(uuid "d3f8264c-08b4-46bf-9db9-32afb997eed1")
 		(property "Reference" "D8"
-			(at 251.46 106.68 0)
+			(at 251.46 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9324,8 +9302,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 251.46 107.95 0)
+		(property "Value" "D_Schottky"
+			(at 251.46 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9335,7 +9313,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 251.46 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -9357,7 +9335,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 251.46 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -9486,7 +9464,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 118.11 147.32 0)
 		(unit 1)
 		(body_style 1)
@@ -9497,7 +9475,7 @@
 		(dnp no)
 		(uuid "d48e6f79-cf0a-44c7-9247-035d2f7f1350")
 		(property "Reference" "D17"
-			(at 118.11 142.24 0)
+			(at 118.11 144.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9506,8 +9484,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 118.11 143.51 0)
+		(property "Value" "D_Schottky"
+			(at 118.11 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9517,7 +9495,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 118.11 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -9539,7 +9517,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 118.11 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -9588,7 +9566,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 232.41 147.32 0)
 		(unit 1)
 		(body_style 1)
@@ -9599,7 +9577,7 @@
 		(dnp no)
 		(uuid "d91cf81d-72b1-4bc7-bff6-b15064547761")
 		(property "Reference" "D23"
-			(at 232.41 142.24 0)
+			(at 232.41 144.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9608,8 +9586,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 232.41 143.51 0)
+		(property "Value" "D_Schottky"
+			(at 232.41 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9619,7 +9597,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 232.41 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -9641,7 +9619,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 232.41 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -9770,7 +9748,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 118.11 129.54 0)
 		(unit 1)
 		(body_style 1)
@@ -9781,7 +9759,7 @@
 		(dnp no)
 		(uuid "dda90e14-3bcb-4d5b-bcba-baa6494295e1")
 		(property "Reference" "D9"
-			(at 118.11 124.46 0)
+			(at 118.11 127 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9790,8 +9768,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 118.11 125.73 0)
+		(property "Value" "D_Schottky"
+			(at 118.11 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9801,7 +9779,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 118.11 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -9823,7 +9801,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 118.11 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -9872,7 +9850,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 194.31 111.76 0)
 		(unit 1)
 		(body_style 1)
@@ -9883,7 +9861,7 @@
 		(dnp no)
 		(uuid "e1d74eb0-0b78-489a-90ac-811da71082e1")
 		(property "Reference" "D5"
-			(at 194.31 106.68 0)
+			(at 194.31 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9892,8 +9870,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 194.31 107.95 0)
+		(property "Value" "D_Schottky"
+			(at 194.31 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9903,7 +9881,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 194.31 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -9925,7 +9903,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 194.31 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -10130,7 +10108,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 137.16 147.32 0)
 		(unit 1)
 		(body_style 1)
@@ -10141,7 +10119,7 @@
 		(dnp no)
 		(uuid "ed55dd8f-7c44-44b1-8ecf-561fa78bcc9d")
 		(property "Reference" "D18"
-			(at 137.16 142.24 0)
+			(at 137.16 144.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10150,8 +10128,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 137.16 143.51 0)
+		(property "Value" "D_Schottky"
+			(at 137.16 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10161,7 +10139,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 137.16 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -10183,7 +10161,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 137.16 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -10232,7 +10210,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 194.31 129.54 0)
 		(unit 1)
 		(body_style 1)
@@ -10243,7 +10221,7 @@
 		(dnp no)
 		(uuid "efc6c8e6-2db1-4195-bf69-4c682f35fe32")
 		(property "Reference" "D13"
-			(at 194.31 124.46 0)
+			(at 194.31 127 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10252,8 +10230,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 194.31 125.73 0)
+		(property "Value" "D_Schottky"
+			(at 194.31 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10263,7 +10241,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 194.31 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -10285,7 +10263,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 194.31 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -10414,7 +10392,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 118.11 111.76 0)
 		(unit 1)
 		(body_style 1)
@@ -10425,7 +10403,7 @@
 		(dnp no)
 		(uuid "f17374c4-f34a-42ac-84a0-3632e50ad772")
 		(property "Reference" "D1"
-			(at 118.11 106.68 0)
+			(at 118.11 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10434,8 +10412,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 118.11 107.95 0)
+		(property "Value" "D_Schottky"
+			(at 118.11 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10445,7 +10423,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 118.11 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -10467,7 +10445,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 118.11 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -10516,7 +10494,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D")
+		(lib_id "Device:D_Schottky")
 		(at 251.46 147.32 0)
 		(unit 1)
 		(body_style 1)
@@ -10527,7 +10505,7 @@
 		(dnp no)
 		(uuid "f66a50d3-c052-49b6-b419-09a21525633b")
 		(property "Reference" "D24"
-			(at 251.46 142.24 0)
+			(at 251.46 144.78 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -10536,8 +10514,8 @@
 				)
 			)
 		)
-		(property "Value" "D"
-			(at 251.46 143.51 0)
+		(property "Value" "D_Schottky"
+			(at 251.46 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10547,7 +10525,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_SOD-323_HandSoldering"
 			(at 251.46 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -10569,7 +10547,7 @@
 				)
 			)
 		)
-		(property "Description" "Diode"
+		(property "Description" "Schottky diode"
 			(at 251.46 147.32 0)
 			(hide yes)
 			(show_name no)
