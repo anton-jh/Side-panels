@@ -687,7 +687,7 @@
         "uuid": "70ceab5e-e31b-4508-a755-c321a835a8c9"
       }
     ],
-    "used_designators": "#FLG1-3,R1-10,J1-4,J6,J17,#PWR1-26,#PWR28,#PWR31,#PWR33,#PWR36,#PWR38,#PWR41,#PWR43,#PWR46,#PWR48,#PWR51,#PWR53,Q1-8,A2,U1-2,C1,C3,RN7-8,H1-4,F1",
+    "used_designators": "#FLG1-3,R1-10,J1-4,J6,J17-18,#PWR1-26,#PWR28,#PWR31,#PWR33,#PWR36,#PWR38,#PWR41,#PWR43,#PWR46,#PWR48,#PWR51,#PWR53,#PWR56-66,Q1-8,A2,U1-2,U10-11,C1,C3,C10-11,RN7-8,H1-4,F1",
     "variants": []
   },
   "sheets": [
@@ -718,6 +718,14 @@
     [
       "ffdc2058-e5d3-4693-94cd-ce1a8b4b8c8e",
       "Input register 6"
+    ],
+    [
+      "780233be-e3b6-4ef5-80e7-901b94dd13cc",
+      "Input register 7"
+    ],
+    [
+      "d01193f1-0d8f-4589-9c5c-ccb8bce18146",
+      "Input register 8"
     ],
     [
       "2c033bb2-1374-45cf-aa06-3900b522ab1f",
