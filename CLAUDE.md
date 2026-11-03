@@ -24,14 +24,16 @@ The PCB's are 4-layer, with 3v3 and GND planes in the middle. The 5V to/from the
 All logic should be 3v3. 5V is only used to power the ESP32 currently not connected by USB (but instead the Cat5 cable).
 
 Both boards will have the following (each):
-6x 74HC165 with one 8-channel screw terminal bank and pull-up resistor network each for reading buttons and switches.
-8x BC547 NPN transistor (with base pull-down) for controlling a few pins (floating or GND) that are used for reading/scanning some weird rotary switches. Only signal level. Also has its own screw terminal bank.
+8x 74HC165 with one 8-channel screw terminal bank and pull-up resistor network each for reading buttons and switches.
+4x BC547 NPN transistor (with base pull-down) for controlling a few pins (floating or GND) that are used for reading/scanning some weird rotary switches. Only signal level. Also has its own screw terminal bank.
 1x 74HC4051 for reading joysticks and other pots + screw terminals.
 1x RJ45 jack for connecting to the other board.
 
 Board A (or possibly both boards) also has a short (10-20cm) IDC ribbon cable connecting an 8x3 keypad with its own shift register, chained "outside" the ones on the board so data only goes *from* the keypad.
 The cable transmits power, shift-register stuff and 3 lines for scanning the rows.
 Every other conductor in the IDC cable is GND.
+
+Reference GND and 3v3 for pots and switches will be taken from a single screw terminal (one for GND, one for 3V3) and will be distributed by means of external terminal blocks or something like that.
 
 The 3 lines for scanning the rows on the keypad will also be used for setting the address on the 74HC4051.
 
