@@ -2922,6 +2922,129 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Mechanical:MountingHole_Pad"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "H"
+				(at 0 6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole_Pad"
+				(at 0 4.445 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Mounting Hole with connection"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*Pad*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "MountingHole_Pad_0_1"
+				(circle
+					(center 0 1.27)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "MountingHole_Pad_1_1"
+				(pin input line
+					(at 0 -2.54 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "System_Connectors:Conn_RJ45_Right_To_Left"
 			(pin_names
 				(offset 1.016)
@@ -4681,6 +4804,16 @@
 	)
 	(wire
 		(pts
+			(xy 137.16 165.1) (xy 147.32 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0eba94ab-55ba-46b0-bfdf-a574067b506f")
+	)
+	(wire
+		(pts
 			(xy 77.47 39.37) (xy 77.47 44.45)
 		)
 		(stroke
@@ -5531,6 +5664,16 @@
 	)
 	(wire
 		(pts
+			(xy 132.08 162.56) (xy 147.32 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ab115402-9863-4a9d-9461-47beeda52ea0")
+	)
+	(wire
+		(pts
 			(xy 55.88 71.12) (xy 60.96 71.12)
 		)
 		(stroke
@@ -5948,6 +6091,16 @@
 			(type default)
 		)
 		(uuid "f643975d-fb2a-403e-bb80-e981eeafd797")
+	)
+	(wire
+		(pts
+			(xy 137.16 160.02) (xy 147.32 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f9abceba-ab10-4956-a6e6-f40c44724d68")
 	)
 	(wire
 		(pts
@@ -17221,6 +17374,16 @@
 		)
 		(uuid "ac37a5f0-14b6-407c-8363-89d8453df7b1")
 	)
+	(label "+3V3_EXP"
+		(at 137.16 160.02 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ac7c898c-d0c1-4618-99c1-ebe11d97b6f3")
+	)
 	(label "ADDR0_KP"
 		(at 222.25 60.96 0)
 		(effects
@@ -17300,6 +17463,16 @@
 			(justify right bottom)
 		)
 		(uuid "e7da3e4e-e6c1-4814-aaf5-cf24e4c58b0d")
+	)
+	(label "+5V_EXP"
+		(at 137.16 165.1 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ebd4eccd-7012-4174-9217-3fdd53a7fb26")
 	)
 	(label "AUX4"
 		(at 233.68 132.08 0)
@@ -17412,7 +17585,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 167.64 186.69 0)
+		(at 154.94 187.96 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17423,7 +17596,7 @@
 		(fields_autoplaced yes)
 		(uuid "048f8504-8ce1-4cb3-929f-43b7da4005e4")
 		(property "Reference" "H6"
-			(at 170.18 185.4199 0)
+			(at 157.48 186.6899 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17435,7 +17608,7 @@
 			)
 		)
 		(property "Value" "M3"
-			(at 170.18 186.6899 0)
+			(at 157.48 187.9599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17446,7 +17619,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 167.64 186.69 0)
+			(at 154.94 187.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17457,7 +17630,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 186.69 0)
+			(at 154.94 187.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17468,7 +17641,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 167.64 186.69 0)
+			(at 154.94 187.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17641,6 +17814,87 @@
 			(project "Shared_Main"
 				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9"
 					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Polyfuse_Small")
+		(at 134.62 165.1 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "08b3a47e-4766-455c-8be5-3a1171ffdd7c")
+		(property "Reference" "F3"
+			(at 134.62 167.005 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.2A"
+			(at 134.62 167.64 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Fuse:Fuse_Bourns_MF-RHT050"
+			(at 139.7 163.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" ""
+			(at 134.62 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resettable fuse, polymeric positive temperature coefficient, small symbol"
+			(at 134.62 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "610ccb3b-ecf0-44f0-8c30-c2e9805002ae")
+		)
+		(pin "1"
+			(uuid "9c3a5dbd-de32-47a7-b0d2-f36cadb47832")
+		)
+		(instances
+			(project "Shared_Main"
+				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9"
+					(reference "F3")
 					(unit 1)
 				)
 			)
@@ -17878,6 +18132,87 @@
 			(project "Shared_Main"
 				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9"
 					(reference "#FLG01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Polyfuse_Small")
+		(at 134.62 160.02 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "19b8d848-6ade-4c20-8a2e-1e2892be3bc3")
+		(property "Reference" "F2"
+			(at 134.62 161.925 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "0.1A"
+			(at 134.62 158.115 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Fuse:Fuse_Bourns_MF-RHT050"
+			(at 139.7 158.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" ""
+			(at 134.62 160.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resettable fuse, polymeric positive temperature coefficient, small symbol"
+			(at 134.62 160.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "412f30fb-39ec-4c1b-9971-07842c9c4dfd")
+		)
+		(pin "1"
+			(uuid "d4a9ed0f-91d6-4fc6-8e03-9a4266b1e969")
+		)
+		(instances
+			(project "Shared_Main"
+				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9"
+					(reference "F2")
 					(unit 1)
 				)
 			)
@@ -18360,7 +18695,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 158.75 180.34 0)
+		(at 146.05 181.61 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18371,7 +18706,7 @@
 		(fields_autoplaced yes)
 		(uuid "4fdabb11-c5e5-4a72-8a72-a020853e9457")
 		(property "Reference" "H3"
-			(at 161.29 179.0699 0)
+			(at 148.59 180.3399 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18383,7 +18718,7 @@
 			)
 		)
 		(property "Value" "M3"
-			(at 161.29 180.3399 0)
+			(at 148.59 181.6099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18394,7 +18729,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 158.75 180.34 0)
+			(at 146.05 181.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18405,7 +18740,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 158.75 180.34 0)
+			(at 146.05 181.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18416,7 +18751,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 158.75 180.34 0)
+			(at 146.05 181.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18517,7 +18852,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 149.86 180.34 0)
+		(at 137.16 181.61 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18528,7 +18863,7 @@
 		(fields_autoplaced yes)
 		(uuid "5427dbf5-786b-41a1-b4f3-956fc724dce2")
 		(property "Reference" "H1"
-			(at 152.4 179.0699 0)
+			(at 139.7 180.3399 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18540,7 +18875,7 @@
 			)
 		)
 		(property "Value" "M3"
-			(at 152.4 180.3399 0)
+			(at 139.7 181.6099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18551,7 +18886,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 149.86 180.34 0)
+			(at 137.16 181.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18562,7 +18897,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 149.86 180.34 0)
+			(at 137.16 181.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18573,7 +18908,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 149.86 180.34 0)
+			(at 137.16 181.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19506,7 +19841,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "10uF"
+		(property "Value" "(10uF)"
 			(at 185.42 86.36 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19854,7 +20189,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 158.75 186.69 0)
+		(at 146.05 187.96 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19865,7 +20200,7 @@
 		(fields_autoplaced yes)
 		(uuid "8fcfcbf3-0844-4a5d-977b-a392ce34b574")
 		(property "Reference" "H4"
-			(at 161.29 185.4199 0)
+			(at 148.59 186.6899 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19877,7 +20212,7 @@
 			)
 		)
 		(property "Value" "M3"
-			(at 161.29 186.6899 0)
+			(at 148.59 187.9599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19888,7 +20223,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 158.75 186.69 0)
+			(at 146.05 187.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19899,7 +20234,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 158.75 186.69 0)
+			(at 146.05 187.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19910,7 +20245,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 158.75 186.69 0)
+			(at 146.05 187.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20424,8 +20759,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 167.64 180.34 0)
+		(lib_id "Mechanical:MountingHole_Pad")
+		(at 156.21 175.26 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -20433,10 +20768,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "a18b91f6-d1e7-4d9a-b202-a8d47fbbe2fd")
 		(property "Reference" "H5"
-			(at 170.18 179.0699 0)
+			(at 158.75 172.7199 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20447,8 +20781,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "M3"
-			(at 170.18 180.3399 0)
+		(property "Value" "M3_Chassis_GND"
+			(at 158.75 173.99 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -20458,8 +20792,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 167.64 180.34 0)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965_Pad_TopOnly"
+			(at 156.21 175.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20470,7 +20804,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 180.34 0)
+			(at 156.21 175.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20480,8 +20814,8 @@
 				)
 			)
 		)
-		(property "Description" "Mounting Hole without connection"
-			(at 167.64 180.34 0)
+		(property "Description" "Mounting Hole with connection"
+			(at 156.21 175.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20490,6 +20824,9 @@
 					(size 1.27 1.27)
 				)
 			)
+		)
+		(pin "1"
+			(uuid "b4820294-60e4-4e05-a523-147868fe7e6c")
 		)
 		(instances
 			(project "Shared_Main"
@@ -20902,7 +21239,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:MountingHole")
-		(at 149.86 186.69 0)
+		(at 137.16 187.96 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -20913,7 +21250,7 @@
 		(fields_autoplaced yes)
 		(uuid "b63e555f-002c-4e49-bde9-14757c1a6e55")
 		(property "Reference" "H2"
-			(at 152.4 185.4199 0)
+			(at 139.7 186.6899 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20925,7 +21262,7 @@
 			)
 		)
 		(property "Value" "M3"
-			(at 152.4 186.6899 0)
+			(at 139.7 187.9599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -20936,7 +21273,7 @@
 			)
 		)
 		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 149.86 186.69 0)
+			(at 137.16 187.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20947,7 +21284,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 149.86 186.69 0)
+			(at 137.16 187.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20958,7 +21295,7 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
-			(at 149.86 186.69 0)
+			(at 137.16 187.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21137,7 +21474,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 124.46 173.99 270)
+		(at 132.08 162.56 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -21148,7 +21485,7 @@
 		(fields_autoplaced yes)
 		(uuid "c4927615-7b66-4706-b849-2e92af995c30")
 		(property "Reference" "#PWR03"
-			(at 118.11 173.99 0)
+			(at 125.73 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21159,7 +21496,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 120.65 173.9899 90)
+			(at 128.27 162.5599 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21170,7 +21507,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 124.46 173.99 0)
+			(at 132.08 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21181,7 +21518,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 124.46 173.99 0)
+			(at 132.08 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21192,7 +21529,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 124.46 173.99 0)
+			(at 132.08 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21216,7 +21553,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Screw_Terminal_01x03")
-		(at 129.54 173.99 0)
+		(at 152.4 162.56 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -21226,7 +21563,7 @@
 		(dnp no)
 		(uuid "cbd18dc7-4899-4ff1-921b-8f7fff1d95d7")
 		(property "Reference" "J1"
-			(at 132.08 172.7199 0)
+			(at 154.94 161.2899 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21238,7 +21575,7 @@
 			)
 		)
 		(property "Value" "Power"
-			(at 125.73 167.64 0)
+			(at 148.59 156.21 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21249,7 +21586,7 @@
 			)
 		)
 		(property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-3_1x03_P5.00mm_Horizontal"
-			(at 129.54 173.99 0)
+			(at 152.4 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21260,7 +21597,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.54 173.99 0)
+			(at 152.4 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21271,7 +21608,7 @@
 			)
 		)
 		(property "Description" "Generic screw terminal, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 129.54 173.99 0)
+			(at 152.4 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21930,7 +22267,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 124.46 176.53 90)
+		(at 132.08 165.1 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -21941,7 +22278,7 @@
 		(fields_autoplaced yes)
 		(uuid "e330310d-5cff-466b-85bf-4cebe2e3ed20")
 		(property "Reference" "#PWR018"
-			(at 128.27 176.53 0)
+			(at 135.89 165.1 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21952,7 +22289,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 120.65 176.5299 90)
+			(at 128.27 165.0999 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21963,7 +22300,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 124.46 176.53 0)
+			(at 132.08 165.1 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21974,7 +22311,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 124.46 176.53 0)
+			(at 132.08 165.1 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21985,7 +22322,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 124.46 176.53 0)
+			(at 132.08 165.1 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22537,7 +22874,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 124.46 171.45 90)
+		(at 132.08 160.02 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22548,7 +22885,7 @@
 		(fields_autoplaced yes)
 		(uuid "f41628a2-2218-47d1-8729-f8cf821f5631")
 		(property "Reference" "#PWR017"
-			(at 128.27 171.45 0)
+			(at 135.89 160.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22559,7 +22896,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 120.65 171.4499 90)
+			(at 128.27 160.0199 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22570,7 +22907,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 124.46 171.45 0)
+			(at 132.08 160.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22581,7 +22918,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 124.46 171.45 0)
+			(at 132.08 160.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22592,7 +22929,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 124.46 171.45 0)
+			(at 132.08 160.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22926,6 +23263,84 @@
 			(project "Shared_Main"
 				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9"
 					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 156.21 177.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fae2093f-7ec8-4276-8d1c-22bc11132398")
+		(property "Reference" "#PWR076"
+			(at 156.21 184.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 156.21 182.88 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 156.21 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 156.21 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 156.21 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3bb2946c-babd-475d-b36c-6615393501bb")
+		)
+		(instances
+			(project "Shared_Main"
+				(path "/70ceab5e-e31b-4508-a755-c321a835a8c9"
+					(reference "#PWR076")
 					(unit 1)
 				)
 			)

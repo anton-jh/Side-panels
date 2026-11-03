@@ -1463,13 +1463,9 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Mechanical:MountingHole_Pad"
-			(pin_numbers
-				(hide yes)
-			)
+		(symbol "Mechanical:MountingHole"
 			(pin_names
 				(offset 1.016)
-				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom no)
@@ -1477,7 +1473,7 @@
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "H"
-				(at 0 6.35 0)
+				(at 0 5.08 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -1486,8 +1482,8 @@
 					)
 				)
 			)
-			(property "Value" "MountingHole_Pad"
-				(at 0 4.445 0)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -1518,7 +1514,7 @@
 					)
 				)
 			)
-			(property "Description" "Mounting Hole with connection"
+			(property "Description" "Mounting Hole without connection"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1540,7 +1536,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "MountingHole*Pad*"
+			(property "ki_fp_filters" "MountingHole*"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1551,9 +1547,9 @@
 					)
 				)
 			)
-			(symbol "MountingHole_Pad_0_1"
+			(symbol "MountingHole_0_1"
 				(circle
-					(center 0 1.27)
+					(center 0 0)
 					(radius 1.27)
 					(stroke
 						(width 1.27)
@@ -1561,26 +1557,6 @@
 					)
 					(fill
 						(type none)
-					)
-				)
-			)
-			(symbol "MountingHole_Pad_1_1"
-				(pin input line
-					(at 0 -2.54 90)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
 					)
 				)
 			)
@@ -2452,157 +2428,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:Earth"
-			(power global)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "#PWR"
-				(at 0 -6.35 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Earth"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"Earth\""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "global ground gnd"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "Earth_0_1"
-				(polyline
-					(pts
-						(xy -0.635 -1.905) (xy 0.635 -1.905)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.127 -2.54) (xy 0.127 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -1.27) (xy 0 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 -1.27) (xy -1.27 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "Earth_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "power:GND"
 			(power global)
 			(pin_numbers
@@ -2871,18 +2696,6 @@
 		(uuid "14339abe-8678-4aa6-9396-8cd50520345d")
 	)
 	(junction
-		(at 22.86 142.24)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1576bf71-3566-480e-b097-f1ff71d05f26")
-	)
-	(junction
-		(at 22.86 137.16)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "17ce7805-1ff5-4401-aa76-254d420062bc")
-	)
-	(junction
 		(at 123.19 121.92)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2979,12 +2792,6 @@
 		(uuid "572d2b44-6865-49e2-b620-02af7dc27e89")
 	)
 	(junction
-		(at 22.86 147.32)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "685fa504-293c-485f-9023-6d7b0e7eae0e")
-	)
-	(junction
 		(at 121.92 50.8)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3079,12 +2886,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "aed9bb73-2443-480c-a90f-c0f8b8f73fc7")
-	)
-	(junction
-		(at 22.86 151.13)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b07b5837-4f25-42db-9ff5-7e54bec47d54")
 	)
 	(junction
 		(at 255.27 68.58)
@@ -3578,16 +3379,6 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 142.24) (xy 22.86 147.32)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "433699f3-e6bb-413d-977d-a255f4e1236b")
-	)
-	(wire
-		(pts
 			(xy 21.59 104.14) (xy 21.59 106.68)
 		)
 		(stroke
@@ -3928,16 +3719,6 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 147.32) (xy 22.86 151.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "99e487e8-392e-4e70-bc1d-5485cf48c5a1")
-	)
-	(wire
-		(pts
 			(xy 217.17 63.5) (xy 217.17 111.76)
 		)
 		(stroke
@@ -4128,16 +3909,6 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 137.16) (xy 22.86 142.24)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c7b9171b-ae54-4585-ae4a-38fc9808ad66")
-	)
-	(wire
-		(pts
 			(xy 91.44 58.42) (xy 104.14 58.42)
 		)
 		(stroke
@@ -4205,26 +3976,6 @@
 			(type default)
 		)
 		(uuid "d90db391-3aec-4ca6-a086-1ad5587f28e3")
-	)
-	(wire
-		(pts
-			(xy 22.86 132.08) (xy 22.86 137.16)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dcadf322-aff3-48e4-9aeb-f8bbc425ad99")
-	)
-	(wire
-		(pts
-			(xy 22.86 152.4) (xy 22.86 151.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dd2a710d-e662-45ce-a79e-c0b766debf6a")
 	)
 	(wire
 		(pts
@@ -5055,8 +4806,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole_Pad")
-		(at 25.4 132.08 270)
+		(lib_id "Mechanical:MountingHole")
+		(at 152.4 171.45 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5067,7 +4818,7 @@
 		(fields_autoplaced yes)
 		(uuid "2cb1fbab-5e6e-4239-8822-70504d711cc8")
 		(property "Reference" "H1"
-			(at 29.21 130.8099 90)
+			(at 154.94 170.1799 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5077,8 +4828,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "MountingHole_Pad"
-			(at 29.21 133.3499 90)
+		(property "Value" "MountingHole"
+			(at 154.94 172.7199 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5088,8 +4839,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
-			(at 25.4 132.08 0)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 152.4 171.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5100,7 +4851,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 25.4 132.08 0)
+			(at 152.4 171.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5110,8 +4861,8 @@
 				)
 			)
 		)
-		(property "Description" "Mounting Hole with connection"
-			(at 25.4 132.08 0)
+		(property "Description" "Mounting Hole without connection"
+			(at 152.4 171.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5120,93 +4871,11 @@
 					(size 1.27 1.27)
 				)
 			)
-		)
-		(pin "1"
-			(uuid "e6b79849-ff0b-4e6c-8cb8-fce712018680")
 		)
 		(instances
 			(project "Right_Keypad"
 				(path "/ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
 					(reference "H1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 22.86 151.13 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "319164c1-4f2c-48f8-8beb-5cfcf5048082")
-		(property "Reference" "#FLG03"
-			(at 24.765 151.13 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 26.67 151.1299 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 22.86 151.13 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 22.86 151.13 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 22.86 151.13 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "a291b493-8d13-4aaa-bc94-70d504c0b802")
-		)
-		(instances
-			(project "Right_Keypad"
-				(path "/ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
-					(reference "#FLG03")
 					(unit 1)
 				)
 			)
@@ -6710,8 +6379,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole_Pad")
-		(at 25.4 137.16 270)
+		(lib_id "Mechanical:MountingHole")
+		(at 152.4 176.53 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -6722,7 +6391,7 @@
 		(fields_autoplaced yes)
 		(uuid "7eb6bc27-3ff1-4d2d-abb2-a1b52f52e0dc")
 		(property "Reference" "H2"
-			(at 29.21 135.8899 90)
+			(at 154.94 175.2599 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6732,8 +6401,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "MountingHole_Pad"
-			(at 29.21 138.4299 90)
+		(property "Value" "MountingHole"
+			(at 154.94 177.7999 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6743,8 +6412,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
-			(at 25.4 137.16 0)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 152.4 176.53 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6755,7 +6424,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 25.4 137.16 0)
+			(at 152.4 176.53 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6765,8 +6434,8 @@
 				)
 			)
 		)
-		(property "Description" "Mounting Hole with connection"
-			(at 25.4 137.16 0)
+		(property "Description" "Mounting Hole without connection"
+			(at 152.4 176.53 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6775,9 +6444,6 @@
 					(size 1.27 1.27)
 				)
 			)
-		)
-		(pin "1"
-			(uuid "927a77f4-80ea-42b7-95ec-864d7f594270")
 		)
 		(instances
 			(project "Right_Keypad"
@@ -7076,8 +6742,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole_Pad")
-		(at 25.4 147.32 270)
+		(lib_id "Mechanical:MountingHole")
+		(at 152.4 186.69 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -7088,7 +6754,7 @@
 		(fields_autoplaced yes)
 		(uuid "895caaeb-4f09-4a80-93e2-1754f25c1c32")
 		(property "Reference" "H4"
-			(at 29.21 146.0499 90)
+			(at 154.94 185.4199 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7098,8 +6764,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "MountingHole_Pad"
-			(at 29.21 148.5899 90)
+		(property "Value" "MountingHole"
+			(at 154.94 187.9599 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7109,8 +6775,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
-			(at 25.4 147.32 0)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 152.4 186.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7121,7 +6787,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 25.4 147.32 0)
+			(at 152.4 186.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7131,8 +6797,8 @@
 				)
 			)
 		)
-		(property "Description" "Mounting Hole with connection"
-			(at 25.4 147.32 0)
+		(property "Description" "Mounting Hole without connection"
+			(at 152.4 186.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7141,9 +6807,6 @@
 					(size 1.27 1.27)
 				)
 			)
-		)
-		(pin "1"
-			(uuid "be8b6445-a984-4c6a-9964-96f53af675b0")
 		)
 		(instances
 			(project "Right_Keypad"
@@ -8321,8 +7984,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole_Pad")
-		(at 25.4 142.24 270)
+		(lib_id "Mechanical:MountingHole")
+		(at 152.4 181.61 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -8333,7 +7996,7 @@
 		(fields_autoplaced yes)
 		(uuid "b073de63-807c-4cfb-bf42-8ff78aed4f1f")
 		(property "Reference" "H3"
-			(at 29.21 140.9699 90)
+			(at 154.94 180.3399 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8343,8 +8006,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "MountingHole_Pad"
-			(at 29.21 143.5099 90)
+		(property "Value" "MountingHole"
+			(at 154.94 182.8799 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -8354,8 +8017,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad"
-			(at 25.4 142.24 0)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 152.4 181.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8366,7 +8029,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 25.4 142.24 0)
+			(at 152.4 181.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8376,8 +8039,8 @@
 				)
 			)
 		)
-		(property "Description" "Mounting Hole with connection"
-			(at 25.4 142.24 0)
+		(property "Description" "Mounting Hole without connection"
+			(at 152.4 181.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8386,9 +8049,6 @@
 					(size 1.27 1.27)
 				)
 			)
-		)
-		(pin "1"
-			(uuid "9cc48468-a6a3-4506-9747-55cefc2e9fc1")
 		)
 		(instances
 			(project "Right_Keypad"
@@ -8997,84 +8657,6 @@
 			(project "Right_Keypad"
 				(path "/ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
 					(reference "#PWR02")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:Earth")
-		(at 22.86 152.4 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "cffcdd35-74c6-4083-b3f3-16533cae39fa")
-		(property "Reference" "#PWR06"
-			(at 22.86 158.75 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Chassis"
-			(at 22.86 157.48 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 22.86 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 22.86 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"Earth\""
-			(at 22.86 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "9f5a30de-0863-454a-b016-039837547fe6")
-		)
-		(instances
-			(project "Right_Keypad"
-				(path "/ba685c3e-917d-4c11-a4ac-87b5dc0bd447"
-					(reference "#PWR06")
 					(unit 1)
 				)
 			)
