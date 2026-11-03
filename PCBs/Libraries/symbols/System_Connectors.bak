@@ -1767,7 +1767,7 @@
 			(pin passive line
 				(at 10.16 -7.62 180)
 				(length 2.54)
-				(name "FROM_A"
+				(name "TX_A_RX_B"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1803,7 +1803,7 @@
 			(pin passive line
 				(at 10.16 -2.54 180)
 				(length 2.54)
-				(name "FROM_B"
+				(name "RX_A_TX_B"
 					(effects
 						(font
 							(size 1.27 1.27)

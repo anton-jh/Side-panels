@@ -3135,7 +3135,7 @@
 				(pin passive line
 					(at 10.16 -7.62 180)
 					(length 2.54)
-					(name "FROM_A"
+					(name "TX_A_RX_B"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3171,7 +3171,7 @@
 				(pin passive line
 					(at 10.16 -2.54 180)
 					(length 2.54)
-					(name "FROM_B"
+					(name "RX_A_TX_B"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5831,7 +5831,7 @@
 	)
 	(wire
 		(pts
-			(xy 123.19 82.55) (xy 133.35 82.55)
+			(xy 123.19 82.55) (xy 128.27 82.55)
 		)
 		(stroke
 			(width 0)
@@ -5971,7 +5971,7 @@
 	)
 	(wire
 		(pts
-			(xy 123.19 77.47) (xy 133.35 77.47)
+			(xy 123.19 77.47) (xy 128.27 77.47)
 		)
 		(stroke
 			(width 0)
@@ -16911,7 +16911,7 @@
 		)
 		(uuid "1ad382bd-7017-4a79-8c39-a000878a1825")
 	)
-	(label "FROM_A"
+	(label "TX"
 		(at 144.78 110.49 0)
 		(effects
 			(font
@@ -17101,8 +17101,8 @@
 		)
 		(uuid "76ea95ee-4b51-48d5-9136-f7111b791bc5")
 	)
-	(label "FROM_B"
-		(at 133.35 77.47 180)
+	(label "RX"
+		(at 128.27 77.47 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -17201,8 +17201,8 @@
 		)
 		(uuid "93d576b4-c6f6-472c-b382-6a08e7a52e5f")
 	)
-	(label "FROM_A"
-		(at 133.35 82.55 180)
+	(label "TX"
+		(at 128.27 82.55 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -17281,7 +17281,7 @@
 		)
 		(uuid "d784232b-8dd0-4e49-9c7f-e88e5240f417")
 	)
-	(label "FROM_B"
+	(label "RX"
 		(at 144.78 107.95 0)
 		(effects
 			(font
@@ -20266,7 +20266,7 @@
 				)
 			)
 		)
-		(property "Value" "Other unit"
+		(property "Value" "Conn_RJ45_Right_To_Left"
 			(at 106.68 59.69 0)
 			(show_name no)
 			(do_not_autoplace no)
