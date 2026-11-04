@@ -50,7 +50,7 @@ ESP32-S3-Zero pin map (both boards):
 - GPIO43/44: UART TX/RX
 - GPIO21: on-module RGB LED
 
-Weird rotary switches: 12 positions, 7 contacts, rotate infinitely (no end stops), make-before-break with a very wide wiper. Read in two phases (pin 1 pulled up / pin 1 sunk via the transistor). Transition readings are either garbage or one of the two adjacent positions, so a short debounce (~20 ms, tuned on the bench) is enough; non-adjacent jumps need ~100 ms to block phase-mix artefacts.
+Weird rotary switches: 12 positions, 7 contacts, rotate infinitely (no end stops), make-before-break with a very wide wiper. Read in two phases (pin 1 pulled up / pin 1 sunk via the transistor). Transition readings are either garbage or one of the two adjacent positions, so a short debounce (~20 ms, tuned on the bench) is enough. Exception: halfway between 12 and 1 the contacts give the real code of position 6 for as long as the knob sits there, so non-adjacent jumps need a long stable time (~1 s, also blocks phase-mix artefacts).
 
 Board A also has these system switches:
 - Master-mode switch: 12 positions with end stop, resistor ladder on the last 4051 channel (7). It selects which mapping is used.

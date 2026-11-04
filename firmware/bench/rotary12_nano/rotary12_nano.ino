@@ -9,8 +9,8 @@
 //     -> frame = 24 ticks = 2.4 ms -> one complete phase-1 + phase-2 pair at ~417 Hz
 //   * the phase only changes right AFTER a read, so the next read is always settled
 //   * code = last phase-1 sample + last phase-2 sample, looked up in the truth table
-//   * a new position is accepted when the code has been identical for 20 ms
-//     (100 ms if the jump is not to an adjacent position, or on the first reading)
+//   * a new position is accepted when the code has been identical for kRotaryStableTime
+//     (kRotaryJumpStableTime if the jump is not to an adjacent position)
 //
 // Wiring (no external parts needed, the Nano's internal pull-ups replace the 10 k network):
 //   switch pin 1 -> D2      (read in phase 1, driven LOW by the Nano in phase 2;
@@ -31,11 +31,13 @@
 const uint16_t kTickUs               = 100;  // 10 kHz scan tick
 const uint8_t  kTicksPerPhase        = 12;   // 4 mux slots x 3 ticks per slot
 const uint32_t kRotaryStableTime     = 10;   // ms, adjacent positions
-const uint32_t kRotaryJumpStableTime = 50;  // ms, non-adjacent jumps / first reading
+// Non-adjacent jumps. Must be longer than the slowest turn through the 12 <-> 1 boundary,
+// where the wiper touches pin 1 + pin 7 only, which is the code of position 6.
+const uint32_t kRotaryJumpStableTime = 1000;  // ms
 
 // 1 = also print every change of the raw decoded code (for measuring contact chatter
 // and tuning kRotaryStableTime, like the planned console "rotary" view).
-#define LOG_CODES 0
+#define LOG_CODES 1
 
 // ---------------------------------------------------------------- truth table
 // Converts "pin1 pin2 ... pin6" as written in the plan into a 6-bit value with
@@ -126,7 +128,9 @@ void decode(uint8_t p1, uint8_t p2) {
 
   const bool up       = position >= 0 && cand == (position + 1) % 12;
   const bool down     = position >= 0 && cand == (position + 11) % 12;
-  const uint32_t need = (up || down) ? kRotaryStableTime : kRotaryJumpStableTime;
+  // The first reading after boot has nothing to be adjacent to, so it uses the short time.
+  const bool first    = position < 0;
+  const uint32_t need = (up || down || first) ? kRotaryStableTime : kRotaryJumpStableTime;
 
   if (now - stableSince < need) return;
 

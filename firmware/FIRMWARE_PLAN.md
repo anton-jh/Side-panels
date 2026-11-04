@@ -410,9 +410,9 @@ and position 12 touches pin 1 alone.
 
 **Transitions.** The switches are **make-before-break** with a very wide wiper. While
 turning, a reading is either **garbage** (a code that isn't in the table) or **identical to the
-position it's moving from or to**. Garbage is simply discarded. A real position is never
-mis-read as some *other* position. So only a **short** debounce is needed, not a long one.
-It still can't be zero, for three reasons:
+position it's moving from or to**, with **one exception at 12 ↔ 1** (point 4 below).
+Garbage is simply discarded. So only a **short** debounce is needed between adjacent
+positions. It still can't be zero, for four reasons:
 
 1. **Chatter between the two positions.** During a 3→4 turn the reading can go
    3 → 4 → 3 → 4 before it settles. Accepted as-is, that's *up, down, up*: three pulses
@@ -428,17 +428,23 @@ It still can't be zero, for three reasons:
    the full truth table.) Such a mix lasts for at most one decode, about 2.4 ms, because the
    next pair is consistent again.
 3. **Noise:** an occasional single bad sample.
+4. **The 12 ↔ 1 contact state (seen on the bench).** Halfway between 12 and 1 the wiper
+   touches pin 1 and the pin-7 common but not yet pin 6. Pin 1 to GND alone is exactly the
+   code of **pos 6**. Unlike a phase mix this is a real contact state: it lasts as long as
+   the knob sits there, so a slow turn held it for more than 50 ms and registered 6.
 
 So the rotary debouncer works like this:
 
 * A new position is accepted once the decoded code has been **identical for
   `kRotaryStableTime`**: one central constant, default **20 ms**, which is about 8
-  consecutive decodes. Any change of code, valid or not, restarts the timer. That removes all
-  three problems above. Final value: measure it (below).
-* **Extra safety:** a jump to a **non-adjacent** position (not ±1 modulo 12) needs a longer
-  stable time, `kRotaryJumpStableTime`, default **100 ms**. A phase-mix artefact could never
-  get through, even if contacts chatter at exactly the 6/7 or 12/1 boundary. A real skip (a
-  very fast flick, or the first reading after boot) is still accepted, just a bit later.
+  consecutive decodes. Any change of code, valid or not, restarts the timer. That removes
+  problems 1–3 above. Final value: measure it (below).
+* **Non-adjacent jumps:** a jump to a position that isn't ±1 modulo 12 needs a much longer
+  stable time, `kRotaryJumpStableTime`, default **1000 ms**. It must be longer than the
+  slowest realistic turn through the 12 ↔ 1 boundary (problem 4), which also covers the
+  phase-mix artefacts. A real skip (a very fast flick past a position) is still accepted,
+  just up to a second late, since the knob then rests at a detent. The **first reading after
+  boot** has nothing to be adjacent to and uses the normal `kRotaryStableTime`.
 * Invalid codes never become a position. The last accepted position is kept, and the code
   is counted as a diagnostic.
 * **Measuring the right value:** the console (§10) has a `rotary` view that logs every
@@ -1069,7 +1075,8 @@ B never waits for A and works the same whether or not A is listening.
 * **Rotary switches:** make-before-break. Transition
   readings are either garbage or one of the two adjacent positions, so a short
   `kRotaryStableTime` (default 20 ms, measured on the bench) is enough. Non-adjacent jumps
-  need 100 ms, to block the two possible phase-mix artefacts (§5.3). No end stops.
+  need ~1 s, because halfway between 12 and 1 the contacts give the real code of
+  position 6; this also blocks the phase-mix artefacts (§5.3). No end stops.
 * **Multi-position switches:** B sends positions only. A derives up/down from the previous
   vs the new position. Encoders keep cumulative counters (§5.4, §6).
 * **Master-mode switch:** 12 positions with an end stop, position only (§7.2).
