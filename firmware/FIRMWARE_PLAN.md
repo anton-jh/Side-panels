@@ -56,13 +56,12 @@ If the schematic changes, update this section and `hw_pins.h`.
 |---|---|---|---|
 | 1 | `ADDR0` | out | 74HC4051 S0 **and** keypad ROW1 (via R4 100 Ω) |
 | 2 | `ADDR1` | out | 74HC4051 S1 **and** keypad ROW2 (via R5 100 Ω) |
-| 3 | `ADDR2` | out | 74HC4051 S2 **and** keypad ROW3 (via R6 100 Ω). GPIO3 is a strapping pin, but only for JTAG-source selection when an eFuse is burned, so it is harmless here. |
-| 4 | `A` | analog in | 4051 common output. **ADC1_CH3**: ADC1 is the right choice because ADC2 conflicts with Wi-Fi. |
-| 5 | `ROT_PIN_1` | out | Drives the bases of **all four** BC547s at once (R1 10 k, R7 10 k pull-down). High = transistors on = rotary "pin 1" sunk to GND. |
+| 3 | `ADDR2` | out | 74HC4051 S2 **and** keypad ROW3 (via R6 100 Ω) **and** the rotary-switch phase: drives the bases of all four BC547s through R1 10 k (R7 10 k pull-down). High = transistors on = rotary "pin 1" sunk to GND (§1.5). GPIO3 is a strapping pin, but only for JTAG-source selection when an eFuse is burned, so it is harmless here. |
+| 4 | `SR_PL` | out | Parallel load, active low (R9 47 Ω series) |
+| 5 | `SR_CP` | out | Shift clock (R10 47 Ω series) |
 | 6 | `SR_Q7` | in | Serial data from U4, the first 165 in the chain |
-| 7 | `SR_CP` | out | Shift clock (R10 47 Ω series) |
-| 8 | `SR_PL` | out | Parallel load, active low (R9 47 Ω series) |
-| 9–13 | `AUX0`–`AUX4` | — | Expansion grid, unused. Useful as **timing probe pins** while developing (see §10). |
+| 7 | `A` | analog in | 4051 common output. **ADC1_CH6.** ✓ On the S3, GPIO1–10 are ADC1 and GPIO11–20 are ADC2; ADC1 is the right one because ADC2 can't be used while Wi-Fi is on and is generally less convenient. |
+| 8–13 | `AUX5`–`AUX0` | — | Expansion grid J3 (GPIO8 = AUX5 … GPIO13 = AUX0), unused. Useful as **timing probe pins** while developing (see §10). AUX5–AUX3 (GPIO8–10) are ADC1-capable too, if you ever want more analog inputs. |
 | 21 | (on-module) | out | WS2812 RGB LED on the S3-Zero. Use it for status (see §10). |
 | 43 | `TX` | out | **UART TX** on both boards. A: via R3 → RJ45 pin 1. B: R2/R3 are fitted crossed ("Cross on board B" silkscreen), so it goes → RJ45 pin 3. |
 | 44 | `RX` | in | **UART RX** on both boards. A: via R2 ← RJ45 pin 3. B: crossed, ← RJ45 pin 1. |
@@ -115,14 +114,17 @@ So the keypad is scanned "for free" as the mux address steps through 0–7.
 ### 1.4 74HC4051 channel → terminal J5
 
 Channel *n* ↔ **J5 pin (8 − n)**: Y0 = J5-8, Y1 = J5-7, …, Y7 = J5-1.
-E is tied to GND, so the mux is always enabled. Each J5 input has an optional 100 nF cap
-to GND (C12–C19).
+E is tied to GND, so the mux is always enabled. Each J5 input has a 100 nF cap to GND
+(C12–C19), which will be fitted (§4.3). The master-mode switch is on **channel 7 = J5 pin 1**.
 
 ### 1.5 Rotary-switch phase line
 
-There is **one** control line (GPIO5) for all four transistors. All rotary switches
-switch phase together: phase 1 is GPIO5 low (pin 1 pulled up), phase 2 is GPIO5 high
-(pin 1 sunk). Wiring per switch: pin 1 → one J2 terminal **and** one SR input;
+There is no separate phase pin: **`ADDR2` (GPIO3) is the phase line** for all four
+transistors. All rotary switches switch phase together: phase 1 is ADDR2 low (pin 1 pulled
+up, mux addresses 0–3), phase 2 is ADDR2 high (pin 1 sunk, addresses 4–7). The mux scan
+visits all 8 addresses anyway, so both phases come for free (§4.2). The keypad and the
+transistors don't interfere: the keypad only sees ADDR2 as its row-3 line, and the transistors
+only affect the rotary switches' pin 1. Extra load on GPIO3: ≈ 0.26 mA base current. Wiring per switch: pin 1 → one J2 terminal **and** one SR input;
 pins 2–6 → SR inputs; pin 7 → GND. Each switch uses 6 SR inputs, so four switches use
 24 of a board's 64.
 
@@ -142,8 +144,8 @@ pins 2–6 → SR inputs; pin 7 → GND. Each switch uses 6 SR inputs, so four s
    shows up in the readings. Filtering (§5.5) and calibration take care of it.
    See the brainstorm item in §14 for a fully ratiometric option.
 4. `SR_Q7_KP` already has a pull-up (R8), so an unpopulated keypad header is stable.
-5. The pull-down on the transistor bases means the rotary phase is a defined
-   "phase 1" while the ESP32 is still booting. Good.
+5. The pull-down on the transistor bases (R7) means the rotary phase is a defined
+   "phase 1" while ADDR2 still floats during boot. Good.
 
 ---
 
@@ -266,8 +268,8 @@ Check CP at the far end (U11 and the keypad) with a scope or a logic analyzer on
 
 ### 4.2 Scan schedule (address, phase, settle)
 
-ADDR0–2 drive the 4051 and the keypad rows. GPIO5 sets the rotary phase. After any
-change, things need time to settle (mux output, cable capacitance, BJT turn-off
+ADDR0–2 drive the 4051 and the keypad rows, and ADDR2 also sets the rotary phase (§1.5).
+After any change, things need time to settle (mux output, cable capacitance, BJT turn-off
 storage time, 10 k pull-ups charging cable capacitance). Key idea: **change
 address/phase immediately *after* a chain read, so the next read is always settled.**
 
@@ -275,13 +277,13 @@ address/phase immediately *after* a chain read, so the next read is always settl
 tick period T = 100 µs (10 kHz).   slot = 3 ticks (300 µs).   frame = 8 slots (2.4 ms)
 
 slot i: addr = GRAY[i] = 0,1,3,2,6,7,5,4      (only 1 address line changes per step)
-        phase = i & 1                          (rotary phase 1 / phase 2)
+        phase = ADDR2 = (addr >> 2) & 1        (slots 0–3: phase 1, slots 4–7: phase 2)
 
   tick 0: read chain ─► process      (addr/phase have been stable for ≥ ~60 µs)
   tick 1: read chain ─► process
   tick 2: read chain ─► process
           ADC: 1 dummy conversion + 4 conversions averaged, on channel `addr`
-          then: set next addr + phase  ◄── changes only happen here
+          then: set next addr      ◄── changes only happen here (this also switches the phase)
 ```
 
 Each read is **tagged** with the `(addr, phase)` it was taken under, and processing
@@ -290,12 +292,18 @@ routes the bits:
 | Bits | Used from |
 |---|---|
 | Plain buttons/switches, encoders | **every** read (10 kHz) |
-| Rotary-switch pins | reads with `phase` = 1 or 2, combined into pairs |
+| Rotary-switch pins | reads with `phase` = 1 (addr 0–3) or 2 (addr 4–7), combined into pairs |
 | Keypad byte | reads with `addr` ∈ {6, 5, 3} → row 1/2/3; `addr` = 7 → check that all keys read "not pressed" |
 | ADC result | belongs to channel `addr` |
 
 Resulting rates: digital 10 kHz, each analog channel ~417 Hz, each keypad row ~417 Hz,
-complete rotary-switch reads ~1.7 kHz. Plenty everywhere.
+complete rotary-switch reads (one phase-1 + one phase-2 sample) ~417 Hz. Plenty everywhere,
+including for the rotaries' 200 ms stable time. The phase changes only twice per frame
+(at 2→6 and 4→0 in the Gray order), so the transistors switch rarely.
+
+The only side effect of sharing ADDR2: the rotary phase can't change independently of the
+mux address. If some future feature parks the mux on one address for a long time, the
+rotaries just keep their last accepted position until the scan resumes.
 
 **All of these numbers are starting points and live in one `constexpr` config struct.**
 Measure on the real board: toggle `AUX0` at every tick and `AUX1` during ADC conversions,
@@ -1055,6 +1063,8 @@ B never waits for A and works the same whether or not A is listening.
 * **Mapping changes** are made in code and flashed; no runtime configuration (§14 keeps the
   idea parked).
 * **Master-mode switch** is on A's last analog input, channel 7 (§7.2).
+* **Rotary phase shares ADDR2** (GPIO3); pins re-arranged in the PCB (PL = GPIO4, CP = GPIO5,
+  Q7 = GPIO6, analog = GPIO7 = ADC1_CH6). That frees GPIO8–13 as AUX5–AUX0 on J3 (§1.1, §1.5).
 * **Keypad on B:** most probably. Already handled by automatic presence detection (§1.2).
 * **Joystick vs pot** doesn't need deciding yet: the firmware treats all analog channels the
   same until a mode maps them (§5.5).
@@ -1090,5 +1100,5 @@ B never waits for A and works the same whether or not A is listening.
 * **Firmware update of B through A** (A forwards an image over the link, B writes it with
   `esp_ota`). It is a firmware-level feature, since B's ROM bootloader isn't reachable through
   the link wiring. Nice-to-have only.
-* **Outputs on AUX0–AUX4:** status LEDs on the panel, or I²C for a small display showing the current mode.
+* **Outputs on AUX0–AUX5:** status LEDs on the panel, or I²C for a small display showing the current mode.
 * **Virtual detents on axes** (e.g. throttle idle/cutoff gates reported as buttons).
