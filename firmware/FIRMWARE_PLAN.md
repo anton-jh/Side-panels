@@ -700,8 +700,8 @@ held button.
   to "pulse on ON" produces that pulse's button once the pulse has ended. With pulses hidden
   (§7.3.1), it produces nothing, and only a position button would count. That way the filter
   switches choose *what* can be bound.
-* On return to centre, pulses that are still queued play out, then normal reporting resumes:
-  current held positions and axes are reported again, with no replay.
+* On return to centre, pulses that are still queued are **dropped**, and normal reporting
+  resumes immediately: current held positions and axes are reported again, with no replay.
 
 **Switch-over details:**
 * Going from side 1 to side 2 physically passes through the centre. To stop that from
@@ -724,51 +724,80 @@ So the descriptor's axis range (signed or unsigned) no longer matters for zeroin
 Each master mode is a class. As a C# developer you'd recognise it as a small "render"
 method that runs every millisecond and declares what the outputs *should be right now*.
 
+**Bindings, not tables.** A mapping is **not** keyed on physical inputs or on logical outputs.
+There is no "settings for input X" record and no "source of button Y" record. Each helper
+call is **one standalone binding**, like a row in an m:n junction table:
+
+* The same physical input can appear in any number of bindings. A toggle can drive two
+  position buttons **and** two pulse buttons; a rotary switch can report its position
+  **and** emit up/down pulses like an encoder.
+* The same logical output can be fed by any number of bindings, which are OR-ed for buttons.
+* Each binding carries its own options (pulse type, output class, curve, deadzone, …).
+  Nothing is shared between bindings unless you share it in code.
+* Bindings are plain C++ statements, so `if`/`else` on any input switches between whole sets
+  of bindings. That covers **sub-modes** inside a master mode with no extra machinery.
+
 ```cpp
 class FlightSim : public Mode {
-    VirtualAxis trim { -1.0f, +1.0f, /*step*/ 0.01f };   // can't be inferred from switches → reset on entry
+    // Virtual-axis state: can't be inferred from switches → member of the mode,
+    // reset whenever this master mode is entered.
+    RateAxis    yaw   { /*full range per second*/ 0.8f };
+    RateAxis    pitchTrim { 0.25f };
+    StepAxis    elevTrim  { /*per encoder click*/ 0.01f };
 public:
     FlightSim() {
         neutral(JA.axis(Z),  Neutral::Min);       // throttle: zero = idle
         neutral(JA.axis(RZ), Neutral::Centre);    // (Centre is the default anyway)
     }
     const char* name() const override { return "Flight sim"; }
-    void onEnter() override { trim.reset(); }
+    void onEnter() override { yaw.reset(); pitchTrim.reset(); elevTrim.reset(); }
 
     void run(Map& m) override {
         // ── Held (level) outputs: "output is ON while condition is true".
-        //    Multiple writers to the same output are OR-ed → many-to-one is natural.
+        //    Multiple bindings to the same output are OR-ed → many-to-one is natural.
         // JA = board A's joystick, JB = board B's joystick. Any input can go to either.
-        m.hold(JA.btn(1),  m.on(A::GEAR));
         m.hold(JA.btn(2),  m.on(A::TRIGGER) || m.on(B::TRIGGER2));   // many → one
         m.hold(JA.btn(3),  m.on(A::MASTER_ARM));                     // one → many …
         m.hold(KEY(F1),    m.on(A::MASTER_ARM));                     // … as many as you like
 
-        // ── Chords and shift layers are just code
-        Signal shift = m.on(A::SHIFT);   // Signal = bool + output class (§7.3.1)
-        m.hold(JA.btn(4),  !shift && m.on(A::BTN7));
-        m.hold(JA.btn(5),   shift && m.on(A::BTN7));
-        m.hold(JA.btn(6),  m.on(A::BTN8) && m.on(A::BTN9));          // chord
+        // ── One on-off toggle, four independent bindings (your example 1)
+        m.hold(JA.btn(1),  m.off(A::LIGHTS));          // physical position 1 → logical 1 [Position]
+        m.hold(JA.btn(2),  m.on (A::LIGHTS));          // physical position 2 → logical 2 [Position]
+        m.pulseOnPress  (A::LIGHTS, JA.btn(3));        // 1 → 2 → pulse logical 3        [StepPulse]
+        m.pulseOnRelease(A::LIGHTS, JA.btn(4));        // 2 → 1 → pulse logical 4        [StepPulse]
 
-        // ── Edges → pulses (fixed-length press, queued by the pulse engine)
-        m.pulseOnPress  (A::LIGHTS, JA.btn(10));        // toggle up   → tap btn 10
-        m.pulseOnRelease(A::LIGHTS, JA.btn(11));        // toggle down → tap btn 11
-        m.pulseOnChange (A::PITOT,  KEY(H));            // any flip    → tap H
-        m.tapOnPress    (A::SAVE,   KEY(LCTRL, S));     // key combo, modifier sequencing handled
-
-        // ── Encoders
-        m.encoderPulses(B::HDG, JB.btn(1), JB.btn(2));  // CW → btn 1, CCW → btn 2
-        m.axis(JA.axis(RZ), trim.step(m.delta(B::TRIM)));   // encoder → virtual axis
-
-        // ── Multi-position switches: position AND up/down pulses
-        //    (the filter switches decide at runtime which of them are reported)
-        m.selectorButtons(B::RADIO, JB.btn(20));         // pos 1..12 → hold btn 20..31  [Position]
-        m.selectorPulses (B::RADIO, JB.btn(40), JB.btn(41)); // step up / step down     [StepPulse]
-        m.selectorButtons(A::FLAPS, JA.btn(50));         // 3-pos toggle → 3 buttons
+        // ── One rotary switch: absolute position AND encoder-like pulses (example 2)
+        m.selectorButtons(B::RADIO, JB.btn(20));             // pos 1..12 → hold btn 20..31 [Position]
+        m.selectorPulses (B::RADIO, JB.btn(40), JB.btn(41)); // step up / step down        [StepPulse]
+        m.selectorButtons(A::FLAPS, JA.btn(50));             // 3-pos toggle → 3 buttons
         m.selectorPulses (A::FLAPS, KEY(F7), KEY(F6));
 
-        // ── Analog
-        m.axis(JA.axis(X),  m.analog(A::STICK_X).cal().deadzone(0.03f));
+        // ── Chords and shift layers are just code
+        Signal shift = m.on(A::SHIFT);   // Signal = bool + output class (§7.3.1)
+        m.hold(JA.btn(5),  !shift && m.on(A::BTN7));
+        m.hold(JA.btn(6),   shift && m.on(A::BTN7));
+        m.hold(JA.btn(7),  m.on(A::BTN8) && m.on(A::BTN9));          // chord
+        m.pulseOnChange(A::PITOT, KEY(H));                          // any flip → tap H
+        m.tapOnPress   (A::SAVE,  KEY(LCTRL, S));                   // key combo
+
+        // ── Encoders
+        m.encoderPulses(B::HDG, JB.btn(1), JB.btn(2));       // CW → btn 1, CCW → btn 2
+
+        // ── Axes, three ways (§7.4.1)
+        // Sub-mode: a physical switch decides what stick X does. Just an `if`.
+        if (m.on(A::STICK_DIRECT)) {
+            m.axis(JA.axis(X), m.analog(A::STICK_X).cal().deadzone(0.03f));   // 1. direct
+        } else {
+            yaw.integrate(m, m.analog(A::STICK_X).cal().deadzone(0.05f).curve(2.0f));
+                                                                  // 2. integral of an axis:
+        }                                                         //    more deflection = faster
+        m.axis(JA.axis(RY), yaw.value());       // reported in both sub-modes; keeps its value
+                                                // while not being driven
+        pitchTrim.integrate(m, A::TRIM_UP, A::TRIM_DOWN);         // 3. integral of buttons
+        m.axis(JA.axis(RX), pitchTrim.value());
+        elevTrim.step(m.delta(B::TRIM));                          // (encoder clicks → steps)
+        m.axis(JA.axis(RZ), elevTrim.value());
+
         m.axis(JA.axis(Z),  m.analog(A::THROTTLE).cal().curve(1.5f));
         m.hold(JA.btn(60),  m.analog(A::THROTTLE).cal() < 0.05f);   // axis → button
 
@@ -782,18 +811,43 @@ Mode* const kModes[12] = { &generic, &flightSim, &spaceSim, … };
 
 Semantics, kept intentionally simple:
 
-* **Buttons and keys:** OR of every `hold` plus any active pulse.
+* **Buttons and keys:** OR of every binding that holds them, plus any active pulse.
 * **Axes:** last writer wins. A debug build warns if an axis is written twice in one frame.
   Use explicit helpers when combining is intended: `m.axisMax(…)`, `m.axisSum(…)`,
   `splitAxis(…)` (one pot → two half-axes), `mergeAxes(…)` (two toe brakes → one rudder).
-* `m.on(x)`, `m.pressed(x)` (rising edge this frame), `m.released(x)`, `m.delta(enc)`,
-  `m.position(sel)`, `m.stepDelta(sel)`: inputs from absent B read as off / 0 / unknown.
-* Edge helpers compare against the previous frame, so no state lives in the mode.
-  Stateful helpers (`Latch`, `VirtualAxis`, `LongPress`, `DoubleTap`) are members of the
-  mode class and get reset in `onEnter()`, because their state can't be inferred from the
+  An axis no binding writes in a frame sits at its neutral value.
+* `m.on(x)`, `m.off(x)`, `m.pressed(x)` (rising edge this frame), `m.released(x)`,
+  `m.delta(enc)`, `m.position(sel)`, `m.stepDelta(sel)`: inputs from absent B read as
+  off / 0 / unknown.
+* Edge helpers compare against the previous frame, so they need no state in the mode.
+  Stateful helpers (`RateAxis`, `StepAxis`, `Latch`, `LongPress`, `DoubleTap`) are members of
+  the mode class and are reset in `onEnter()`, because their state can't be inferred from the
   physical switches.
 * Every helper tags what it writes with an output class (§7.3.1), so the filter switches
-  work on any mode with no extra code.
+  work on any mode with no extra code. Virtual axes are `Always`.
+* No helper assumes anything about the other bindings. That is why sub-modes, layers and
+  "one input, many meanings" are just ordinary control flow.
+
+#### 7.4.1 Logical axes: direct, integral of an axis, integral of buttons
+
+| Way | Helper | State | Behaviour |
+|---|---|---|---|
+| 1. Direct | `m.axis(out, m.analog(in).cal()…)` | none | Logical axis = calibrated physical axis, with optional deadzone, curve, invert, range. |
+| 2. Integral of a physical axis | `RateAxis::integrate(m, signal)` | value | Each frame: `value += rate(signal) × maxSpeed × dt`, clamped to the axis range. A deadzone around the centre means "stick at rest = axis stays put". A curve gives fine control near centre and fast movement at full deflection. |
+| 3. Integral of buttons | `RateAxis::integrate(m, upInput, downInput)` | value | Same integrator, rate = +1 / −1 / 0 from two buttons (both = 0). Optional ramp: speed grows the longer a button is held. |
+| (Steps) | `StepAxis::step(m.delta(enc))` | value | Fixed step per encoder click or per pulse. |
+
+* `maxSpeed` is in "full range per second", so `0.5` means "2 s from end to end at full
+  deflection". `dt` comes from `Map`, so the speed doesn't depend on the loop rate.
+* **The state is scoped to the master mode.** The objects are members of the mode class, so
+  each mode has its own. They are reset to the axis's neutral value whenever the master mode
+  is entered (§7.2). Changing a sub-mode switch *inside* a mode does **not** reset them. In
+  the example, `yaw` keeps its value while stick X is in direct mode.
+* Each virtual axis is integrated at most **once per frame**. A debug build warns if the same
+  object is integrated twice, which would double its speed.
+* While the zero switch is active, mapping keeps running, so a virtual axis keeps moving if its
+  stick or buttons are moved; only the report is zeroed. On return the current value is
+  reported. **(assumption, see §13)**
 
 **Generic mode, for binding in a game's own control settings.** It is generated
 automatically from the wiring tables, so it never needs maintenance when you add or
@@ -803,7 +857,7 @@ remove switches. Each unit's inputs go to its own joystick (A → JA, B → JB),
 | Input | Output (fixed button numbers) | Class |
 |---|---|---|
 | Momentary button, keypad key | 1 held button | `Always` |
-| On-off toggle | 1 held button (position) | `Position` |
+| On-off toggle | 2 held buttons (one per position: off, on) | `Position` |
 | | "on" / "off" pulse buttons | `StepPulse` |
 | On-off-on toggle, rotary switch | 1 held button per position | `Position` |
 | | up / down pulse buttons | `StepPulse` |
@@ -820,10 +874,18 @@ positions are hidden and later show positions again, button 40 is still RADIO-up
 does *not* move down to fill the gap. (The other option, packing visible outputs together,
 would make the numbers depend on the filter settings and silently break bindings.)
 
-**Button budget:** each unit gets 128 buttons. Your current plan fits easily. Board A, with
-3 rotaries, 1 encoder, the system switches, the rest plain, and the keypad, uses about 110 in
-the worst case. Board B uses fewer. A `static_assert` makes the build fail if a wiring change
-would ever need more than 128.
+**Button budget (needs a decision, see §13).** Each unit gets 128 buttons. With the full
+generic layout above, board A's fixed parts already use 68: 3 rotaries × 14, 1 encoder × 2,
+and 24 keypad keys. That leaves 60 buttons for the remaining 40 shift-register inputs (64 minus
+18 rotary bits, 2 encoder bits and 4 system-switch bits). A momentary uses 1 and an on-off
+toggle uses 4 (2 positions + 2 pulses). So **with more than about 6 toggles on A, the full
+generic layout no longer fits** in 128. A `static_assert` makes the build fail rather than
+silently dropping anything. Options:
+* a per-input flag in the wiring table to trim its generic outputs (e.g. "positions only"), or
+* a third joystick used only by the generic mode for overflow, or
+* letting the generic mode put A's overflow on JB when B has room.
+
+Game-specific modes aren't affected: they only use the buttons they bind.
 
 ### 7.5 Pulse engine
 
@@ -980,25 +1042,37 @@ B never waits for A and works the same whether or not A is listening.
 * **Zero switch (on-off-on):** side 1 = zero + re-report, with toggle pulse replay. Side 2 =
   isolated binding mode: everything zeroed, and each logical button or key that is pressed and
   then released in this mode gives one pulse right after the release. Pulse-generated
-  presses count too. Nothing else, no replay (§7.3.2).
+  presses count too. Nothing else, no replay. Pulses still queued when it returns to centre
+  are dropped (§7.3.2).
 * **Neutral axis values** are defined per axis and per master mode (§7.3.2).
 * **Mode state:** anything that can't be inferred from physical switch positions is reset
   on mode change (§7.2).
+* **Bindings are standalone** (m:n, like a junction table), not keyed on physical inputs or
+  logical outputs. One switch can report its position *and* emit up/down pulses, with options
+  set per binding. Sub-modes are plain `if`s in the mode (§7.4).
+* **Logical axes** can be driven directly by a physical axis, as the integral of a physical
+  axis, or as the integral of buttons (plus encoder steps). The integrator state is per master
+  mode and is reset on mode change (§7.4.1).
 * **Current hardware:** A has 3 rotaries, the mode switch and 1 encoder. B has 1 rotary and a
   few encoders. Counts will change, so everything comes from the wiring tables, with
   compile-time checks against the board's limits (4 rotaries, 32 encoders, 64 bits, 128 buttons).
 
 ### Still open
 
-1. **Hat switch** on JA/JB: wanted? It has to be decided before the descriptor is frozen (§7.6).
-2. **Encoder acceleration** (fast spin → bigger steps)? It's only useful for encoders mapped to
+1. **Generic button budget:** the full generic layout overflows 128 buttons on A with more
+   than about 6 on-off toggles (§7.4). Trim per input in the wiring table, add a third joystick
+   for the generic mode, or spill onto JB?
+2. **Virtual axes while zeroed:** keep integrating while the zero switch is active (assumed),
+   or freeze until it returns to centre (§7.4.1)?
+3. **Hat switch** on JA/JB: wanted? It has to be decided before the descriptor is frozen (§7.6).
+4. **Encoder acceleration** (fast spin → bigger steps)? It's only useful for encoders mapped to
    virtual axes, since pulses are capped at 5/s anyway (§7.5).
-3. **Analog:** how many channels are joysticks vs simple pots on each board? Will you fit the
+5. **Analog:** how many channels are joysticks vs simple pots on each board? Will you fit the
    100 nF caps? Is the master-mode switch on a 4051 channel of A (assumed)?
-4. **Configuration:** is compile-and-flash for mapping changes acceptable long-term
+6. **Configuration:** is compile-and-flash for mapping changes acceptable long-term
    (proposed), or do you eventually want changes without re-flashing (see §14)?
-5. **Keypad on B:** the firmware supports it automatically. Just confirm whether it's planned.
-6. **Both USBs connected at once** (handy for debugging both boards at the same time): check
+7. **Keypad on B:** the firmware supports it automatically. Just confirm whether it's planned.
+8. **Both USBs connected at once** (handy for debugging both boards at the same time): check
    whether the S3-Zero has a diode between USB VBUS and its 5V pin. Otherwise the two PCs'
    (or ports') 5V rails get tied together via the Cat5 (hardware question, affects dev workflow).
 
