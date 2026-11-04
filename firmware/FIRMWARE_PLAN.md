@@ -29,10 +29,11 @@ Status: **draft for discussion.** Nothing here is final. Assumptions are marked
   `InputState` and the link protocol is shared. Board A adds USB HID and mapping.
   Board B is "scanner + transmitter" and nothing else.
 * **Board B sends its whole state, not change events.** It sends a full snapshot
-  of its debounced, decoded state, with **cumulative counters** for encoders and
-  multi-position switches. A lost or corrupted frame then costs nothing, because
-  the next one carries the same counters, and "B absent" just means "no valid
-  frame for 50 ms".
+  of its debounced, decoded state: button bits, rotary-switch positions, analog
+  values, and a **cumulative counter per encoder**. A lost or corrupted frame then
+  costs nothing, because the next one carries the same values, and "B absent" just
+  means "no valid frame for 50 ms". Board A works out up/down steps of multi-position
+  switches itself, from the previous vs the new position.
 * **The scan loop runs on its own CPU core** at about 10 kHz for the digital
   chain. The 4051 address and the rotary "phase" step in the background, and
   each one is only sampled once it has settled.
@@ -63,11 +64,12 @@ If the schematic changes, update this section and `hw_pins.h`.
 | 8 | `SR_PL` | out | Parallel load, active low (R9 47 Ω series) |
 | 9–13 | `AUX0`–`AUX4` | — | Expansion grid, unused. Useful as **timing probe pins** while developing (see §10). |
 | 21 | (on-module) | out | WS2812 RGB LED on the S3-Zero. Use it for status (see §10). |
-| 43 | `TX` → RJ45 pin 1 | A: **UART TX**, B: **UART RX** | |
-| 44 | `RX` ← RJ45 pin 3 | A: **UART RX**, B: **UART TX** | |
+| 43 | `TX` | out | **UART TX** on both boards. A: via R3 → RJ45 pin 1. B: R2/R3 are fitted crossed ("Cross on board B" silkscreen), so it goes → RJ45 pin 3. |
+| 44 | `RX` | in | **UART RX** on both boards. A: via R2 ← RJ45 pin 3. B: crossed, ← RJ45 pin 1. |
 
-Use **UART1** on both boards and route it to 43/44 through the GPIO matrix
-(`uart_set_pin`). That leaves UART0 alone. On B the pins are swapped in software.
+Because B's resistors are crossed, **both firmwares use identical UART pins**; nothing is
+swapped in software. Use **UART1**, routed to 43/44 through the GPIO matrix (`uart_set_pin`),
+so link traffic stays separate from any UART0 debug logging.
 
 ### 1.2 Shift register chain order
 
@@ -126,16 +128,11 @@ pins 2–6 → SR inputs; pin 7 → GND. Each switch uses 6 SR inputs, so four s
 
 ### 1.6 Hardware observations that matter for the firmware
 
-1. **Boot-time contention on the A-TX wire (pin 1).** On board B, GPIO43 is the
-   *receive* pin. But the ESP32 ROM bootloader (and the 2nd-stage bootloader) always
-   prints its boot log on GPIO43 (UART0 TX). For roughly 100–300 ms after B powers up
-   or resets, **both A and B drive that wire**. R3 on each board limits the current to
-   about 3.3 V / 200 Ω ≈ 16 mA, so nothing breaks. Firmware mitigations:
-   * **A stays silent until it has received a valid frame from B.** B's firmware
-     has its UART set up by then, so the ROM is done.
-   * The receiving side must tolerate garbage, which COBS framing and a CRC handle (§6).
-   * Optional: burn the eFuse that silences the ROM log on B (`espefuse.py … UART_PRINT_CONTROL`).
-     This is irreversible, so not needed unless the above proves insufficient.
+1. **Boot logs arrive at the other board.** The ESP32 ROM bootloader (and the 2nd-stage
+   bootloader) always prints a boot log on GPIO43 at 115200 baud. With R2/R3 crossed on B,
+   GPIO43 is the TX pin on both boards, so there is no contention. But each board's
+   receiver gets a burst of garbage whenever the other board boots or resets. The link
+   framing (COBS + CRC, §6) discards it and resynchronises, so nothing else is needed.
 2. **Analog top end.** In the 12 dB attenuation range, the ESP32-S3 ADC is only usable up
    to about **3.1 V**, while the pots swing up to 3.3 V. The top few percent of pot
    travel will read as "max". Firmware handles it with per-axis calibration, where max is
@@ -168,7 +165,7 @@ firmware/
       debounce.*            #   digital debouncer
       quadrature.*          #   encoder decoder
       rotary12.*            #   decoder for the 7-contact rotary switch
-      selector.*            #   multi-position switch: position + step counter
+      selector.*            #   multi-position switch: debounced position, up/down from position change
       analog_filter.*       #   oversample / median / 1-euro / hysteresis
       input_state.h         #   THE shared data contract (A local, A remote, B)
       link_protocol.*       #   COBS, CRC-16, frame structs
@@ -184,7 +181,7 @@ firmware/
     board_a/
       main.cpp
       usb_hid.*             #   descriptors + report sending
-      outputs.h             #   Outputs struct (joysticks, keyboard, consumer)
+      outputs.h             #   Outputs struct (JA, JB, keyboard)
       mapping/              #   Map API, pulse engine, helpers
       modes/                #   one file per master mode
       system_inputs.*       #   master-mode switch, zero switch
@@ -339,6 +336,11 @@ So the latency is about 0.3 ms. That is far better than the classic "wait 20 ms 
 change", and still bounce-proof. You can override the defaults per input class (old
 toggle switches may need a longer lockout).
 
+Every plain digital input also has a **kind** in the wiring config: `Momentary` (push
+button) or `Toggle` (on-off switch). An on-off-on switch is declared as a `Toggle3` over
+two bits. The kind doesn't change debouncing; it tells board A which inputs get re-synced
+when the zero switch is released (§7.3), and how the generic modes lay them out (§7.4).
+
 Efficiency: XOR the new raw word with the stable word. Only bits that differ need any
 work, which is almost always none.
 
@@ -349,8 +351,14 @@ work, which is almost always none.
   counts when the encoder arrives at a **detent state** (for example the well-known
   "full-step" table). Bounce then just wiggles between neighbouring states and never
   produces a count.
-* Per-encoder config: `stepsPerDetent` (4 = one full quadrature cycle per click,
-  which is most EC11 types; 2 = half-cycle), and `invert`.
+* Per-encoder config: `stepsPerDetent` and `invert`. Encoders differ in how many
+  quadrature state changes happen between two clicks: **4** (one full A/B cycle per
+  click, most common, e.g. typical EC11), **2** (half a cycle per click, common on
+  higher-detent-count models), or **1**. A wrong value means 2–4 counts per click, or
+  a count only every other click. You don't need to know it upfront: the `inputs` console
+  view (§10) shows the raw state changes per click on the bench.
+* Capacity: up to **32 encoders per board** (2 shift-register bits each). Nothing is
+  hard-coded for a particular count; the wiring tables decide.
 * Output: an **`int16_t` cumulative counter** (wraps safely). Consumers compute
   `delta = (int16_t)(now - last)`.
 * **Is 10 kHz fast enough?** A 24-detent encoder spun hard by hand at about 5 rev/s gives
@@ -387,43 +395,53 @@ each other with no special cases:
 | 11 | 111111 | 011101 |
 | 12 | 111111 | 011110 |
 
-**Gotcha: position 7 is "nothing connected",** and that is exactly what a break-before-make
-switch looks like *between any two positions*. A 3→4 turn will briefly read as "7".
-Mitigations, all in the selector debouncer (§5.4):
+**Transitions.** The switches are **make-before-break** with a very wide wiper and almost no
+gap between pads. While turning, the switch reads as **garbage** (a code that isn't in the
+table) or briefly as **another valid position**, for a long time compared with normal
+contact bounce. So the rotary debouncer is much slower than the button debouncer:
 
-* A new position must be **stable for `t_stable`** (default 20 ms) before it is accepted.
-  The transient "7" between detents lasts a few ms and is rejected.
-* **Plausibility for 7:** accept a jump to 7 quickly only from 6 or 8. From anywhere else
-  it needs a much longer stable time (default 250 ms).
-* Codes that aren't in the table (make-before-break overlap, a fault) are ignored and the
-  last valid position is kept. They are counted as diagnostics.
+* The decoded code must stay **identical for `kRotaryStableTime`** before the new position
+  is accepted. That is one central constant, default **200 ms**. Any change of code, valid or
+  not, restarts the timer.
+* Invalid codes never become a position. The last accepted position is kept and the code
+  is counted as a diagnostic.
+* Latency for rotary changes is therefore about 200 ms. That's fine for slowly turned
+  selectors and is the price of the huge overlap.
 
-Infinite rotation means the step direction is computed **modulo 12, shortest way**:
-`d = ((new - old + 18) % 12) - 6` gives −6..+5. Debouncing at 20 ms is fast enough not to
-skip positions even on a quick flick, about 25 ms per position for a full turn in 0.3 s.
+The switches have **no end stops** (infinite rotation), so board A computes the step from
+old to new position **modulo 12, shortest way**: `d = ((new - old + 18) % 12) - 6` gives
+−6..+5. If you turn faster than one position per 200 ms, positions are skipped and A emits
+`|d|` pulses in the right direction. That stays correct as long as fewer than 6 positions
+are skipped between two accepted readings, which is not a realistic turning speed for these switches.
 
-### 5.4 Selectors: position plus up/down steps, for everything multi-position
+Capacity: **4 rotary switches per board** (one transistor each). The scanner decodes all
+the ones listed in the wiring table.
 
-A generic **Selector** is the single abstraction for "a switch with more than one stable
-position". Sources:
+### 5.4 Selectors: position plus up/down pulses
 
-| Source | Example | Decoder |
-|---|---|---|
-| Rotary12 (two-phase) | your 7-contact switches | §5.3 |
-| One-hot bits | ON-OFF-ON toggle on 2 SR inputs: `10` / `00` / `01` → pos 0/1/2 | table |
-| Binary/BCD/Gray bits | thumbwheels, coded rotary switches | table |
-| Analog ladder | the master-mode switch (§7.2), other resistor-ladder switches | bands with hysteresis |
-| Analog axis zones | "throttle in idle detent", lever positions | bands with hysteresis |
+A **Selector** is a mapping-side abstraction (on board A) for "a switch with more than one
+stable position". It gives a mode both the **actual position** and **up/down pulses**. It
+needs nothing but a debounced position:
 
-Each selector publishes:
+| Source | Positions | Wraps? | Position comes from |
+|---|---|---|---|
+| Rotary12 (two-phase) | 12 | yes, no end stops | decoded on the board that scans it (§5.3) |
+| Toggle3 (on-off-on) | 3 | no | decoded on A from two debounced bits: `10` / `00` / `01` → pos 0/1/2 |
+| Toggle (on-off) | 2 | no | one debounced bit |
 
-* `position`: debounced, `-1` = unknown (not yet valid after boot)
-* `steps`: **cumulative signed `int16_t` counter**, +1 per step up, −1 per step down
-  (with wrap-around for infinite switches, linear otherwise)
+Up/down is derived on A by comparing the previous and the new position: shortest way
+modulo *N* for wrapping switches, plain difference otherwise. One step = one pulse on the
+"up" output or the "down" output (helpers in §7.4).
 
-Consumers on A derive both the **actual position** and the **up/down pulses** from these
-two fields (helpers in §7.4). The counter, rather than position diffs, keeps pulses correct
-even if a link frame is lost in the middle of a fast turn.
+A position diff is enough here, without a step counter like the encoders have. Positions
+change at most every 200 ms and B re-sends its full state at least every 10 ms, so A
+can't miss a step even when a frame is lost. Encoders are different: they can change
+faster than frames are sent, so they keep their cumulative counter.
+
+The master-mode switch is *not* a selector. It only needs its position (§7.2).
+
+Possible later sources, using the same interface: coded/BCD rotary switches, other
+resistor-ladder switches, zones on an analog axis.
 
 ### 5.5 Analog stabilisation (value filtering)
 
@@ -456,10 +474,10 @@ struct InputState {
     Bits<64> board;           // debounced shift-register inputs, byte/bit as in §1.2
     Bits<24> keypad;          // debounced, row-major: key = row*8 + (col-1)
 
-    // decoded
-    int16_t  encoderCount[MAX_ENCODERS];     // cumulative
-    int8_t   selectorPos[MAX_SELECTORS];     // -1 = unknown
-    int16_t  selectorSteps[MAX_SELECTORS];   // cumulative
+    // decoded (only what needs the scanning board's timing; toggles are just bits)
+    uint8_t  numEncoders;                    // as configured in the wiring table
+    int16_t  encoderCount[32];               // cumulative; only numEncoders are sent
+    int8_t   rotaryPos[4];                   // 0..11, -1 = unknown / not fitted
 
     // analog
     uint16_t analogMv[8];     // filtered, millivolts, 4051 channel order
@@ -480,27 +498,35 @@ use names instead of bit numbers.
 
 ```cpp
 // wiring_b.h — example
-constexpr EncoderDef  kEncoders[]  = { { T(J12,1), T(J12,2), Detent::Full },
-                                       { T(J12,3), T(J12,4), Detent::Full } };
+// Scanner part: needed by board B itself (B decodes these)
+constexpr EncoderDef  kEncoders[]  = { { T(J12,1), T(J12,2), StepsPerDetent{4} },
+                                       { T(J12,3), T(J12,4), StepsPerDetent{4} } };
 constexpr RotaryDef   kRotaries[]  = { { T(J14,1), T(J14,2), T(J14,3),
                                          T(J14,4), T(J14,5), T(J14,6) } }; // pin1..pin6
-constexpr Toggle3Def  kToggle3[]   = { { T(J13,7), T(J13,8) } };
 constexpr AnalogDef   kAnalog[8]   = { {Use::Axis}, {Use::Axis}, {Use::Unused}, … };
 
-// logical names used by the mappings
+// Mapping part: only used by board A
+constexpr Toggle3Def  kToggle3[]   = { { T(J13,7), T(J13,8) } };
 namespace B {
-    constexpr ButtonId  GEAR       = button(T(J10,1));
-    constexpr ButtonId  KP_ENTER   = keypad(2, 8);          // row 3, col 8
-    constexpr EncoderId HDG        = encoder(0);
+    constexpr ButtonId   GEAR      = toggle(T(J10,1));       // on-off switch
+    constexpr ButtonId   FIRE      = momentary(T(J10,2));    // push button
+    constexpr ButtonId   KP_ENTER  = keypad(2, 8);           // row 3, col 8 (momentary)
+    constexpr EncoderId  HDG       = encoder(0);
     constexpr SelectorId RADIO     = rotary(0);
     constexpr SelectorId FLAPS     = toggle3(0);
-    constexpr AnalogId  THROTTLE   = analog(0);
+    constexpr AnalogId   THROTTLE  = analog(0);
 }
 ```
 
-Because B decodes its own encoders and rotaries, **B must be re-flashed when `wiring_b.h`
-changes.** The `wiringHash` field catches the case where you forget: A shows a warning
-colour on the LED.
+Board A compiles **both** wiring files, since it needs B's names for the mappings. Board B
+only uses the scanner part of its own file.
+
+* `static_assert`s enforce the board's limits at compile time: ≤ 4 rotaries, ≤ 32 encoders,
+  no shift-register bit used twice, rotary pin-1 inputs present, and so on. Adding or
+  removing a switch is just a table edit.
+* B must be re-flashed only when the **scanner part** of `wiring_b.h` changes (encoders,
+  rotaries, analog). The `wiringHash` covers just that part. If you forget to re-flash,
+  A shows a warning colour on the LED.
 
 ---
 
@@ -516,14 +542,15 @@ will show whether you need to drop to 500 k.
   resynchronises at the next `0x00`.
 * A bad CRC or a bad length means the frame is dropped and an error counter goes up. Never act on it.
 
-**B → A: `STATE` frame** = a serialised `InputState`, about 80–110 bytes.
+**B → A: `STATE` frame** = a serialised `InputState`, about 60 bytes plus 2 per encoder
+(≤ 125 bytes even with 32 encoders).
 * Sent **when anything changed**, but at most every **2 ms** (500 Hz), and **at least
-  every 10 ms** (heartbeat). Worst case ≈ 110 bytes × 500/s ≈ 55 kB/s, well inside the
+  every 10 ms** (heartbeat). Worst case ≈ 125 bytes × 500/s ≈ 63 kB/s, inside the
   ~100 kB/s that 1 Mbaud carries. (Going to 1 kHz would need 2 Mbaud; not worth it, since
   2 ms is far below anything you can feel.)
 * No ACK or retransmit is needed: every frame is the complete truth.
 
-**A → B: `HELLO/HEARTBEAT` frame,** every 20 ms, but **only after A has heard B** (§1.6):
+**A → B: `HEARTBEAT` frame,** every 20 ms:
 `{ seq, masterMode, zeroActive, ledCommand, requests }`. It lets B show status on its LED
 and lets B know whether A is alive. Room for later: "identify" (blink), "send stats",
 config push.
@@ -533,7 +560,7 @@ config push.
 | Condition | A's view of B |
 |---|---|
 | No valid frame yet / none for **50 ms** | `remote.present = false`, all remote inputs read as neutral |
-| Valid frames resume | `present = true`, **re-baseline** counters/positions/edges (no phantom pulses) |
+| Valid frames resume | `present = true`, **re-baseline** encoder counters, previous positions and edges (no phantom pulses) |
 | `bootId` changes | B rebooted: re-baseline |
 | `wiringHash` ≠ expected | still use the data, but warn (LED + console) |
 
@@ -559,13 +586,13 @@ every 1 ms:
   prev = {local, remote}
 ```
 
-### 7.2 Master-mode switch (12 positions, analog ladder, on A)
+### 7.2 Master-mode switch (12 positions with end stop, analog ladder, on A)
 
 **(assumption)** It uses one 4051 channel on board A. That leaves 7 analog channels on A
 for pots and joysticks.
 
-* Decode with an **analog-ladder Selector** (§5.4): 12 bands around nominal voltages,
-  thresholds at the midpoints, plus hysteresis.
+* Decode the position only: 12 bands around nominal voltages, thresholds at the midpoints,
+  plus hysteresis. No up/down pulses, no selector; the only consumer is the mode logic.
 * **Suggested ladder:** a string of 14 equal resistors from 3V3 to GND, with the switch
   picking taps 1..12. That puts positions at k/14 · 3.3 V = 0.24 V … 2.83 V. The steps are
   about 0.24 V (≈ 290 ADC counts) apart and stay clear of the ADC's non-linear ends.
@@ -593,13 +620,17 @@ in `wiring_a.h` as `SYS_ZERO`. It is a system input and never reaches the mode f
 
 | | Behaviour |
 |---|---|
-| Turned on | HID reports go **neutral**: all buttons/keys released, axes at their neutral value. Pulse queue flushed. |
+| Turned on | Every report is **zeroed**: all buttons and keys released, **all axes = 0**. Pulse queue flushed. |
 | While on | Scanning, debouncing and mapping keep running normally, so their state stays current. Only the output is gated. **New pulses are dropped** and not queued for later. |
-| Turned off | The gate opens; because mapping is immediate-mode, the **current state is re-reported automatically** on the next frame. |
-| Optional "sync pulses" | For mappings like "toggle ON → pulse button X, OFF → pulse Y", replay *the pulse that matches the current position* when the gate opens (and optionally on mode entry). That re-syncs the game's view of toggles that only accept pulses. See question in §13. |
+| Turned off | The gate opens. Because mapping is immediate-mode, every **held** output and axis is **re-reported automatically** on the next frame. |
+| Re-sent pulses on release | Pulses that came from an **on-off (`Toggle`) or on-off-on (`Toggle3`)** input are replayed once for the input's *current* position. Example: "toggle ON → pulse X, OFF → pulse Y" re-sends X if the switch is on. That re-syncs games that only listen for pulses. Pulses from rotary switches, encoders and momentary buttons are **not** replayed. |
 
-"Neutral" axis value is defined per axis: centre for bipolar axes (stick), minimum for
-unipolar ones (throttle, brakes). See §13.
+The pulse helpers know which input they were given and its kind (§5.1), so this works
+without anything extra in the mode code. It happens on zero release only, not on mode change.
+
+**Zeroed axes:** "0" is the HID logical value 0. What a game makes of it depends on the
+axis range in the descriptor (§7.6). With a signed range (−32767..+32767) it's centre;
+with an unsigned range (0..65535) it's minimum. See §13.
 
 ### 7.4 Mapping API
 
@@ -616,45 +647,45 @@ public:
     void run(Map& m) override {
         // ── Held (level) outputs: "output is ON while condition is true".
         //    Multiple writers to the same output are OR-ed → many-to-one is natural.
-        m.hold(J1.btn(1),  m.on(A::GEAR));
-        m.hold(J1.btn(2),  m.on(A::TRIGGER) || m.on(B::TRIGGER2));   // many → one
-        m.hold(J1.btn(3),  m.on(A::MASTER_ARM));                     // one → many …
+        // JA = board A's joystick, JB = board B's joystick. Any input can go to either.
+        m.hold(JA.btn(1),  m.on(A::GEAR));
+        m.hold(JA.btn(2),  m.on(A::TRIGGER) || m.on(B::TRIGGER2));   // many → one
+        m.hold(JA.btn(3),  m.on(A::MASTER_ARM));                     // one → many …
         m.hold(KEY(F1),    m.on(A::MASTER_ARM));                     // … as many as you like
 
         // ── Chords and shift layers are just code
         bool shift = m.on(A::SHIFT);
-        m.hold(J1.btn(4),  !shift && m.on(A::BTN7));
-        m.hold(J1.btn(5),   shift && m.on(A::BTN7));
-        m.hold(J1.btn(6),  m.on(A::BTN8) && m.on(A::BTN9));          // chord
+        m.hold(JA.btn(4),  !shift && m.on(A::BTN7));
+        m.hold(JA.btn(5),   shift && m.on(A::BTN7));
+        m.hold(JA.btn(6),  m.on(A::BTN8) && m.on(A::BTN9));          // chord
 
         // ── Edges → pulses (fixed-length press, queued by the pulse engine)
-        m.pulseOnPress  (A::LIGHTS, J1.btn(10));        // toggle up   → tap btn 10
-        m.pulseOnRelease(A::LIGHTS, J1.btn(11));        // toggle down → tap btn 11
+        m.pulseOnPress  (A::LIGHTS, JA.btn(10));        // toggle up   → tap btn 10
+        m.pulseOnRelease(A::LIGHTS, JA.btn(11));        // toggle down → tap btn 11
         m.pulseOnChange (A::PITOT,  KEY(H));            // any flip    → tap H
         m.tapOnPress    (A::SAVE,   KEY(LCTRL, S));     // key combo, modifier sequencing handled
 
         // ── Encoders
-        m.encoderPulses(B::HDG, J2.btn(1), J2.btn(2));  // CW → btn 1, CCW → btn 2
-        m.axis(J1.axis(RZ), trim.step(m.delta(B::TRIM)));   // encoder → virtual axis
+        m.encoderPulses(B::HDG, JB.btn(1), JB.btn(2));  // CW → btn 1, CCW → btn 2
+        m.axis(JA.axis(RZ), trim.step(m.delta(B::TRIM)));   // encoder → virtual axis
 
-        // ── Multi-position switches: position AND up/down pulses
-        m.selectorButtons(B::RADIO, J2.btn(20));         // pos 1..12 → hold btn 20..31
-        m.selectorPulses (B::RADIO, J2.btn(40), J2.btn(41)); // step up / step down
-        m.selectorButtons(A::FLAPS, J2.btn(50));         // 3-pos toggle → 3 buttons
+        // ── Multi-position switches: position AND/OR up/down pulses
+        m.selectorButtons(B::RADIO, JB.btn(20));         // pos 1..12 → hold btn 20..31
+        m.selectorPulses (B::RADIO, JB.btn(40), JB.btn(41)); // step up / step down
+        m.selectorButtons(A::FLAPS, JA.btn(50));         // 3-pos toggle → 3 buttons
         m.selectorPulses (A::FLAPS, KEY(F7), KEY(F6));
 
         // ── Analog
-        m.axis(J1.axis(X),  m.analog(A::STICK_X).cal().deadzone(0.03f));
-        m.axis(J1.axis(Z),  m.analog(A::THROTTLE).cal().curve(1.5f));
-        m.hold(J1.btn(60),  m.analog(A::THROTTLE).cal() < 0.05f);   // axis → button
-        m.hat (J1.hat(0),   m.on(A::H_UP), m.on(A::H_RIGHT), m.on(A::H_DOWN), m.on(A::H_LEFT));
+        m.axis(JA.axis(X),  m.analog(A::STICK_X).cal().deadzone(0.03f));
+        m.axis(JA.axis(Z),  m.analog(A::THROTTLE).cal().curve(1.5f));
+        m.hold(JA.btn(60),  m.analog(A::THROTTLE).cal() < 0.05f);   // axis → button
 
         // ── B absent is just data
         if (!m.remotePresent()) { /* e.g. fall back to local alternatives */ }
     }
 };
 
-Mode* const kModes[12] = { &generic, &genericPulses, &flightSim, &spaceSim, … };
+Mode* const kModes[12] = { &genericBoth, &genericPositions, &genericPulses, &flightSim, … };
 ```
 
 Semantics, kept intentionally simple:
@@ -664,29 +695,51 @@ Semantics, kept intentionally simple:
   Use explicit helpers when combining is intended: `m.axisMax(…)`, `m.axisSum(…)`,
   `splitAxis(…)` (one pot → two half-axes), `mergeAxes(…)` (two toe brakes → one rudder).
 * `m.on(x)`, `m.pressed(x)` (rising edge this frame), `m.released(x)`, `m.delta(enc)`,
-  `m.position(sel)`, `m.steps(sel)`: inputs from absent B read as off / 0 / unknown.
+  `m.position(sel)`, `m.stepDelta(sel)`: inputs from absent B read as off / 0 / unknown.
 * Edge helpers compare against the previous frame, so no state lives in the mode.
   Stateful helpers (`Latch`, `VirtualAxis`, `LongPress`, `DoubleTap`) are members of the
   mode class and get reset in `onEnter()`.
 
-**Generic modes, mostly for binding in a game's control settings** (**(assumption)** this
-is what "used for mapping in games" means):
-* `Generic`: every digital input → its own joystick button, every selector position →
-  its own button, every encoder → a CW/CCW button pair, every analog channel → an axis.
-  It is generated automatically from the wiring tables, so it never needs maintenance.
-* `Generic pulses`: the same, but toggles produce pulses on each flip. Handy because many
-  games' "press a button to bind" screens are confused by a held toggle.
+**Generic modes, for binding in a game's own control settings.** These are generated
+automatically from the wiring tables, so they never need maintenance when you add or
+remove switches. Each unit's inputs go to its own joystick (A → JA, B → JB). They share
+one **fixed button layout**, assigned at compile time:
+
+| Input | Output (fixed button numbers) |
+|---|---|
+| Momentary button, keypad key | 1 held button |
+| On-off toggle | 1 held button (position) + "on" / "off" pulse buttons |
+| On-off-on toggle, rotary switch | 1 held button per position + up / down pulse buttons |
+| Encoder | CW / CCW pulse buttons |
+| Analog channel | 1 axis |
+
+The generic modes differ only in a **filter** saying which output types are reported. The
+button numbers stay the same, so a binding made in one generic mode still points to the
+same switch in another:
+
+* `Generic: both`: positions and pulses
+* `Generic: positions only`: held buttons only, no pulses (encoders and momentaries still work)
+* `Generic: pulses only`: pulses only, no held position buttons (momentaries still work)
+
+Adding another filter mode later is one line, e.g. a `GenericFilter` flags struct.
+
+**Button budget:** each unit gets 128 buttons. Your current plan fits easily. Board A, with
+3 rotaries, 1 encoder, the zero switch, the rest plain, and the keypad, uses about 110 in the
+worst case. Board B uses fewer. A `static_assert` makes the build fail if a wiring change
+would ever need more than 128.
 
 ### 7.5 Pulse engine
 
 Games poll input once per frame, often at 30–60 Hz, and sometimes only react to presses
 longer than one or two frames. A 1 ms pulse is invisible to them. So:
 
-* Each pulse is queued per output with `onTime` (default **50 ms**) and `offTime` (default
-  **50 ms**). Both are overridable per mode, since some games need longer.
-* **Queue limit per output** (default 5). Spinning an encoder fast otherwise builds up a
-  multi-second backlog that keeps "turning" after you stop. Overflow drops pulses (or,
-  with an option, coalesces them).
+* Pulse timing is defined **centrally** in one place: `kPulseOnTime` = **100 ms** (minimum;
+  some games miss even 50 ms pulses) and `kPulseOffTime` = **100 ms** (the gap before the
+  same output can pulse again). A mode can lengthen them if a game needs more, but never
+  go below the minimum.
+* That limits one output to **5 pulses per second**. Turn an encoder faster than that and
+  pulses queue up. A **queue limit per output** (default 5) stops a fast spin from building
+  a multi-second backlog that keeps "turning" after you stop. Overflowing pulses are dropped.
 * Key combos: press modifiers → wait about 10 ms → key → release in reverse order. Some
   games miss the modifier otherwise.
 * If an output is both held and pulsed in the same frame, the hold wins (OR). That's
@@ -694,18 +747,24 @@ longer than one or two frames. A 1 ms pulse is invisible to them. So:
 
 ### 7.6 USB HID
 
-**(assumption)** Windows and DirectInput-style games. Proposed composite device:
+**(assumption)** Windows and DirectInput-style games. Composite USB device:
 
 | Interface / collection | Content |
 |---|---|
-| Joystick 1–4 (separate top-level collections, so Windows shows 4 controllers) | 128 buttons, 8 axes × 16 bit (X Y Z Rx Ry Rz Slider Dial), 1 hat. About 34 bytes per report. |
+| Joystick **JA** (board A) | 128 buttons, 8 axes × 16 bit (X Y Z Rx Ry Rz Slider Dial). About 33 bytes per report. |
+| Joystick **JB** (board B) | same |
 | Keyboard | modifiers + 6KRO or an NKRO bitmap |
-| Consumer control | volume, media keys |
 | CDC serial | debug console (§10) |
 
-Why several joysticks: DirectInput supports at most 8 axes and 128 buttons per device, and
-some games only look at the first 32 buttons. The analog count alone (7 on A + 8 on B = 15)
-needs two devices. The mapping code decides what goes where.
+JA and JB are separate top-level collections, so Windows shows two game controllers. 8
+axes per joystick (the DirectInput maximum) covers A's 7 free analog channels and B's 8.
+
+**JB is always in the descriptor, even when B is absent.** It just reports neutral. If it
+disappeared and came back, Windows would see a different device, and games could lose or
+reorder their bindings.
+
+Decide before freezing the descriptor: does either joystick need a hat switch (POV)? It costs
+1 byte and can't easily be added later without breaking bindings.
 
 Important gotchas:
 * **Freeze the descriptor and VID/PID early.** Games store bindings per device identity,
@@ -727,7 +786,7 @@ Important gotchas:
 `main.cpp` is roughly 30 lines:
 
 ```cpp
-setup(): pins, status LED, UART1 (TX = 44, RX = 43 — swapped vs A), start scanner on core 1
+setup(): pins, status LED, UART1 (TX = 43, RX = 44, same as A), start scanner on core 1
 loop():  state = scanner.latest()
          if changed or 10 ms elapsed: link.send(STATE, state)
          link.poll()  → heartbeat from A → LED shows link status / mode colour
@@ -776,10 +835,11 @@ B never waits for A and works the same whether or not A is listening.
 ## 11. Testing strategy
 
 * **Native unit tests** (`pio test -e native`) for all of `lib/core`: debouncer edge cases,
-  quadrature tables including bounce sequences, the rotary-12 decoder including the
-  "transient 7" case, selector step counting with wrap-around, the 1€ filter, COBS/CRC
-  round-trip and garbage resync, and mapping helpers (pulse engine timing, edge baselining
-  on mode change).
+  quadrature tables including bounce sequences, the rotary-12 decoder including long
+  make-before-break transitions (garbage and wrong-but-valid codes), selector up/down with
+  wrap-around and skipped positions, the 1€ filter, COBS/CRC round-trip and garbage resync,
+  and mapping helpers (pulse engine timing, edge baselining on mode change, toggle re-sync
+  on zero release).
 * **Record and replay:** a console command dumps the tagged raw scan stream to a file.
   Feed it to the native build to reproduce a real-world glitch on the PC, under a debugger.
 * **Bench checklist per board:** every terminal pin toggles exactly its bit (`ident`),
@@ -803,34 +863,45 @@ B never waits for A and works the same whether or not A is listening.
 
 ---
 
-## 13. Open questions
+## 13. Decisions and open questions
 
-1. **HID outputs:** joysticks only, or also keyboard, consumer (media) and mouse? How many
-   virtual joysticks? Which games and OS? This decides the descriptor, which you want to
-   freeze early (§7.6).
-2. **"Zero" switch details:**
-   a. Axes go to centre (bipolar) / minimum (unipolar)? Or literally 0 for everything?
-   b. Should it also do **sync pulses** on release (replay the pulse that matches each
-      toggle's current position)? Should the same happen on mode change?
-   c. Is it on board A? Does it affect keyboard output as well (proposed: yes, everything)?
-3. **Master modes:** does "used for mapping in games" mean generic 1:1 modes for binding in
-   the game's settings (§7.4)? How many generic vs game-specific modes? Does the master
-   switch have an end stop, or does it rotate infinitely? Does mode-specific state (e.g. an
-   encoder-driven virtual trim axis) reset on mode change or persist?
-4. **Encoders:** how many per board, which type (clicks per quadrature cycle), and is
-   acceleration wanted (fast spin = bigger steps / more pulses)?
-5. **Rotary switches:** up to 4 per board (one transistor each, 6 SR inputs each). How many
-   on each board? Are there other multi-position switch types (ON-OFF-ON toggles, coded
-   rotary switches, ladder-based switches other than the mode switch)?
-6. **Pulse timing:** is 50 ms on / 50 ms off a reasonable default for your games?
-7. **Analog:** how many channels are joysticks vs simple pots on each board? Will you fit the
+### Decided
+
+* **Link wiring:** R2/R3 are crossed on board B. Same UART pins in both firmwares, no
+  boot-time contention (§1.1, §1.6).
+* **Rotary switches:** make-before-break with long overlap. A position counts only after
+  being stable for a central `kRotaryStableTime` of about 200 ms (§5.3). No end stops.
+* **Multi-position switches:** B sends positions only. A derives up/down from the previous
+  vs the new position. Encoders keep cumulative counters (§5.4, §6).
+* **Master-mode switch:** 12 positions with an end stop, position only (§7.2).
+* **Pulses:** central minimum of 100 ms on / 100 ms off (§7.5).
+* **HID:** one joystick per unit (JA, JB) with 128 buttons each, plus keyboard (§7.6).
+* **Zero switch:** all reports zeroed, axes = 0. On release, held state is re-reported, and
+  only on-off / on-off-on switches replay their pulse (§7.3).
+* **Generic modes:** the same fixed layout with filters (both / positions only / pulses
+  only); more filters can be added later (§7.4).
+* **Current hardware:** A has 3 rotaries, the mode switch and 1 encoder. B has 1 rotary and a
+  few encoders. Counts will change, so everything comes from the wiring tables, with
+  compile-time checks against the board's limits (4 rotaries, 32 encoders, 64 bits, 128 buttons).
+
+### Still open
+
+1. **Zeroed axes:** should the axes be signed (0 = centre, good for sticks) or unsigned
+   (0 = minimum, good for throttles)? Or should it be chosen per axis, with "zero" meaning the
+   axis's own neutral value? This decides the descriptor (§7.3, §7.6).
+2. **Hat switch** on JA/JB: wanted? It has to be decided before the descriptor is frozen (§7.6).
+3. **Mode-specific state** (e.g. an encoder-driven virtual axis): reset on mode change, or keep
+   it per mode until power-off?
+4. **Encoder acceleration** (fast spin → bigger steps)? It's only useful for encoders mapped to
+   virtual axes, since pulses are capped at 5/s anyway (§7.5).
+5. **Analog:** how many channels are joysticks vs simple pots on each board? Will you fit the
    100 nF caps? Is the master-mode switch on a 4051 channel of A (assumed)?
-8. **Configuration:** is compile-and-flash for mapping changes acceptable long-term
+6. **Configuration:** is compile-and-flash for mapping changes acceptable long-term
    (proposed), or do you eventually want changes without re-flashing (see §14)?
-9. **Keypad on B:** the firmware supports it automatically. Just confirm whether it's planned.
-10. **Both USBs connected at once** (handy for debugging both boards at the same time): check
-    whether the S3-Zero has a diode between USB VBUS and its 5V pin. Otherwise the two PCs'
-    (or ports') 5V rails get tied together via the Cat5 (hardware question, affects dev workflow).
+7. **Keypad on B:** the firmware supports it automatically. Just confirm whether it's planned.
+8. **Both USBs connected at once** (handy for debugging both boards at the same time): check
+   whether the S3-Zero has a diode between USB VBUS and its 5V pin. Otherwise the two PCs'
+   (or ports') 5V rails get tied together via the Cat5 (hardware question, affects dev workflow).
 
 ---
 
@@ -838,9 +909,9 @@ B never waits for A and works the same whether or not A is listening.
 
 * **Encoder → mouse wheel / mouse axis** outputs (consumer of the same `delta`).
 * **Long-press / double-tap / hold-to-repeat** helpers (one button, several functions).
-* **Toggle-vs-game desync fix:** a "resync" gesture (or the zero switch's sync pulses) for games
+* **Toggle-vs-game desync fix:** besides the zero switch's toggle re-sync, a separate "resync" gesture for games
   that only offer "toggle X" commands.
-* **Per-mode pulse timing presets** ("this game needs 80 ms presses").
+* **Per-mode pulse timing presets** ("this game needs 150 ms presses"), on top of the central 100 ms minimum.
 * **Ratiometric analog:** feed `+3V3_EXP` through a 2:1 divider into a spare 4051 channel and
   divide pot readings by it. This cancels rail noise and the polyfuse drop. It would be a hardware
   change; only worth it if the noise turns out to be a problem.
