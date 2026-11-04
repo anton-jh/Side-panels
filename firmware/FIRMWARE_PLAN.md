@@ -301,10 +301,6 @@ complete rotary-switch reads (one phase-1 + one phase-2 sample) ~417 Hz. Plenty 
 including for the rotaries' 200 ms stable time. The phase changes only twice per frame
 (at 2→6 and 4→0 in the Gray order), so the transistors switch rarely.
 
-The only side effect of sharing ADDR2: the rotary phase can't change independently of the
-mux address. If some future feature parks the mux on one address for a long time, the
-rotaries just keep their last accepted position until the scan resumes.
-
 **All of these numbers are starting points and live in one `constexpr` config struct.**
 Measure on the real board: toggle `AUX0` at every tick and `AUX1` during ADC conversions,
 and look at it with a logic analyzer (§10). Then tune the settle time with the console
