@@ -365,7 +365,8 @@ work, which is almost always none.
 * **Is 10 kHz fast enough?** A 24-detent encoder spun hard by hand at about 5 rev/s gives
   480 transitions/s, about 2 ms apart on average and maybe 0.5 ms for the shortest phase.
   10 kHz gives ≥ 5 samples per state. 5 kHz would also work.
-* Optional: velocity, i.e. steps per 100 ms, for acceleration in mappings.
+* The encoder decoder also tracks **velocity** (clicks per second, smoothed), used for
+  acceleration in mappings (§7.4.1).
 
 ### 5.3 The 7-contact 12-position rotary switch
 
@@ -594,8 +595,8 @@ The master mode picks **which mapping** turns physical inputs into logical outpu
 buttons, keys, axes). It does nothing else. What gets *reported* (positions, pulses) is
 decided separately by the filter switches (§7.3.1), so the filters work the same in every mode.
 
-**(assumption)** It uses one 4051 channel on board A. That leaves 7 analog channels on A
-for pots and joysticks.
+It uses the **last analog input on board A: 4051 channel 7 = J5 pin 1** (§1.4). That leaves
+channels 0–6 on A for pots and joysticks.
 
 * Decode the position only: 12 bands around nominal voltages, thresholds at the midpoints,
   plus hysteresis. No up/down pulses, no selector; the only consumer is the mode logic.
@@ -840,7 +841,7 @@ Semantics, kept intentionally simple:
 | 1. Direct | `m.axis(out, m.analog(in).cal()…)` | none | Logical axis = calibrated physical axis, with optional deadzone, curve, invert, range. |
 | 2. Integral of a physical axis | `RateAxis::integrate(m, signal)` | value | Each frame: `value += rate(signal) × maxSpeed × dt`, clamped to the axis range. A deadzone around the centre means "stick at rest = axis stays put". A curve gives fine control near centre and fast movement at full deflection. |
 | 3. Integral of buttons | `RateAxis::integrate(m, upInput, downInput)` | value | Same integrator, rate = +1 / −1 / 0 from two buttons (both = 0). Optional ramp: speed grows the longer a button is held. |
-| (Steps) | `StepAxis::step(m.delta(enc))` | value | Fixed step per encoder click or per pulse. |
+| (Steps) | `StepAxis::step(m, enc)` | value | Step per encoder click. With **acceleration** enabled per binding, the step grows with spin speed: slow turning gives fine steps, a fast spin covers the range quickly. Pulse outputs are not accelerated, since they're capped at 5/s anyway (§7.5). |
 
 * `maxSpeed` is in "full range per second", so `0.5` means "2 s from end to end at full
   deflection". `dt` comes from `Map`, so the speed doesn't depend on the loop rate.
@@ -1048,6 +1049,13 @@ B never waits for A and works the same whether or not A is listening.
 * **Logical axes** can be driven directly by a physical axis, as the integral of a physical
   axis, or as the integral of buttons (plus encoder steps). The integrator state is per master
   mode and is reset on mode change (§7.4.1).
+* **Encoder acceleration:** yes, for encoders driving virtual axes; configured per binding (§7.4.1).
+* **Mapping changes** are made in code and flashed; no runtime configuration (§14 keeps the
+  idea parked).
+* **Master-mode switch** is on A's last analog input, channel 7 (§7.2).
+* **Keypad on B:** most probably. Already handled by automatic presence detection (§1.2).
+* **Joystick vs pot** doesn't need deciding yet: the firmware treats all analog channels the
+  same until a mode maps them (§5.5).
 * **Current hardware:** A has 3 rotaries, the mode switch and 1 encoder. B has 1 rotary and a
   few encoders. Counts will change, so everything comes from the wiring tables, with
   compile-time checks against the board's limits (4 rotaries, 32 encoders, 64 bits, 128 buttons).
@@ -1055,16 +1063,13 @@ B never waits for A and works the same whether or not A is listening.
 ### Still open
 
 1. **Hat switch** on JA/JB: wanted? It has to be decided before the descriptor is frozen (§7.6).
-2. **Encoder acceleration** (fast spin → bigger steps)? It's only useful for encoders mapped to
-   virtual axes, since pulses are capped at 5/s anyway (§7.5).
-3. **Analog:** how many channels are joysticks vs simple pots on each board? Will you fit the
-   100 nF caps? Is the master-mode switch on a 4051 channel of A (assumed)?
-4. **Configuration:** is compile-and-flash for mapping changes acceptable long-term
-   (proposed), or do you eventually want changes without re-flashing (see §14)?
-5. **Keypad on B:** the firmware supports it automatically. Just confirm whether it's planned.
-6. **Both USBs connected at once** (handy for debugging both boards at the same time): check
+2. **100 nF caps on the analog inputs:** fitted or not? It only changes the default settle
+   time (§4.3), which gets measured on the bench anyway (M2).
+3. **Both USBs connected at once** (handy for debugging both boards at the same time): check
    whether the S3-Zero has a diode between USB VBUS and its 5V pin. Otherwise the two PCs'
    (or ports') 5V rails get tied together via the Cat5 (hardware question, affects dev workflow).
+   Check the module's schematic when ordering. Until then, assume there's no diode and never
+   connect both USBs at the same time with the Cat5 plugged in.
 
 ---
 
