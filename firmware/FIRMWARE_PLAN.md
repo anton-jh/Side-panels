@@ -340,7 +340,7 @@ Every plain digital input also has a **kind** in the wiring config: `Momentary` 
 button) or `Toggle` (on-off switch). An on-off-on switch is declared as a `Toggle3` over
 two bits. The kind doesn't change debouncing; it tells board A which inputs get re-synced
 when the zero switch returns from "zero + re-report" (§7.3.2), which output class they
-produce for the filter switches (§7.3.1), and how the generic mode lays them out (§7.4).
+produce for the filter switches (§7.3.1).
 
 Efficiency: XOR the new raw word with the stable word. Only bits that differ need any
 work, which is almost always none.
@@ -661,7 +661,12 @@ switch takes effect immediately in either direction.
 
 Typical use: when binding in a game's settings screen, hide `StepPulse` to bind toggles by
 position, or hide `Position` to bind the up/down pulses of a rotary switch. This works in
-**every** mode, not just the generic one.
+every master mode.
+
+The filters only **hide or show** outputs; they never renumber them. Every binding names its
+output explicitly (e.g. `JB.btn(40)`), so a button means the same thing whatever the filter
+switches are set to, and a binding made in a game with some class hidden stays valid when
+it's shown again.
 
 #### 7.3.2 Zero switch (on-off-on, three positions)
 
@@ -806,7 +811,7 @@ public:
     }
 };
 
-Mode* const kModes[12] = { &generic, &flightSim, &spaceSim, … };
+Mode* const kModes[12] = { &oneToOne, &flightSim, &spaceSim, … };   // all hand-written
 ```
 
 Semantics, kept intentionally simple:
@@ -847,45 +852,18 @@ Semantics, kept intentionally simple:
   object is integrated twice, which would double its speed.
 * While the zero switch is active, mapping keeps running, so a virtual axis keeps moving if its
   stick or buttons are moved; only the report is zeroed. On return the current value is
-  reported. **(assumption, see §13)**
+  reported.
 
-**Generic mode, for binding in a game's own control settings.** It is generated
-automatically from the wiring tables, so it never needs maintenance when you add or
-remove switches. Each unit's inputs go to its own joystick (A → JA, B → JB), with one
-**fixed button layout** assigned at compile time:
+**No generic or automatic mode.** Every master mode is a hand-written mapping, including a
+1:1-style first mode if you want one. Each mode decides which switches are reported as what,
+and it's up to the mode to fit in the available buttons.
 
-| Input | Output (fixed button numbers) | Class |
-|---|---|---|
-| Momentary button, keypad key | 1 held button | `Always` |
-| On-off toggle | 2 held buttons (one per position: off, on) | `Position` |
-| | "on" / "off" pulse buttons | `StepPulse` |
-| On-off-on toggle, rotary switch | 1 held button per position | `Position` |
-| | up / down pulse buttons | `StepPulse` |
-| Encoder | CW / CCW pulse buttons | `Always` |
-| Analog channel | 1 axis | `Always` |
-
-There's only one generic mode now. Showing/hiding positions and pulses is done with the
-filter switches, which work in every mode.
-
-Every output in this layout has a **permanent button number**. The filters only hide or show
-buttons; they never renumber them. Example: the RADIO rotary's position 3 is always JB
-button 22, and its "up" pulse is always JB button 40. If you bind button 40 in a game while
-positions are hidden and later show positions again, button 40 is still RADIO-up. Position 3
-does *not* move down to fill the gap. (The other option, packing visible outputs together,
-would make the numbers depend on the filter settings and silently break bindings.)
-
-**Button budget (needs a decision, see §13).** Each unit gets 128 buttons. With the full
-generic layout above, board A's fixed parts already use 68: 3 rotaries × 14, 1 encoder × 2,
-and 24 keypad keys. That leaves 60 buttons for the remaining 40 shift-register inputs (64 minus
-18 rotary bits, 2 encoder bits and 4 system-switch bits). A momentary uses 1 and an on-off
-toggle uses 4 (2 positions + 2 pulses). So **with more than about 6 toggles on A, the full
-generic layout no longer fits** in 128. A `static_assert` makes the build fail rather than
-silently dropping anything. Options:
-* a per-input flag in the wiring table to trim its generic outputs (e.g. "positions only"), or
-* a third joystick used only by the generic mode for overflow, or
-* letting the generic mode put A's overflow on JB when B has room.
-
-Game-specific modes aren't affected: they only use the buttons they bind.
+* Button numbers are checked at **compile time**: `JA.btn(n)` is `consteval`, so `JA.btn(129)`
+  doesn't build.
+* A debug build can report per mode which buttons are bound more than once from *different*
+  inputs. That's often intended (many → one) but sometimes a typo; it's a warning, not an error.
+* If a mode really needs more than 128 buttons for one unit, see the optional second
+  controller per unit in §7.6.
 
 ### 7.5 Pulse engine
 
@@ -924,6 +902,19 @@ reorder their bindings.
 
 Decide before freezing the descriptor: does either joystick need a hat switch (POV)? It costs
 1 byte and can't easily be added later without breaking bindings.
+
+**Optional second controller per unit** (JA2, JB2), for a mode that really can't fit a unit in
+128 buttons. This is one compile-time setting, `kControllersPerUnit = 1 | 2`; mappings simply
+use `JA2.btn(n)`. Things to know:
+* Turning it on changes the USB descriptor. Windows then shows 4 controllers, and games may
+  re-detect or re-order them, so existing in-game bindings can break. **Decide before you
+  invest in binding**, and treat the setting as frozen afterwards.
+* The extra controllers are always present (neutral when unused), for the same reason JB is.
+* Some games list every controller in their UI, so 4 means a bit more clutter. That's why
+  the default is 1 per unit.
+* An alternative for a single mode that overflows: use the other unit's controller when it
+  has room (e.g. A's extra switches on JB). That needs no setting at all; it's just how the
+  mode is written.
 
 Important gotchas:
 * **Freeze the descriptor and VID/PID early.** Games store bindings per device identity,
@@ -1015,7 +1006,7 @@ B never waits for A and works the same whether or not A is listening.
 | M1 | Shift chain driver | `raw` shows correct bits for every terminal; keypad presence detection works; CP checked on a logic analyzer |
 | M2 | Mux + ADC | `analog` shows all channels; settle time and noise measured, defaults chosen |
 | M3 | Scanner schedule + all decoders (debounce, encoders, rotary, keypad, selectors, filters) | unit tests green; `inputs` correct on the bench at full scan rate |
-| M4 | USB HID on A with the `Generic` mode, local inputs only | all inputs visible in a joystick tester |
+| M4 | USB HID on A with a simple hand-written 1:1 test mode, local inputs only | all inputs visible in a joystick tester |
 | M5 | Link | B's inputs appear on A; unplug/replug/reset of B behave as in §9; error counters ≈ 0 at the chosen baud |
 | M6 | Mapping API, pulse engine, master-mode, filter and zero switches | first real game profile works end-to-end |
 | M7 | Polish | calibration in NVS, LED codes, more profiles, optional SPI/DMA chain read |
@@ -1038,7 +1029,10 @@ B never waits for A and works the same whether or not A is listening.
 * **Master mode vs filters:** the master mode only picks the mapping. On-off **filter
   switches** (show positions, show up/down pulses, more later) decide what gets reported, in
   every mode (§7.2, §7.3.1). Encoder pulses are always reported and have no filter.
-  There is one generic mode (§7.4).
+* **No generic/automatic mode:** all master modes are hand-written. Each mode decides what is
+  reported as what and makes it fit in 128 buttons per unit; an optional second controller per
+  unit exists for when it really won't fit (§7.4, §7.6).
+* **Virtual axes while zeroed** keep integrating; only the report is zeroed (§7.4.1).
 * **Zero switch (on-off-on):** side 1 = zero + re-report, with toggle pulse replay. Side 2 =
   isolated binding mode: everything zeroed, and each logical button or key that is pressed and
   then released in this mode gives one pulse right after the release. Pulse-generated
@@ -1059,20 +1053,17 @@ B never waits for A and works the same whether or not A is listening.
 
 ### Still open
 
-1. **Generic button budget:** the full generic layout overflows 128 buttons on A with more
-   than about 6 on-off toggles (§7.4). Trim per input in the wiring table, add a third joystick
-   for the generic mode, or spill onto JB?
-2. **Virtual axes while zeroed:** keep integrating while the zero switch is active (assumed),
-   or freeze until it returns to centre (§7.4.1)?
-3. **Hat switch** on JA/JB: wanted? It has to be decided before the descriptor is frozen (§7.6).
-4. **Encoder acceleration** (fast spin → bigger steps)? It's only useful for encoders mapped to
+1. **Hat switch** on JA/JB: wanted? It has to be decided before the descriptor is frozen (§7.6).
+2. **Second controller per unit:** start with it on (4 controllers shown in Windows) or off
+   (§7.6)? Either way, decide before doing lots of in-game binding.
+3. **Encoder acceleration** (fast spin → bigger steps)? It's only useful for encoders mapped to
    virtual axes, since pulses are capped at 5/s anyway (§7.5).
-5. **Analog:** how many channels are joysticks vs simple pots on each board? Will you fit the
+4. **Analog:** how many channels are joysticks vs simple pots on each board? Will you fit the
    100 nF caps? Is the master-mode switch on a 4051 channel of A (assumed)?
-6. **Configuration:** is compile-and-flash for mapping changes acceptable long-term
+5. **Configuration:** is compile-and-flash for mapping changes acceptable long-term
    (proposed), or do you eventually want changes without re-flashing (see §14)?
-7. **Keypad on B:** the firmware supports it automatically. Just confirm whether it's planned.
-8. **Both USBs connected at once** (handy for debugging both boards at the same time): check
+6. **Keypad on B:** the firmware supports it automatically. Just confirm whether it's planned.
+7. **Both USBs connected at once** (handy for debugging both boards at the same time): check
    whether the S3-Zero has a diode between USB VBUS and its 5V pin. Otherwise the two PCs'
    (or ports') 5V rails get tied together via the Cat5 (hardware question, affects dev workflow).
 
