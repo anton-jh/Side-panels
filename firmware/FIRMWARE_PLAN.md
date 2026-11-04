@@ -304,14 +304,16 @@ command that reports per-channel noise (§10).
 
 ### 4.3 Analog settling (electrical)
 
-* **With** the optional 100 nF caps fitted: when the mux switches, the 4051 output node
+* **The 100 nF caps (C12–C19) will be fitted.** When the mux switches, the 4051 output node
   (a few tens of pF) charges from the 100 nF reservoir through about 200 Ω of mux on-resistance.
-  That settles in **well under 1 µs**. The caps also low-pass the cable noise.
-  **Recommendation: fit them for pots.** With a 10 k pot, the response time constant is
-  ≤ 250 µs, which you can't feel.
-* **Without** caps: settling depends on the pot's output impedance (≤ 2.5 kΩ for a 10 k pot)
-  and on charge kick-back from the ADC sample capacitor. 20–50 µs is generous.
-* In both cases, **throw away the first conversion** after switching, then average N.
+  That settles in **well under 1 µs**, so the settle time is dominated by the mux and the ADC
+  itself; start with 20 µs and measure (M2). The caps also low-pass the cable noise.
+* The cost is a slower response to real movement: time constant = the source's output
+  impedance × 100 nF. That's ≤ 0.25 ms for a 10 k pot, ≤ 2.5 ms for a 100 k pot, both far too
+  fast to feel. It would only matter for something switched very fast or with a very high
+  source impedance (≫ 100 k), which nothing here is.
+* For the mode-switch ladder, the cap also simply holds the voltage during a contact gap.
+* **Throw away the first conversion** after switching, then average N.
 * Use ESP-IDF `adc_oneshot` + `adc_cali` (curve fitting), not Arduino `analogRead()`.
 
 ---
@@ -1056,6 +1058,12 @@ B never waits for A and works the same whether or not A is listening.
 * **Keypad on B:** most probably. Already handled by automatic presence detection (§1.2).
 * **Joystick vs pot** doesn't need deciding yet: the firmware treats all analog channels the
   same until a mode maps them (§5.5).
+* **Analog input caps** (100 nF) will be fitted (§4.3).
+* **USB power:** assume the S3-Zero has **no** diode between USB and its 5V pin. Firmware can't
+  change that, so it's a working rule: **never have both boards on USB while the Cat5 is
+  plugged in.** Programming B with only B on USB (powering A over the Cat5) is fine. If you
+  ever want both on USB at once for debugging, use a "data-only" patch cable with just the
+  two +5V wires (pins 4 and 7) cut; the GND wires can stay.
 * **Current hardware:** A has 3 rotaries, the mode switch and 1 encoder. B has 1 rotary and a
   few encoders. Counts will change, so everything comes from the wiring tables, with
   compile-time checks against the board's limits (4 rotaries, 32 encoders, 64 bits, 128 buttons).
@@ -1063,13 +1071,6 @@ B never waits for A and works the same whether or not A is listening.
 ### Still open
 
 1. **Hat switch** on JA/JB: wanted? It has to be decided before the descriptor is frozen (§7.6).
-2. **100 nF caps on the analog inputs:** fitted or not? It only changes the default settle
-   time (§4.3), which gets measured on the bench anyway (M2).
-3. **Both USBs connected at once** (handy for debugging both boards at the same time): check
-   whether the S3-Zero has a diode between USB VBUS and its 5V pin. Otherwise the two PCs'
-   (or ports') 5V rails get tied together via the Cat5 (hardware question, affects dev workflow).
-   Check the module's schematic when ordering. Until then, assume there's no diode and never
-   connect both USBs at the same time with the Cat5 plugged in.
 
 ---
 
