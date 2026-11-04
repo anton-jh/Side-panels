@@ -298,7 +298,7 @@ routes the bits:
 
 Resulting rates: digital 10 kHz, each analog channel ~417 Hz, each keypad row ~417 Hz,
 complete rotary-switch reads (one phase-1 + one phase-2 sample) ~417 Hz. Plenty everywhere,
-including for the rotaries' 200 ms stable time. The phase changes only twice per frame
+including for the rotaries' 20 ms stable time. The phase changes only twice per frame
 (at 2→6 and 4→0 in the Gray order), so the transistors switch rarely.
 
 **All of these numbers are starting points and live in one `constexpr` config struct.**
@@ -403,24 +403,56 @@ each other with no special cases:
 | 11 | 111111 | 011101 |
 | 12 | 111111 | 011110 |
 
-**Transitions.** The switches are **make-before-break** with a very wide wiper and almost no
-gap between pads. While turning, the switch reads as **garbage** (a code that isn't in the
-table) or briefly as **another valid position**, for a long time compared with normal
-contact bounce. So the rotary debouncer is much slower than the button debouncer:
+**Transitions.** The switches are **make-before-break** with a very wide wiper. While
+turning, a reading is either **garbage** (a code that isn't in the table) or **identical to the
+position it's moving from or to**. Garbage is simply discarded. A real position is never
+mis-read as some *other* position. So only a **short** debounce is needed, not a long one.
+It still can't be zero, for three reasons:
 
-* The decoded code must stay **identical for `kRotaryStableTime`** before the new position
-  is accepted. That is one central constant, default **200 ms**. Any change of code, valid or
-  not, restarts the timer.
-* Invalid codes never become a position. The last accepted position is kept and the code
+1. **Chatter between the two positions.** During a 3→4 turn the reading can go
+   3 → 4 → 3 → 4 before it settles. Accepted as-is, that's *up, down, up*: three pulses
+   instead of one, and a flickering position button.
+2. **Phase mixing.** A decoded code combines a phase-1 sample and a phase-2 sample taken
+   about 1 ms apart. If the contacts change between those two samples, the two halves come
+   from different positions, and two such mixes happen to be **valid codes of a
+   non-adjacent position**:
+   * 6 ↔ 7: phase 1 of pos 7 + phase 2 of pos 6 = the code of **pos 12**
+   * 12 ↔ 1: phase 1 of pos 12 + phase 2 of pos 1 = the code of **pos 7**
+
+   (All other mixes are garbage or one of the two real positions; this was checked against
+   the full truth table.) Such a mix lasts for at most one decode, about 2.4 ms, because the
+   next pair is consistent again.
+3. **Noise:** an occasional single bad sample.
+
+So the rotary debouncer works like this:
+
+* A new position is accepted once the decoded code has been **identical for
+  `kRotaryStableTime`**: one central constant, default **20 ms**, which is about 8
+  consecutive decodes. Any change of code, valid or not, restarts the timer. That removes all
+  three problems above. Final value: measure it (below).
+* **Extra safety:** a jump to a **non-adjacent** position (not ±1 modulo 12) needs a longer
+  stable time, `kRotaryJumpStableTime`, default **100 ms**. A phase-mix artefact could never
+  get through, even if contacts chatter at exactly the 6/7 or 12/1 boundary. A real skip (a
+  very fast flick, or the first reading after boot) is still accepted, just a bit later.
+* Invalid codes never become a position. The last accepted position is kept, and the code
   is counted as a diagnostic.
-* Latency for rotary changes is therefore about 200 ms. That's fine for slowly turned
-  selectors and is the price of the huge overlap.
+* **Measuring the right value:** the console (§10) has a `rotary` view that logs every
+  decoded code with a timestamp while you turn a switch. Turn it slowly and quickly, find the
+  longest chatter at a detent, and set `kRotaryStableTime` a bit above it.
+
+Speed: with 20 ms the switch can be tracked at up to ~40 positions per second, so position
+outputs keep up with any realistic turning speed. **Up/down pulses are limited separately by
+the pulse engine:** with the central 100 ms on + 100 ms off, one output can only pulse
+**5 times per second**. Turning faster than that queues pulses, and beyond the per-output
+queue limit (5) they're dropped (§7.5). If 5/s turns out to be too slow for rotary pulses in
+practice, the lever is `kPulseOffTime` (the gap). Many games are fine with a shorter gap than
+press time, but test per game.
 
 The switches have **no end stops** (infinite rotation), so board A computes the step from
 old to new position **modulo 12, shortest way**: `d = ((new - old + 18) % 12) - 6` gives
-−6..+5. If you turn faster than one position per 200 ms, positions are skipped and A emits
-`|d|` pulses in the right direction. That stays correct as long as fewer than 6 positions
-are skipped between two accepted readings, which is not a realistic turning speed for these switches.
+−6..+5. If positions are skipped, A emits `|d|` pulses in the right direction. That stays
+correct as long as fewer than 6 positions are skipped between two accepted readings, which
+isn't realistic with a 20 ms stable time.
 
 Capacity: **4 rotary switches per board** (one transistor each). The scanner decodes all
 the ones listed in the wiring table.
@@ -442,8 +474,9 @@ modulo *N* for wrapping switches, plain difference otherwise. One step = one pul
 "up" output or the "down" output (helpers in §7.4).
 
 A position diff is enough here, without a step counter like the encoders have. Positions
-change at most every 200 ms and B re-sends its full state at least every 10 ms, so A
-can't miss a step even when a frame is lost. Encoders are different: they can change
+change at most every ~20 ms, B sends a change within 2 ms, and B re-sends its full state at
+least every 10 ms. A lost frame at worst makes A see a 2-step jump, and the shortest-way
+diff turns that into 2 pulses in the right direction, so no step is lost. Encoders are different: they can change
 faster than frames are sent, so they keep their cumulative counter.
 
 The master-mode switch is *not* a selector. It only needs its position (§7.2).
@@ -975,6 +1008,7 @@ B never waits for A and works the same whether or not A is listening.
 * **USB CDC console** on both boards (on A it is part of the composite device):
   * `raw`: live view of the 80 raw bits, grouped per terminal (J10…J18, keypad)
   * `inputs`: debounced named inputs, encoder counts, selector positions
+  * `rotary`: every decoded rotary code (phase 1 + phase 2) with a timestamp while turning, to measure chatter and tune `kRotaryStableTime`
   * `analog`: per-channel mV, noise (min/max/stddev over 1 s), with the settle time adjustable live
   * `link`: frames/s, CRC errors, COBS errors, last-seen, B's bootId/wiringHash
   * `stats`: scan rate, overruns, invalid rotary codes, keypad sanity errors
@@ -1027,8 +1061,10 @@ B never waits for A and works the same whether or not A is listening.
 
 * **Link wiring:** R2/R3 are crossed on board B. Same UART pins in both firmwares, no
   boot-time contention (§1.1, §1.6).
-* **Rotary switches:** make-before-break with long overlap. A position counts only after
-  being stable for a central `kRotaryStableTime` of about 200 ms (§5.3). No end stops.
+* **Rotary switches:** make-before-break. Transition
+  readings are either garbage or one of the two adjacent positions, so a short
+  `kRotaryStableTime` (default 20 ms, measured on the bench) is enough. Non-adjacent jumps
+  need 100 ms, to block the two possible phase-mix artefacts (§5.3). No end stops.
 * **Multi-position switches:** B sends positions only. A derives up/down from the previous
   vs the new position. Encoders keep cumulative counters (§5.4, §6).
 * **Master-mode switch:** 12 positions with an end stop, position only (§7.2).
