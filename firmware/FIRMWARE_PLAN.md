@@ -390,18 +390,23 @@ each other with no special cases:
 
 | Pos | phase 1 (pins 1-6) | phase 2 (pins 1-6) |
 |---|---|---|
-| 1 | 011111 | 011111 |
-| 2 | 101111 | 001111 |
-| 3 | 110111 | 010111 |
-| 4 | 111011 | 011011 |
-| 5 | 111101 | 011101 |
-| 6 | 111110 | 011110 |
-| 7 | 111111 | 011111 |
-| 8 | 111111 | 001111 |
-| 9 | 111111 | 010111 |
-| 10 | 111111 | 011011 |
-| 11 | 111111 | 011101 |
-| 12 | 111111 | 011110 |
+| 1 | 111110 | 011110 |
+| 2 | 111101 | 011101 |
+| 3 | 111011 | 011011 |
+| 4 | 110111 | 010111 |
+| 5 | 101111 | 001111 |
+| 6 | 011111 | 011111 |
+| 7 | 111111 | 011110 |
+| 8 | 111111 | 011101 |
+| 9 | 111111 | 011011 |
+| 10 | 111111 | 010111 |
+| 11 | 111111 | 001111 |
+| 12 | 111111 | 011111 |
+
+Positions are numbered clockwise; pins keep their own numbering (pin 1 = the contact that
+is sunk in phase 2, pin 7 = common to GND). Position 1 connects pin 7 to pin 6, position 2
+pin 7 to pin 5, …, position 6 pin 7 to pin 1; positions 7–12 connect pin 6 … pin 2 to pin 1,
+and position 12 touches pin 1 alone.
 
 **Transitions.** The switches are **make-before-break** with a very wide wiper. While
 turning, a reading is either **garbage** (a code that isn't in the table) or **identical to the
