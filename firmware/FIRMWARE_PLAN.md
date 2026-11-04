@@ -863,7 +863,7 @@ and it's up to the mode to fit in the available buttons.
 * A debug build can report per mode which buttons are bound more than once from *different*
   inputs. That's often intended (many → one) but sometimes a typo; it's a warning, not an error.
 * If a mode really needs more than 128 buttons for one unit, see the optional second
-  controller per unit in §7.6.
+  controller for that side in §7.6.
 
 ### 7.5 Pulse engine
 
@@ -903,18 +903,19 @@ reorder their bindings.
 Decide before freezing the descriptor: does either joystick need a hat switch (POV)? It costs
 1 byte and can't easily be added later without breaking bindings.
 
-**Optional second controller per unit** (JA2, JB2), for a mode that really can't fit a unit in
-128 buttons. This is one compile-time setting, `kControllersPerUnit = 1 | 2`; mappings simply
-use `JA2.btn(n)`. Things to know:
-* Turning it on changes the USB descriptor. Windows then shows 4 controllers, and games may
-  re-detect or re-order them, so existing in-game bindings can break. **Decide before you
-  invest in binding**, and treat the setting as frozen afterwards.
-* The extra controllers are always present (neutral when unused), for the same reason JB is.
-* Some games list every controller in their UI, so 4 means a bit more clutter. That's why
-  the default is 1 per unit.
-* An alternative for a single mode that overflows: use the other unit's controller when it
-  has room (e.g. A's extra switches on JB). That needs no setting at all; it's just how the
-  mode is written.
+**Optional second controller, per side** (JA2 and/or JB2), for when a unit's bindings really
+don't fit in 128 buttons. Two independent compile-time constants, both **1** by default:
+
+```cpp
+constexpr int kControllersA = 1;   // set to 2 to add JA2
+constexpr int kControllersB = 1;   // set to 2 to add JB2
+```
+
+Changing one adds that controller to the USB descriptor; mappings then just use
+`JA2.btn(n)` / `JB2.btn(n)`. One thing to know: after the change, Windows sees a new
+controller and games may re-detect or re-order controllers, so **expect to redo some in-game
+bindings** the first time you flip it. The extra controller is always present once enabled
+(neutral when unused), for the same reason JB is.
 
 Important gotchas:
 * **Freeze the descriptor and VID/PID early.** Games store bindings per device identity,
@@ -1030,8 +1031,8 @@ B never waits for A and works the same whether or not A is listening.
   switches** (show positions, show up/down pulses, more later) decide what gets reported, in
   every mode (§7.2, §7.3.1). Encoder pulses are always reported and have no filter.
 * **No generic/automatic mode:** all master modes are hand-written. Each mode decides what is
-  reported as what and makes it fit in 128 buttons per unit; an optional second controller per
-  unit exists for when it really won't fit (§7.4, §7.6).
+  reported as what and makes it fit in 128 buttons per unit; an optional second controller can be
+  enabled per side with one constant (`kControllersA`/`kControllersB`, default 1) (§7.4, §7.6).
 * **Virtual axes while zeroed** keep integrating; only the report is zeroed (§7.4.1).
 * **Zero switch (on-off-on):** side 1 = zero + re-report, with toggle pulse replay. Side 2 =
   isolated binding mode: everything zeroed, and each logical button or key that is pressed and
@@ -1054,16 +1055,14 @@ B never waits for A and works the same whether or not A is listening.
 ### Still open
 
 1. **Hat switch** on JA/JB: wanted? It has to be decided before the descriptor is frozen (§7.6).
-2. **Second controller per unit:** start with it on (4 controllers shown in Windows) or off
-   (§7.6)? Either way, decide before doing lots of in-game binding.
-3. **Encoder acceleration** (fast spin → bigger steps)? It's only useful for encoders mapped to
+2. **Encoder acceleration** (fast spin → bigger steps)? It's only useful for encoders mapped to
    virtual axes, since pulses are capped at 5/s anyway (§7.5).
-4. **Analog:** how many channels are joysticks vs simple pots on each board? Will you fit the
+3. **Analog:** how many channels are joysticks vs simple pots on each board? Will you fit the
    100 nF caps? Is the master-mode switch on a 4051 channel of A (assumed)?
-5. **Configuration:** is compile-and-flash for mapping changes acceptable long-term
+4. **Configuration:** is compile-and-flash for mapping changes acceptable long-term
    (proposed), or do you eventually want changes without re-flashing (see §14)?
-6. **Keypad on B:** the firmware supports it automatically. Just confirm whether it's planned.
-7. **Both USBs connected at once** (handy for debugging both boards at the same time): check
+5. **Keypad on B:** the firmware supports it automatically. Just confirm whether it's planned.
+6. **Both USBs connected at once** (handy for debugging both boards at the same time): check
    whether the S3-Zero has a diode between USB VBUS and its 5V pin. Otherwise the two PCs'
    (or ports') 5V rails get tied together via the Cat5 (hardware question, affects dev workflow).
 
