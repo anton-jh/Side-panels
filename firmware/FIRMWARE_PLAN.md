@@ -18,7 +18,7 @@ Status: **draft for discussion.** Nothing here is final. Assumptions are marked
             │  Scanner ──► Input processing ──► InputState(local)               │
             │                                   InputState(remote) ◄── Link RX  │
             │                                          │                        │
-            │        System inputs (mode switch, zero switch)                   │
+            │        System inputs (mode, filter and zero switches)             │
             │                                          ▼                        │
             │        Mode function (mapping) ──► Pulse engine ──► Zero gate     │
             │                                                  ──► HID reporter │──► USB
@@ -184,7 +184,7 @@ firmware/
       outputs.h             #   Outputs struct (JA, JB, keyboard)
       mapping/              #   Map API, pulse engine, helpers
       modes/                #   one file per master mode
-      system_inputs.*       #   master-mode switch, zero switch
+      system_inputs.*       #   master-mode, filter and zero switches
       console.*             #   debug commands over USB CDC
     board_b/
       main.cpp
@@ -339,7 +339,8 @@ toggle switches may need a longer lockout).
 Every plain digital input also has a **kind** in the wiring config: `Momentary` (push
 button) or `Toggle` (on-off switch). An on-off-on switch is declared as a `Toggle3` over
 two bits. The kind doesn't change debouncing; it tells board A which inputs get re-synced
-when the zero switch is released (§7.3), and how the generic modes lay them out (§7.4).
+when the zero switch returns from "zero + re-report" (§7.3.2), which output class they
+produce for the filter switches (§7.3.1), and how the generic mode lays them out (§7.4).
 
 Efficiency: XOR the new raw word with the stable word. Only bits that differ need any
 work, which is almost always none.
@@ -576,17 +577,22 @@ Latency, B input to USB: debounce 0.3 ms + ≤ 2 ms link + ≤ 1 ms mapping + �
 every 1 ms:
   local  = scanner.latest()
   remote = link.latest()  (or neutral if absent)
-  sys.update(local)                       // master mode + zero switch (debounced)
+  sys.update(local)                       // master mode, filter switches, zero switch (debounced)
   if mode changed → mode transition (§7.2)
-  out.clear()                             // immediate mode: rebuild every frame
-  modes[sys.mode]->run(Map{local, remote, prev, out, pulses, now})
+  out.clear(mode.neutrals)                // immediate mode: rebuild every frame; axes start at neutral
+  modes[sys.mode]->run(Map{local, remote, prev, out, pulses, sys.filter, now})
+                                          // hidden output classes are dropped inside Map (§7.3.1)
   pulses.apply(out, now)                  // OR in the active pulses
-  zeroGate.apply(out)                     // §7.3
+  zeroGate.apply(out)                     // §7.3.2: zero / capture; sees `out` as the "logical" state
   hid.send(out)                           // diff against last sent; only changed reports
   prev = {local, remote}
 ```
 
 ### 7.2 Master-mode switch (12 positions with end stop, analog ladder, on A)
+
+The master mode picks **which mapping** turns physical inputs into logical outputs (HID
+buttons, keys, axes). It does nothing else. What gets *reported* (positions, pulses) is
+decided separately by the filter switches (§7.3.1), so the filters work the same in every mode.
 
 **(assumption)** It uses one 4051 channel on board A. That leaves 7 analog channels on A
 for pots and joysticks.
@@ -605,32 +611,106 @@ for pots and joysticks.
   several positions doesn't flash through intermediate modes.
 
 **Mode transition:**
-1. Report **everything released or neutral** for ≥ 30 ms, so games see the release.
-2. Clear the pulse engine queue and call the new mode's `onEnter()` (reset its state).
+1. Report **everything released**, with axes at the outgoing mode's neutral values, for
+   ≥ 30 ms so games see the release.
+2. Clear the pulse engine queue and call the new mode's `onEnter()`. **Any state that can't
+   be inferred from physical switch positions is reset:** latches, encoder-driven virtual
+   axes, long-press timers, and so on. Everything else follows from the switches anyway.
 3. **Re-baseline edge detection** so the new mode doesn't fire "pulse on change" for
    switches that were already in position.
 4. Run the new mode. Held outputs immediately reflect current switch positions, which
    is what you want.
 5. LED colour/blink shows the new mode.
 
-### 7.3 Zero switch (bistable "zero all reports")
+### 7.3 System switches: output filters and the zero switch
 
-**(assumption)** This is an ordinary toggle wired to a shift-register input on A, declared
-in `wiring_a.h` as `SYS_ZERO`. It is a system input and never reaches the mode functions.
+These are physical switches on board A, declared in `wiring_a.h` as system inputs. They
+never reach the mode functions as ordinary inputs, so a mode can't accidentally map them.
+They work the same in every master mode.
 
-| | Behaviour |
-|---|---|
-| Turned on | Every report is **zeroed**: all buttons and keys released, **all axes = 0**. Pulse queue flushed. |
-| While on | Scanning, debouncing and mapping keep running normally, so their state stays current. Only the output is gated. **New pulses are dropped** and not queued for later. |
-| Turned off | The gate opens. Because mapping is immediate-mode, every **held** output and axis is **re-reported automatically** on the next frame. |
-| Re-sent pulses on release | Pulses that came from an **on-off (`Toggle`) or on-off-on (`Toggle3`)** input are replayed once for the input's *current* position. Example: "toggle ON → pulse X, OFF → pulse Y" re-sends X if the switch is on. That re-syncs games that only listen for pulses. Pulses from rotary switches, encoders and momentary buttons are **not** replayed. |
+#### 7.3.1 Output filter switches
 
-The pulse helpers know which input they were given and its kind (§5.1), so this works
-without anything extra in the mode code. It happens on zero release only, not on mode change.
+One **on-off switch per output class** decides whether that class is reported:
 
-**Zeroed axes:** "0" is the HID logical value 0. What a game makes of it depends on the
-axis range in the descriptor (§7.6). With a signed range (−32767..+32767) it's centre;
-with an unsigned range (0..65535) it's minimum. See §13.
+| Switch | Class | Covers |
+|---|---|---|
+| `SYS_SHOW_POSITIONS` | `Position` | held outputs that reflect a switch's absolute position: on-off toggles, each position of an on-off-on or rotary switch |
+| `SYS_SHOW_PULSES` | `StepPulse` | pulses created from switch changes: on/off pulses of toggles, up/down pulses of on-off-on and rotary switches |
+| (always shown) | `Always` | momentary buttons, keypad keys, encoders **(assumption)**, axes, anything the mode marks explicitly |
+
+Adding a filter later means one new class plus one row in a small table
+(`{ SYS_SHOW_xxx, Class::xxx }`). Nothing else changes.
+
+How the class gets attached, without extra work in the mode code:
+
+* `m.on(input)` returns a small `Signal` value: `{ bool value; ClassMask classes; }`. The
+  class comes from the input's kind (§5.1): a `Toggle` gives `Position`, a `Momentary` gives
+  `Always`.
+* `||`, `&&` and `!` are overloaded and **merge the class masks**. So
+  `m.on(A::GEAR) || m.on(A::FIRE)` carries both classes. `Signal` converts to `bool`, so
+  `if (m.on(A::SHIFT))` still works.
+* Pulse helpers on toggles and selectors are `StepPulse`. `selectorButtons` is `Position`.
+  Encoder pulses are `Always`.
+* A mode can override the class when needed: `m.hold(out, expr.as(Class::Always))`.
+
+The filter is applied **inside `Map`, per contribution**. A `hold` whose signal has any
+hidden class contributes nothing, and a pulse of a hidden class is never queued. Hiding a
+class also flushes its pulses that are already queued, so they can't play out after you
+switch the filter back on. Because everything is recomputed every frame, toggling a filter
+switch takes effect immediately in either direction.
+
+Typical use: when binding in a game's settings screen, hide `StepPulse` to bind toggles by
+position, or hide `Position` to bind the up/down pulses of a rotary switch. This works in
+**every** mode, not just the generic one.
+
+#### 7.3.2 Zero switch (on-off-on, three positions)
+
+**(assumption)** This is a 3-position toggle (`Toggle3`) on A, called `SYS_ZERO`.
+
+| Position | Name | Behaviour |
+|---|---|---|
+| Centre | normal | Everything is reported. |
+| Side 1 | **Zero + re-report** | Everything is zeroed (below). When it returns to centre: held outputs and axes are re-reported, and **on-off / on-off-on toggles replay** the pulse matching their current position (as before). Rotary up/down pulses, encoder and momentary pulses are not replayed. |
+| Side 2 | **Zero + capture** | Everything is zeroed. On return to centre, A sends **one pulse** of the **last logical button that was both activated and deactivated while the switch was in this position**. Every other change is ignored: activation only, deactivation only, axis movement. No toggle replay, no up/down replay. |
+
+**"Zeroed"** means: every button and key released, every axis at its neutral value (below),
+and the pulse queue flushed. Scanning, debouncing and mapping keep running the whole time,
+so their state stays current. Only what reaches USB is gated.
+
+**Zero + capture, in detail.** It's a binding helper: zero, press or flick exactly the input
+you want, return to centre, and the game's "press a button" screen sees exactly one clean
+press of that logical button.
+
+* While in side 2, the full pipeline (mapping → filters → pulse engine) keeps running into a
+  **shadow** output that is not sent. For each digital logical output (joystick button **and**
+  keyboard key, **(assumption)**), the gate watches for "went from off to on, then back to
+  off". It only counts if both edges happen *during* this zero period. It remembers the one
+  whose release came **last**.
+* Because the shadow output is filtered (§7.3.1) and includes the pulse engine, the filter
+  switches choose *what* can be captured. With pulses shown, flicking a toggle that is mapped
+  to "pulse on ON" captures that pulse's logical button. With pulses hidden, it captures
+  nothing for that toggle, and only a position button would count.
+* On return to centre: if something was captured, send one standard pulse of that button
+  (`kPulseOnTime` / `kPulseOffTime`, §7.5). During that pulse everything else stays zeroed.
+  If nothing was captured, nothing is sent.
+* After the pulse, normal reporting resumes. **(assumption, see §13)** That means current held
+  positions and axes are reported again, as when leaving side 1 but without any replay.
+
+**Switch-over details:**
+* Going from side 1 to side 2 physically passes through the centre. To stop that from
+  counting as "returned to centre", the zero switch uses a longer stable time than normal
+  toggles (default 150 ms) before a centre position is accepted.
+* Entering or leaving either zero position never changes the master mode or its state.
+
+**Neutral axis values are defined per axis *and* per master mode.** Each mode declares a
+neutral for each axis it uses, as `Min`, `Centre`, `Max` or an explicit fraction. The
+default is `Centre`. Neutral is used for:
+* the zero switch (both sides)
+* mode transitions (§7.2)
+* axes the mode doesn't write in a frame (`out.clear()` starts every axis at its neutral)
+* JB's axes while board B is absent
+
+So the descriptor's axis range (signed or unsigned) no longer matters for zeroing.
 
 ### 7.4 Mapping API
 
@@ -639,8 +719,12 @@ method that runs every millisecond and declares what the outputs *should be righ
 
 ```cpp
 class FlightSim : public Mode {
-    VirtualAxis trim { -1.0f, +1.0f, /*step*/ 0.01f };   // state that persists in this mode
+    VirtualAxis trim { -1.0f, +1.0f, /*step*/ 0.01f };   // can't be inferred from switches → reset on entry
 public:
+    FlightSim() {
+        neutral(JA.axis(Z),  Neutral::Min);       // throttle: zero = idle
+        neutral(JA.axis(RZ), Neutral::Centre);    // (Centre is the default anyway)
+    }
     const char* name() const override { return "Flight sim"; }
     void onEnter() override { trim.reset(); }
 
@@ -654,7 +738,7 @@ public:
         m.hold(KEY(F1),    m.on(A::MASTER_ARM));                     // … as many as you like
 
         // ── Chords and shift layers are just code
-        bool shift = m.on(A::SHIFT);
+        Signal shift = m.on(A::SHIFT);   // Signal = bool + output class (§7.3.1)
         m.hold(JA.btn(4),  !shift && m.on(A::BTN7));
         m.hold(JA.btn(5),   shift && m.on(A::BTN7));
         m.hold(JA.btn(6),  m.on(A::BTN8) && m.on(A::BTN9));          // chord
@@ -669,9 +753,10 @@ public:
         m.encoderPulses(B::HDG, JB.btn(1), JB.btn(2));  // CW → btn 1, CCW → btn 2
         m.axis(JA.axis(RZ), trim.step(m.delta(B::TRIM)));   // encoder → virtual axis
 
-        // ── Multi-position switches: position AND/OR up/down pulses
-        m.selectorButtons(B::RADIO, JB.btn(20));         // pos 1..12 → hold btn 20..31
-        m.selectorPulses (B::RADIO, JB.btn(40), JB.btn(41)); // step up / step down
+        // ── Multi-position switches: position AND up/down pulses
+        //    (the filter switches decide at runtime which of them are reported)
+        m.selectorButtons(B::RADIO, JB.btn(20));         // pos 1..12 → hold btn 20..31  [Position]
+        m.selectorPulses (B::RADIO, JB.btn(40), JB.btn(41)); // step up / step down     [StepPulse]
         m.selectorButtons(A::FLAPS, JA.btn(50));         // 3-pos toggle → 3 buttons
         m.selectorPulses (A::FLAPS, KEY(F7), KEY(F6));
 
@@ -685,7 +770,7 @@ public:
     }
 };
 
-Mode* const kModes[12] = { &genericBoth, &genericPositions, &genericPulses, &flightSim, … };
+Mode* const kModes[12] = { &generic, &flightSim, &spaceSim, … };
 ```
 
 Semantics, kept intentionally simple:
@@ -698,34 +783,33 @@ Semantics, kept intentionally simple:
   `m.position(sel)`, `m.stepDelta(sel)`: inputs from absent B read as off / 0 / unknown.
 * Edge helpers compare against the previous frame, so no state lives in the mode.
   Stateful helpers (`Latch`, `VirtualAxis`, `LongPress`, `DoubleTap`) are members of the
-  mode class and get reset in `onEnter()`.
+  mode class and get reset in `onEnter()`, because their state can't be inferred from the
+  physical switches.
+* Every helper tags what it writes with an output class (§7.3.1), so the filter switches
+  work on any mode with no extra code.
 
-**Generic modes, for binding in a game's own control settings.** These are generated
-automatically from the wiring tables, so they never need maintenance when you add or
-remove switches. Each unit's inputs go to its own joystick (A → JA, B → JB). They share
-one **fixed button layout**, assigned at compile time:
+**Generic mode, for binding in a game's own control settings.** It is generated
+automatically from the wiring tables, so it never needs maintenance when you add or
+remove switches. Each unit's inputs go to its own joystick (A → JA, B → JB), with one
+**fixed button layout** assigned at compile time:
 
-| Input | Output (fixed button numbers) |
-|---|---|
-| Momentary button, keypad key | 1 held button |
-| On-off toggle | 1 held button (position) + "on" / "off" pulse buttons |
-| On-off-on toggle, rotary switch | 1 held button per position + up / down pulse buttons |
-| Encoder | CW / CCW pulse buttons |
-| Analog channel | 1 axis |
+| Input | Output (fixed button numbers) | Class |
+|---|---|---|
+| Momentary button, keypad key | 1 held button | `Always` |
+| On-off toggle | 1 held button (position) | `Position` |
+| | "on" / "off" pulse buttons | `StepPulse` |
+| On-off-on toggle, rotary switch | 1 held button per position | `Position` |
+| | up / down pulse buttons | `StepPulse` |
+| Encoder | CW / CCW pulse buttons | `Always` |
+| Analog channel | 1 axis | `Always` |
 
-The generic modes differ only in a **filter** saying which output types are reported. The
-button numbers stay the same, so a binding made in one generic mode still points to the
-same switch in another:
-
-* `Generic: both`: positions and pulses
-* `Generic: positions only`: held buttons only, no pulses (encoders and momentaries still work)
-* `Generic: pulses only`: pulses only, no held position buttons (momentaries still work)
-
-Adding another filter mode later is one line, e.g. a `GenericFilter` flags struct.
+There's only one generic mode now. Showing/hiding positions and pulses is done with the
+filter switches, which work in every mode. The button numbers never change, so a binding
+stays valid whichever filters are set.
 
 **Button budget:** each unit gets 128 buttons. Your current plan fits easily. Board A, with
-3 rotaries, 1 encoder, the zero switch, the rest plain, and the keypad, uses about 110 in the
-worst case. Board B uses fewer. A `static_assert` makes the build fail if a wiring change
+3 rotaries, 1 encoder, the system switches, the rest plain, and the keypad, uses about 110 in
+the worst case. Board B uses fewer. A `static_assert` makes the build fail if a wiring change
 would ever need more than 128.
 
 ### 7.5 Pulse engine
@@ -827,7 +911,7 @@ B never waits for A and works the same whether or not A is listening.
   chain reads. Get a cheap 8-channel USB logic analyzer + PulseView (sigrok). For a first
   PCB it is the single most useful tool you can own.
 * **Status LED** (WS2812 on GPIO21):
-  * A: colour = master mode; slow blink = B absent; red flash = errors; white = zero switch active.
+  * A: colour = master mode; slow blink = B absent; red flash = errors; white = zeroed, white blink = zero + capture.
   * B: green = link OK; amber blink = no heartbeat from A.
 
 ---
@@ -839,7 +923,7 @@ B never waits for A and works the same whether or not A is listening.
   make-before-break transitions (garbage and wrong-but-valid codes), selector up/down with
   wrap-around and skipped positions, the 1€ filter, COBS/CRC round-trip and garbage resync,
   and mapping helpers (pulse engine timing, edge baselining on mode change, toggle re-sync
-  on zero release).
+  on zero release, zero + capture picking the right button, filter classes through `||`/`&&`).
 * **Record and replay:** a console command dumps the tagged raw scan stream to a file.
   Feed it to the native build to reproduce a real-world glitch on the PC, under a debugger.
 * **Bench checklist per board:** every terminal pin toggles exactly its bit (`ident`),
@@ -858,7 +942,7 @@ B never waits for A and works the same whether or not A is listening.
 | M3 | Scanner schedule + all decoders (debounce, encoders, rotary, keypad, selectors, filters) | unit tests green; `inputs` correct on the bench at full scan rate |
 | M4 | USB HID on A with the `Generic` mode, local inputs only | all inputs visible in a joystick tester |
 | M5 | Link | B's inputs appear on A; unplug/replug/reset of B behave as in §9; error counters ≈ 0 at the chosen baud |
-| M6 | Mapping API, pulse engine, master-mode switch, zero switch | first real game profile works end-to-end |
+| M6 | Mapping API, pulse engine, master-mode, filter and zero switches | first real game profile works end-to-end |
 | M7 | Polish | calibration in NVS, LED codes, more profiles, optional SPI/DMA chain read |
 
 ---
@@ -876,30 +960,38 @@ B never waits for A and works the same whether or not A is listening.
 * **Master-mode switch:** 12 positions with an end stop, position only (§7.2).
 * **Pulses:** central minimum of 100 ms on / 100 ms off (§7.5).
 * **HID:** one joystick per unit (JA, JB) with 128 buttons each, plus keyboard (§7.6).
-* **Zero switch:** all reports zeroed, axes = 0. On release, held state is re-reported, and
-  only on-off / on-off-on switches replay their pulse (§7.3).
-* **Generic modes:** the same fixed layout with filters (both / positions only / pulses
-  only); more filters can be added later (§7.4).
+* **Master mode vs filters:** the master mode only picks the mapping. On-off **filter
+  switches** (show positions, show up/down pulses, more later) decide what gets reported, in
+  every mode (§7.2, §7.3.1). There is one generic mode (§7.4).
+* **Zero switch (on-off-on):** side 1 = zero + re-report, with toggle pulse replay. Side 2 =
+  zero + capture: on return, one pulse of the last logical button that was activated and
+  deactivated while zeroed. Nothing else, no replay (§7.3.2).
+* **Neutral axis values** are defined per axis and per master mode (§7.3.2).
+* **Mode state:** anything that can't be inferred from physical switch positions is reset
+  on mode change (§7.2).
 * **Current hardware:** A has 3 rotaries, the mode switch and 1 encoder. B has 1 rotary and a
   few encoders. Counts will change, so everything comes from the wiring tables, with
   compile-time checks against the board's limits (4 rotaries, 32 encoders, 64 bits, 128 buttons).
 
 ### Still open
 
-1. **Zeroed axes:** should the axes be signed (0 = centre, good for sticks) or unsigned
-   (0 = minimum, good for throttles)? Or should it be chosen per axis, with "zero" meaning the
-   axis's own neutral value? This decides the descriptor (§7.3, §7.6).
-2. **Hat switch** on JA/JB: wanted? It has to be decided before the descriptor is frozen (§7.6).
-3. **Mode-specific state** (e.g. an encoder-driven virtual axis): reset on mode change, or keep
-   it per mode until power-off?
-4. **Encoder acceleration** (fast spin → bigger steps)? It's only useful for encoders mapped to
+1. **After a zero + capture pulse:** normal reporting resumes, so held positions and axes
+   are reported again right after the pulse (assumed). Or should outputs that changed while
+   zeroed stay suppressed until they next change?
+2. **What can be captured:** joystick buttons *and* keyboard keys (assumed)? And should
+   pulse-generated activations count, e.g. flicking a toggle mapped to "pulse on ON"
+   (assumed yes, controlled by the filter switches)? Or only buttons that are held directly?
+3. **Encoders and the filters:** encoder pulses are always shown (assumed). Should they get
+   their own filter class instead?
+4. **Hat switch** on JA/JB: wanted? It has to be decided before the descriptor is frozen (§7.6).
+5. **Encoder acceleration** (fast spin → bigger steps)? It's only useful for encoders mapped to
    virtual axes, since pulses are capped at 5/s anyway (§7.5).
-5. **Analog:** how many channels are joysticks vs simple pots on each board? Will you fit the
+6. **Analog:** how many channels are joysticks vs simple pots on each board? Will you fit the
    100 nF caps? Is the master-mode switch on a 4051 channel of A (assumed)?
-6. **Configuration:** is compile-and-flash for mapping changes acceptable long-term
+7. **Configuration:** is compile-and-flash for mapping changes acceptable long-term
    (proposed), or do you eventually want changes without re-flashing (see §14)?
-7. **Keypad on B:** the firmware supports it automatically. Just confirm whether it's planned.
-8. **Both USBs connected at once** (handy for debugging both boards at the same time): check
+8. **Keypad on B:** the firmware supports it automatically. Just confirm whether it's planned.
+9. **Both USBs connected at once** (handy for debugging both boards at the same time): check
    whether the S3-Zero has a diode between USB VBUS and its 5V pin. Otherwise the two PCs'
    (or ports') 5V rails get tied together via the Cat5 (hardware question, affects dev workflow).
 
