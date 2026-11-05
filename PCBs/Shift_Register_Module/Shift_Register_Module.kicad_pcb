@@ -8,7 +8,7 @@
 	)
 	(paper "A4")
 	(title_block
-		(comment 4 "AISLER Project ID: VBIHXPNV")
+		(comment 4 "AISLER Project ID: MZILXSPQ")
 	)
 	(layers
 		(0 "F.Cu" signal)
@@ -92,7 +92,6 @@
 		)
 		(capping no)
 		(filling no)
-		(zone_defaults)
 		(pcbplotparams
 			(layerselection 0x00000000_00000000_55555555_5755f5ff)
 			(plot_on_all_layers_selection 0x00000000_00000000_00000000_00000000)
