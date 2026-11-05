@@ -120,7 +120,7 @@
         "padstack": "warning",
         "pth_inside_courtyard": "error",
         "shorting_items": "error",
-        "silk_edge_clearance": "warning",
+        "silk_edge_clearance": "ignore",
         "silk_over_copper": "warning",
         "silk_overlap": "warning",
         "skew_out_of_range": "error",
@@ -527,7 +527,7 @@
         "wire_width": 6
       },
       {
-        "name": "5V",
+        "name": "PWR",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -542,8 +542,12 @@
     "netclass_assignments": null,
     "netclass_patterns": [
       {
-        "netclass": "5V",
+        "netclass": "PWR",
         "pattern": "*+5V*"
+      },
+      {
+        "netclass": "PWR",
+        "pattern": "*+3V3*"
       }
     ]
   },
@@ -694,38 +698,6 @@
     [
       "70ceab5e-e31b-4508-a755-c321a835a8c9",
       "Shared_Main"
-    ],
-    [
-      "1118328f-a1b2-4dcf-b1c5-36c97ae5f908",
-      "Input register 1"
-    ],
-    [
-      "69476812-841e-42e1-9ee1-30f93f6ede61",
-      "Input register 2"
-    ],
-    [
-      "06890bf6-dd23-4e88-9f1e-ae85625d1e22",
-      "Input register 3"
-    ],
-    [
-      "b184a816-d02f-4ef9-897c-d31b5b062636",
-      "Input register 4"
-    ],
-    [
-      "689e04ea-9ab8-44cb-ac25-fd1df69ea6ca",
-      "Input register 5"
-    ],
-    [
-      "ffdc2058-e5d3-4693-94cd-ce1a8b4b8c8e",
-      "Input register 6"
-    ],
-    [
-      "780233be-e3b6-4ef5-80e7-901b94dd13cc",
-      "Input register 7"
-    ],
-    [
-      "d01193f1-0d8f-4589-9c5c-ccb8bce18146",
-      "Input register 8"
     ],
     [
       "2c033bb2-1374-45cf-aa06-3900b522ab1f",

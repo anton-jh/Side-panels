@@ -148,8 +148,8 @@ $RuleSets = @{
 
 # Which rule set each project is manufactured with.
 $Projects = [ordered] @{
-    'Right_Keypad' = '2L-1.6mm-35um-ENIG'
     'Shared_Main'  = '4L-1.6mm-35um-ENIG'
+    'Shift_Register_Module'  = '4L-1.6mm-35um-ENIG'
 }
 
 # Fab limits should not be reported as warnings you can scroll past.
