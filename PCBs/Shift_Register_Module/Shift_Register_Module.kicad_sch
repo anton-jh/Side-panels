@@ -1071,9 +1071,12 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Device:R_Network08"
+		(symbol "Device:R_Small"
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0)
+				(offset 0.254)
 				(hide yes)
 			)
 			(exclude_from_sim no)
@@ -1081,8 +1084,18 @@
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "RN"
-				(at -12.7 0 90)
+			(property "Reference" "R"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.016 1.016)
+					)
+				)
+			)
+			(property "Value" "R_Small"
+				(at 1.778 0 90)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -1091,28 +1104,7 @@
 					)
 				)
 			)
-			(property "Value" "R_Network08"
-				(at 10.16 0 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "Resistor_THT:R_Array_SIP9"
-				(at 12.065 0 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" "http://www.vishay.com/docs/31509/csc.pdf"
+			(property "Footprint" ""
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1123,7 +1115,7 @@
 					)
 				)
 			)
-			(property "Description" "8 resistor network, star topology, bussed resistors, small symbol"
+			(property "Datasheet" ""
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1134,7 +1126,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "R network star-topology"
+			(property "Description" "Resistor, small symbol"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1145,7 +1137,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "R?Array?SIP*"
+			(property "ki_keywords" "R resistor"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1156,357 +1148,23 @@
 					)
 				)
 			)
-			(symbol "R_Network08_0_1"
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_Small_0_1"
 				(rectangle
-					(start -11.43 -3.175)
-					(end 8.89 3.175)
+					(start -0.762 1.778)
+					(end 0.762 -1.778)
 					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(rectangle
-					(start -10.922 1.524)
-					(end -9.398 -2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -10.16 2.286)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy -10.16 1.524) (xy -10.16 2.286) (xy -7.62 2.286) (xy -7.62 1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -10.16 -2.54) (xy -10.16 -3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -8.382 1.524)
-					(end -6.858 -2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -7.62 2.286)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy -7.62 1.524) (xy -7.62 2.286) (xy -5.08 2.286) (xy -5.08 1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -7.62 -2.54) (xy -7.62 -3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -5.842 1.524)
-					(end -4.318 -2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -5.08 2.286)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy -5.08 1.524) (xy -5.08 2.286) (xy -2.54 2.286) (xy -2.54 1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -5.08 -2.54) (xy -5.08 -3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -3.302 1.524)
-					(end -1.778 -2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -2.54 2.286)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 1.524) (xy -2.54 2.286) (xy 0 2.286) (xy 0 1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 -2.54) (xy -2.54 -3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -0.762 1.524)
-					(end 0.762 -2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 0 2.286)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 1.524) (xy 0 2.286) (xy 2.54 2.286) (xy 2.54 1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -2.54) (xy 0 -3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start 1.778 1.524)
-					(end 3.302 -2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 2.286)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 1.524) (xy 2.54 2.286) (xy 5.08 2.286) (xy 5.08 1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 -2.54) (xy 2.54 -3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start 4.318 1.524)
-					(end 5.842 -2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 5.08 2.286)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.08 1.524) (xy 5.08 2.286) (xy 7.62 2.286) (xy 7.62 1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.08 -2.54) (xy 5.08 -3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start 6.858 1.524)
-					(end 8.382 -2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 7.62 -2.54) (xy 7.62 -3.81)
-					)
-					(stroke
-						(width 0)
+						(width 0.2032)
 						(type default)
 					)
 					(fill
@@ -1514,11 +1172,11 @@
 					)
 				)
 			)
-			(symbol "R_Network08_1_1"
+			(symbol "R_Small_1_1"
 				(pin passive line
-					(at -10.16 5.08 270)
-					(length 2.54)
-					(name "common"
+					(at 0 2.54 270)
+					(length 0.762)
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1534,9 +1192,9 @@
 					)
 				)
 				(pin passive line
-					(at -10.16 -5.08 90)
-					(length 1.27)
-					(name "R1"
+					(at 0 -2.54 90)
+					(length 0.762)
+					(name ""
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1544,132 +1202,6 @@
 						)
 					)
 					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 -5.08 90)
-					(length 1.27)
-					(name "R2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 -5.08 90)
-					(length 1.27)
-					(name "R3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -2.54 -5.08 90)
-					(length 1.27)
-					(name "R4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -5.08 90)
-					(length 1.27)
-					(name "R5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 -5.08 90)
-					(length 1.27)
-					(name "R6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 -5.08 90)
-					(length 1.27)
-					(name "R7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -5.08 90)
-					(length 1.27)
-					(name "R8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2301,10 +1833,28 @@
 		(uuid "031f1e2a-a958-44c0-8677-ad0c8a7fd6cb")
 	)
 	(junction
+		(at 116.84 54.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "14cb8840-f637-437b-a076-f5166c1c326d")
+	)
+	(junction
+		(at 121.92 54.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2a1b9fee-d848-4924-93ba-601205916d52")
+	)
+	(junction
 		(at 127 78.74)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2b68474c-0511-4779-b31c-ee9598936784")
+	)
+	(junction
+		(at 114.3 54.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2ec85eef-90ff-458c-9a4b-a07cba93de71")
 	)
 	(junction
 		(at 111.76 93.98)
@@ -2319,10 +1869,22 @@
 		(uuid "5122d66f-bfc6-4272-ab36-2e87247ce5ad")
 	)
 	(junction
+		(at 119.38 54.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "57b347ad-9345-4961-98d0-f9d4432f3522")
+	)
+	(junction
 		(at 129.54 76.2)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "70e2764a-a310-4a7d-88f7-65c5cd7667eb")
+	)
+	(junction
+		(at 127 54.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "87630ca7-7537-42f5-a316-a4036d8786ff")
 	)
 	(junction
 		(at 129.54 135.89)
@@ -2349,6 +1911,12 @@
 		(uuid "96d9494c-6e15-4798-8ae6-8ea601758668")
 	)
 	(junction
+		(at 111.76 54.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a4600f95-8dc8-4c97-b997-3149f84f0bf7")
+	)
+	(junction
 		(at 114.3 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2367,6 +1935,12 @@
 		(uuid "f232d9f2-728c-43b0-9d0e-9c303fa8fb92")
 	)
 	(junction
+		(at 124.46 54.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f708bdf1-7203-44b6-86ed-8f391d869fce")
+	)
+	(junction
 		(at 116.84 88.9)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2378,6 +1952,16 @@
 	)
 	(wire
 		(pts
+			(xy 114.3 54.61) (xy 116.84 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0313e3c5-ecb1-415c-901d-5a81789d43f1")
+	)
+	(wire
+		(pts
 			(xy 121.92 96.52) (xy 138.43 96.52)
 		)
 		(stroke
@@ -2385,6 +1969,16 @@
 			(type default)
 		)
 		(uuid "0e19cdf9-fc04-4477-9ecd-e49fa7d1d448")
+	)
+	(wire
+		(pts
+			(xy 127 54.61) (xy 129.54 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "124a9113-7350-4bbc-b3ea-62b4f87ad7a7")
 	)
 	(wire
 		(pts
@@ -2508,6 +2102,16 @@
 	)
 	(wire
 		(pts
+			(xy 121.92 54.61) (xy 124.46 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3bac72c2-5506-43a9-947b-a5bfe058696a")
+	)
+	(wire
+		(pts
 			(xy 119.38 135.89) (xy 119.38 137.16)
 		)
 		(stroke
@@ -2545,6 +2149,16 @@
 			(type default)
 		)
 		(uuid "413bb68c-5a18-4738-89ba-25a8b4ef1847")
+	)
+	(wire
+		(pts
+			(xy 119.38 54.61) (xy 121.92 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "51448bf0-c48b-44c8-850d-6e9a333a95af")
 	)
 	(wire
 		(pts
@@ -2648,6 +2262,16 @@
 	)
 	(wire
 		(pts
+			(xy 124.46 54.61) (xy 127 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8e2f1a24-9fcc-4d8d-9158-ccf6483ed9b3")
+	)
+	(wire
+		(pts
 			(xy 121.92 137.16) (xy 121.92 96.52)
 		)
 		(stroke
@@ -2675,6 +2299,16 @@
 			(type default)
 		)
 		(uuid "a4ee0155-8f0a-42ac-9759-99b940ad6f40")
+	)
+	(wire
+		(pts
+			(xy 111.76 54.61) (xy 114.3 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a7fc83ea-3004-42ca-819c-d556733ee038")
 	)
 	(wire
 		(pts
@@ -2818,6 +2452,16 @@
 	)
 	(wire
 		(pts
+			(xy 116.84 54.61) (xy 119.38 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f2eff41b-60e3-4f22-8150-b735edd40d7c")
+	)
+	(wire
+		(pts
 			(xy 175.26 137.16) (xy 175.26 127)
 		)
 		(stroke
@@ -2926,6 +2570,88 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_Small")
+		(at 129.54 57.15 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "13775400-c64e-4b50-a0cf-c77211c12189")
+		(property "Reference" "R8"
+			(at 132.08 55.8799 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 129.54 58.42 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
+			(at 129.54 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 129.54 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 129.54 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9493c440-e6ad-4927-96fe-cb07928018d9")
+		)
+		(pin "2"
+			(uuid "8a39e5a7-024d-4209-9072-e5d6cecbc575")
+		)
+		(instances
+			(project "Shift_Register_Module"
+				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
+					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 129.54 135.89 270)
 		(unit 1)
@@ -2999,6 +2725,252 @@
 			(project "Shift_Register_Module"
 				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
 					(reference "#FLG02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 127 57.15 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "25e7b0e5-dbf0-469a-9c1f-5f231eb30c97")
+		(property "Reference" "R7"
+			(at 129.54 55.8799 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 127 58.42 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
+			(at 127 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 127 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 127 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "51f557b0-fbe7-4d2d-972c-acf0c8afd2dd")
+		)
+		(pin "2"
+			(uuid "369b3f4b-f2ff-409f-b4d0-dfe7327a9c03")
+		)
+		(instances
+			(project "Shift_Register_Module"
+				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
+					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 116.84 57.15 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "3b24fe55-8fc0-4bcd-a06c-ba9ca4ce35c4")
+		(property "Reference" "R3"
+			(at 119.38 55.8799 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 116.84 58.42 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
+			(at 116.84 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 116.84 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 116.84 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b0fb0f1d-8287-4e98-8f67-85c2cbf322a8")
+		)
+		(pin "2"
+			(uuid "8a753346-1466-4b28-be59-9812330f65d6")
+		)
+		(instances
+			(project "Shift_Register_Module"
+				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
+					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 114.3 57.15 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "3c8655d2-f13b-423e-80ba-23b2e336b199")
+		(property "Reference" "R2"
+			(at 116.84 55.8799 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 114.3 58.42 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
+			(at 114.3 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 114.3 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 114.3 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "bc7d87bd-508a-4690-955e-f3ae83fe8969")
+		)
+		(pin "2"
+			(uuid "a702bc02-4e38-42fe-8ca1-238527c9a7b6")
+		)
+		(instances
+			(project "Shift_Register_Module"
+				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -3444,8 +3416,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_Network08")
-		(at 121.92 54.61 0)
+		(lib_id "Device:R_Small")
+		(at 119.38 57.15 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3453,21 +3425,21 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "53ed2391-d593-400d-8f34-d30e57884905")
-		(property "Reference" "RN1"
-			(at 132.08 53.5939 0)
+		(uuid "6ce036f5-355e-41f6-a048-7c17fbe7ad32")
+		(property "Reference" "R4"
+			(at 121.92 55.8799 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
-					(size 1.27 1.27)
+					(size 1.016 1.016)
 				)
 				(justify left)
 			)
 		)
 		(property "Value" "10k"
-			(at 132.08 56.1339 0)
+			(at 119.38 58.42 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3477,8 +3449,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Array_SIP9"
-			(at 133.985 54.61 90)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
+			(at 119.38 57.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3488,8 +3460,8 @@
 				)
 			)
 		)
-		(property "Datasheet" "http://www.vishay.com/docs/31509/csc.pdf"
-			(at 121.92 54.61 0)
+		(property "Datasheet" ""
+			(at 119.38 57.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3499,8 +3471,8 @@
 				)
 			)
 		)
-		(property "Description" "8 resistor network, star topology, bussed resistors, small symbol"
-			(at 121.92 54.61 0)
+		(property "Description" "Resistor, small symbol"
+			(at 119.38 57.15 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3509,38 +3481,17 @@
 					(size 1.27 1.27)
 				)
 			)
-		)
-		(pin "5"
-			(uuid "c4e19dc7-3897-43d9-93b8-51c369bb3fe6")
-		)
-		(pin "6"
-			(uuid "391a6c14-38c6-4fec-807b-9e4d566559ff")
-		)
-		(pin "7"
-			(uuid "68e1a9c2-40af-46a3-a517-3dac84df01ed")
 		)
 		(pin "1"
-			(uuid "92a03018-189a-4e46-bb20-e14dc32b3c1d")
+			(uuid "a5be06e1-c103-42b5-b2a9-3e47986d8e8c")
 		)
 		(pin "2"
-			(uuid "4b30462b-fe74-4003-8fa8-14d76953b163")
-		)
-		(pin "3"
-			(uuid "01ff3bc2-01ce-4f3e-9abb-9963887f927f")
-		)
-		(pin "4"
-			(uuid "4fdd2dd4-7723-45ab-af13-5dc540dd4aed")
-		)
-		(pin "8"
-			(uuid "df9a1823-6a0f-499a-82ca-3ceccb7fc923")
-		)
-		(pin "9"
-			(uuid "ef0a883d-5c3a-46c7-94ac-c90f5a55adb7")
+			(uuid "50dcaad9-9996-48f5-84b1-6cb1b90ebcf7")
 		)
 		(instances
 			(project "Shift_Register_Module"
 				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
-					(reference "RN1")
+					(reference "R4")
 					(unit 1)
 				)
 			)
@@ -3619,6 +3570,88 @@
 			(project "Shift_Register_Module"
 				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 111.76 57.15 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "75b5bab2-09e3-4e4d-b67e-3d416695d2e7")
+		(property "Reference" "R1"
+			(at 114.3 55.8799 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 111.76 58.42 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
+			(at 111.76 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 111.76 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 111.76 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1087477b-4885-458a-8ca8-846cc6321e2b")
+		)
+		(pin "2"
+			(uuid "7f03e12b-59a9-4342-a4b9-7105431f7619")
+		)
+		(instances
+			(project "Shift_Register_Module"
+				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
+					(reference "R1")
 					(unit 1)
 				)
 			)
@@ -3853,6 +3886,88 @@
 			(project "Shift_Register_Module"
 				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
 					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 124.46 57.15 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "9019caca-ebaf-407a-8ae4-ac5e2f39f700")
+		(property "Reference" "R6"
+			(at 127 55.8799 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 124.46 58.42 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
+			(at 124.46 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 124.46 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 124.46 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "55ffc6c8-6882-4cca-9813-46f381bfa6b7")
+		)
+		(pin "2"
+			(uuid "f22d237b-41f3-4396-9004-78fe4fb3837f")
+		)
+		(instances
+			(project "Shift_Register_Module"
+				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
+					(reference "R6")
 					(unit 1)
 				)
 			)
@@ -4142,7 +4257,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 111.76 49.53 0)
+		(at 111.76 54.61 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4153,7 +4268,7 @@
 		(fields_autoplaced yes)
 		(uuid "cc539c5f-8792-421d-829d-374726c71daa")
 		(property "Reference" "#PWR09"
-			(at 111.76 53.34 0)
+			(at 111.76 58.42 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4164,7 +4279,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 111.76 44.45 0)
+			(at 111.76 49.53 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4174,7 +4289,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 111.76 49.53 0)
+			(at 111.76 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4185,7 +4300,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 111.76 49.53 0)
+			(at 111.76 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4196,7 +4311,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 111.76 49.53 0)
+			(at 111.76 54.61 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4291,6 +4406,88 @@
 			(project "Shift_Register_Module"
 				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
 					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 121.92 57.15 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "f8974214-2211-4e6d-ad71-ba1c25883804")
+		(property "Reference" "R5"
+			(at 124.46 55.8799 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 121.92 58.42 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
+			(at 121.92 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 121.92 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 121.92 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8cae658f-ba41-4f85-bf54-4896a2411a5a")
+		)
+		(pin "2"
+			(uuid "d89b1776-fbb0-4a25-a47a-70d5e6aa0b5c")
+		)
+		(instances
+			(project "Shift_Register_Module"
+				(path "/52ad26e7-aaea-4029-a075-7db17d3554f9"
+					(reference "R5")
 					(unit 1)
 				)
 			)
