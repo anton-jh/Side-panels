@@ -129,6 +129,7 @@
 			(outputdirectory "")
 		)
 	)
+	(property "aisler_export_locally" "")
 	(footprint "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "099c9ba2-fe09-420d-9086-c927d1ef2824")

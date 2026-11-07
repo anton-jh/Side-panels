@@ -683,7 +683,9 @@
       "Root"
     ]
   ],
-  "text_variables": {},
+  "text_variables": {
+    "aisler_export_locally": ""
+  },
   "tuning_profiles": {
     "meta": {
       "version": 0
