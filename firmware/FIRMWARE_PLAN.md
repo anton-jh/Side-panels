@@ -47,21 +47,22 @@ Status: **draft for discussion.** Nothing here is final. Assumptions are marked
 
 ## 1. Hardware facts the firmware depends on
 
-Taken from `PCBs/Shared_Main` and `PCBs/Right_Keypad` (netlist in the `.kicad_pcb` files).
-If the schematic changes, update this section and `hw_pins.h`.
+Taken from `PCBs/Shared_Main` and `PCBs/Shift_Register_Module` (netlist in the `.kicad_pcb` files).
+If the schematic changes, update this section and `hw_pins.h`. The keypad (`PCBs/Right_Keypad`)
+is obsolete and not part of the design any more.
 
 ### 1.1 ESP32-S3-Zero pin map (same on both boards)
 
 | GPIO | Net | Direction | Use |
 |---|---|---|---|
-| 1 | `ADDR0` | out | 74HC4051 S0 **and** keypad ROW1 (via R4 100 Ω) |
-| 2 | `ADDR1` | out | 74HC4051 S1 **and** keypad ROW2 (via R5 100 Ω) |
-| 3 | `ADDR2` | out | 74HC4051 S2 **and** keypad ROW3 (via R6 100 Ω) **and** the rotary-switch phase: drives the bases of all four BC547s through R1 10 k (R7 10 k pull-down). High = transistors on = rotary "pin 1" sunk to GND (§1.5). GPIO3 is a strapping pin, but only for JTAG-source selection when an eFuse is burned, so it is harmless here. |
+| 1 | `ADDR2` | out | 74HC4051 S2 **and** the rotary-switch phase: drives the bases of all four BC547s through R1 (being changed from 10 k to 4.7 k) with R7 10 k pull-down. High = transistors on = rotary "pin 1" sunk to GND (§1.5). Also on expansion header J4. |
+| 2 | `ADDR1` | out | 74HC4051 S1. Also on J4. |
+| 3 | `ADDR0` | out | 74HC4051 S0. Also on J4. GPIO3 is a strapping pin, but only for JTAG-source selection when an eFuse is burned, so it is harmless here. |
 | 4 | `SR_PL` | out | Parallel load, active low (R9 47 Ω series) |
 | 5 | `SR_CP` | out | Shift clock (R10 47 Ω series) |
-| 6 | `SR_Q7` | in | Serial data from U4, the first 165 in the chain |
+| 6 | `SR_Q7` | in | Serial data from module 1, the module plugged into the main board |
 | 7 | `A` | analog in | 4051 common output. **ADC1_CH6.** ✓ On the S3, GPIO1–10 are ADC1 and GPIO11–20 are ADC2; ADC1 is the right one because ADC2 can't be used while Wi-Fi is on and is generally less convenient. |
-| 8–13 | `AUX5`–`AUX0` | — | Expansion grid J3 (GPIO8 = AUX5 … GPIO13 = AUX0), unused. Useful as **timing probe pins** while developing (see §10). AUX5–AUX3 (GPIO8–10) are ADC1-capable too, if you ever want more analog inputs. |
+| 8–13 | `AUX5`–`AUX0` | — | Expansion header J4 (GPIO8 = AUX5 … GPIO13 = AUX0), unused. Useful as **timing probe pins** while developing (see §10). AUX5–AUX3 (GPIO8–10) are ADC1-capable too, if you ever want more analog inputs. |
 | 21 | (on-module) | out | WS2812 RGB LED on the S3-Zero. Use it for status (see §10). |
 | 43 | `TX` | out | **UART TX** on both boards. A: via R3 → RJ45 pin 1. B: R2/R3 are fitted crossed ("Cross on board B" silkscreen), so it goes → RJ45 pin 3. |
 | 44 | `RX` | in | **UART RX** on both boards. A: via R2 ← RJ45 pin 3. B: crossed, ← RJ45 pin 1. |
@@ -72,44 +73,43 @@ so link traffic stays separate from any UART0 debug logging.
 
 ### 1.2 Shift register chain order
 
-The chain is `MCU ← U4 ← U5 ← U6 ← U7 ← U8 ← U9 ← U10 ← U11 ← keypad 165 ← GND`.
-A 74HC165 outputs D7 first and D0 last. If each byte is read **MSB-first**, a terminal
-pin maps cleanly to a bit:
+The digital inputs are on **shift-register modules** (`PCBs/Shift_Register_Module`), one
+74HC165 and one 8-pin terminal (J1) per module. Modules plug into each other edge to edge
+and extend to the left of the main board:
 
-| Byte read | Chip | Terminal | Bit *n* = |
-|---|---|---|---|
-| 0 | U4 | J10 | J10 pin *n*+1 |
-| 1 | U5 | J11 | J11 pin *n*+1 |
-| 2 | U6 | J12 | J12 pin *n*+1 |
-| 3 | U7 | J13 | J13 pin *n*+1 |
-| 4 | U8 | J14 | J14 pin *n*+1 |
-| 5 | U9 | J15 | J15 pin *n*+1 |
-| 6 | U10 | J17 | J17 pin *n*+1 |
-| 7 | U11 | J18 | J18 pin *n*+1 |
-| 8 | keypad U1 | — | bit7..bit0 = COL8, COL7, COL6, COL5, **COL1, COL2, COL3, COL4** (the order is permuted, so use a lookup table) |
-| 9 | (sentinel) | — | Keypad present: `0x00` (keypad DS is tied to GND). No keypad: `0xFF` (R8 pull-up on `SR_Q7_KP`). |
+```
+[module N] → … → [module 2] → [module 1] → main board (J3) → MCU
+```
 
-So the scanner clocks **80 bits (10 bytes)** per read. Byte 9 gives
-**free keypad presence detection** on both boards.
+Module 1 is the one plugged into the main board; its Q7 is `SR_Q7`. Each module's DS comes
+from the next module's Q7 through its J2 "Upstream" socket. A 74HC165 outputs D7 first and
+D0 last, and J1 pin 1 is wired to D7. If each byte is read **MSB-first**, a terminal pin maps
+cleanly to a bit:
+
+| Byte read | Module | Bit 7 … bit 0 = |
+|---|---|---|
+| 0 | module 1 | J1 pin 1 … J1 pin 8 |
+| 1 | module 2 | J1 pin 1 … J1 pin 8 |
+| … | … | … |
+| N−1 | module N | J1 pin 1 … J1 pin 8 |
+
+So the scanner clocks **8 × N bits** per read. N = 8–10 is not decided yet, so it is one
+constant per board (`kNumModules` in the wiring file), and the scanner, `InputState` and the
+link protocol all size themselves from it (with a fixed maximum, see §5.6).
 
 All inputs have pull-ups and switch to GND, so **raw 0 = active**. The scanner inverts
 everything so that logical `true` = pressed/closed.
 
-### 1.3 Keypad matrix (8 columns × 3 rows, diodes)
+### 1.3 End of the chain
 
-Each column is pulled up and connects through a Schottky diode (anode on the column)
-and a switch to a row. **A row is active when it is driven LOW.** Because the
-rows share wires with the 4051 address lines, only some addresses give a clean row scan:
+The last module has its DS tied to 3v3 with a jumper in its J2 socket (pin 4 to pin 5). So
+any bits clocked past the end of the chain read **1 = inactive**. The main board always has
+at least one module, so `SR_Q7` is never left floating.
 
-| ADDR (S2 S1 S0) | Rows low | Keypad data means |
-|---|---|---|
-| 6 = `110` | ROW1 | row 1 |
-| 5 = `101` | ROW2 | row 2 |
-| 3 = `011` | ROW3 | row 3 |
-| 7 = `111` | none | must read "nothing pressed". Use it as a sanity check. |
-| 0, 1, 2, 4 | ≥ 2 rows | ambiguous, ignore |
-
-So the keypad is scanned "for free" as the mux address steps through 0–7.
+There is no automatic detection of the chain length. If `kNumModules` is larger than the
+real chain, the extra bytes just read as "nothing pressed". If it's smaller, the far modules
+are ignored. The `raw` console view (§10) shows the whole chain plus a few extra bytes, which
+makes a wrong count easy to spot on the bench.
 
 ### 1.4 74HC4051 channel → terminal J5
 
@@ -119,14 +119,13 @@ E is tied to GND, so the mux is always enabled. Each J5 input has a 100 nF cap t
 
 ### 1.5 Rotary-switch phase line
 
-There is no separate phase pin: **`ADDR2` (GPIO3) is the phase line** for all four
+There is no separate phase pin: **`ADDR2` (GPIO1) is the phase line** for all four
 transistors. All rotary switches switch phase together: phase 1 is ADDR2 low (pin 1 pulled
 up, mux addresses 0–3), phase 2 is ADDR2 high (pin 1 sunk, addresses 4–7). The mux scan
-visits all 8 addresses anyway, so both phases come for free (§4.2). The keypad and the
-transistors don't interfere: the keypad only sees ADDR2 as its row-3 line, and the transistors
-only affect the rotary switches' pin 1. Extra load on GPIO3: ≈ 0.26 mA base current. Wiring per switch: pin 1 → one J2 terminal **and** one SR input;
-pins 2–6 → SR inputs; pin 7 → GND. Each switch uses 6 SR inputs, so four switches use
-24 of a board's 64.
+visits all 8 addresses anyway, so both phases come for free (§4.2). Extra load on GPIO1:
+≈ 0.5 mA base current with R1 = 4.7 k. Wiring per switch: pin 1 → one J2 terminal **and**
+one SR input; pins 2–6 → SR inputs; pin 7 → GND. Each switch uses 6 SR inputs, so four
+switches use 24 of a board's 64–80.
 
 ### 1.6 Hardware observations that matter for the firmware
 
@@ -143,7 +142,8 @@ pins 2–6 → SR inputs; pin 7 → GND. Each switch uses 6 SR inputs, so four s
 3. **Pots are ratiometric to `+3V3_EXP` (behind polyfuse F2); the ADC is not.** Rail noise
    shows up in the readings. Filtering (§5.5) and calibration take care of it.
    See the brainstorm item in §14 for a fully ratiometric option.
-4. `SR_Q7_KP` already has a pull-up (R8), so an unpopulated keypad header is stable.
+4. The last module's DS is tied high by a jumper (§1.3), so the end of the chain is never
+   a floating input.
 5. The pull-down on the transistor bases (R7) means the rotary phase is a defined
    "phase 1" while ADDR2 still floats during boot. Good.
 
@@ -174,7 +174,7 @@ firmware/
       wiring_types.h        #   EncoderDef, RotaryDef, Toggle3Def, …
     hal/                    # ESP32-specific, shared by A and B
       hw_pins.h             #   §1.1
-      shift_chain.*         #   80-bit read (bit-bang first, SPI later)
+      shift_chain.*         #   8 × N-bit chain read (bit-bang first, SPI later)
       mux_adc.*             #   address lines, ADC oneshot + calibration
       scanner.*             #   the timed scan task (core 1)
       link_uart.*           #   UART1 + framing + statistics
@@ -239,19 +239,21 @@ C++ conventions: no heap allocation after startup, no exceptions, fixed-size arr
 The frequency that matters is the **scan rate, not the clock rate.** Encoders need
 the whole chain sampled at about 5–10 kHz (see §5.2). That takes only a **1–4 MHz** shift
 clock, so there's no reason to push it to 20+ MHz. A slower clock is kinder to signal
-integrity, and with 9 chips plus a ribbon cable, that matters.
+integrity, and with CP and PL bussed through 8–10 modules (about 25–30 cm of trace plus a
+header joint per module), that matters.
 
 Sequence:
 
-1. `PL` low for ≥ 1 µs (the datasheet needs tens of ns, but 1 µs costs nothing). All 80 inputs are latched.
+1. `PL` low for ≥ 1 µs (the datasheet needs tens of ns, but 1 µs costs nothing). All inputs are latched.
 2. `PL` high; wait ≥ 1 µs.
-3. 80 times: read `Q7`, then a rising edge on `CP` (the 165 shifts on the rising edge).
+3. 8 × N times: read `Q7`, then a rising edge on `CP` (the 165 shifts on the rising edge).
 
 **Version 1: bit-bang** with direct register writes (`GPIO.out_w1ts/out_w1tc`). At
-about 2 MHz, 80 bits take ~40 µs. Simple, deterministic, easy to look at on a logic analyzer.
+about 2 MHz, 80 bits (10 modules) take ~40 µs. Simple, deterministic, easy to look at on a
+logic analyzer.
 
 **Version 2 (optional), SPI with DMA, near-zero CPU:** FSPI through the GPIO matrix,
-**SPI mode 2** (CPOL = 1, CPHA = 0), 10 bytes per transfer.
+**SPI mode 2** (CPOL = 1, CPHA = 0), one byte per module per transfer.
 * Mode 2 samples on the falling edge, half a clock *after* the 165 shifted on the rising
   edge. That gives a full half-period of margin. Mode 0 samples right on the shift edge,
   which usually works but is marginal.
@@ -264,11 +266,13 @@ about 2 MHz, 80 bits take ~40 µs. Simple, deterministic, easy to look at on a l
 weakest setting (`gpio_set_drive_capability(…, GPIO_DRIVE_CAP_0)`). That slows the edges,
 which together with the 47 Ω series resistors reduces ringing. Ringing on CP is the main
 risk: the HC165 clock input has no Schmitt trigger, so ringing can cause a double shift.
-Check CP at the far end (U11 and the keypad) with a scope or a logic analyzer once.
+Check CP at the far end (the last module) with a scope or a logic analyzer once, and PL
+too: CP and PL sit on adjacent pins all the way down the chain, and a glitch on PL during
+shifting reloads the registers.
 
 ### 4.2 Scan schedule (address, phase, settle)
 
-ADDR0–2 drive the 4051 and the keypad rows, and ADDR2 also sets the rotary phase (§1.5).
+ADDR0–2 drive the 4051, and ADDR2 also sets the rotary phase (§1.5).
 After any change, things need time to settle (mux output, cable capacitance, BJT turn-off
 storage time, 10 k pull-ups charging cable capacitance). Key idea: **change
 address/phase immediately *after* a chain read, so the next read is always settled.**
@@ -293,11 +297,9 @@ routes the bits:
 |---|---|
 | Plain buttons/switches, encoders | **every** read (10 kHz) |
 | Rotary-switch pins | reads with `phase` = 1 (addr 0–3) or 2 (addr 4–7), combined into pairs |
-| Keypad byte | reads with `addr` ∈ {6, 5, 3} → row 1/2/3; `addr` = 7 → check that all keys read "not pressed" |
 | ADC result | belongs to channel `addr` |
 
-Resulting rates: digital 10 kHz, each analog channel ~417 Hz, each keypad row ~417 Hz,
-complete rotary-switch reads (one phase-1 + one phase-2 sample) ~417 Hz. Plenty everywhere,
+Resulting rates: digital 10 kHz, each analog channel ~417 Hz, complete rotary-switch reads (one phase-1 + one phase-2 sample) ~417 Hz. Plenty everywhere,
 including for the rotaries' 20 ms stable time. The phase changes only twice per frame
 (at 2→6 and 4→0 in the Gray order), so the transistors switch rarely.
 
@@ -326,9 +328,9 @@ command that reports per-channel noise (§10).
 
 ### 5.1 Digital debouncing
 
-There is one debouncer per logical bit: 64 board bits + 24 keypad keys = 88.
-Parameters are **in time, not samples**, because keypad bits are sampled less often
-than board bits.
+There is one debouncer per logical bit: 8 per module, so 64–80 per board.
+Parameters are **in time, not samples**, so they stay correct if the scan rate is
+changed (for example dropping to 5 kHz).
 
 Algorithm ("confirm, then lock out"):
 
@@ -520,11 +522,12 @@ struct InputState {
     uint32_t bootId;          // random per boot; lets A detect "B rebooted" → re-baseline
     uint32_t wiringHash;      // hash of wiring_x.h; A warns if B was flashed with old wiring
     uint16_t fwVersion;
-    uint8_t  flags;           // READY, KEYPAD_PRESENT, …
+    uint8_t  flags;           // READY, …
 
     // digital (logical: true = active)
-    Bits<64> board;           // debounced shift-register inputs, byte/bit as in §1.2
-    Bits<24> keypad;          // debounced, row-major: key = row*8 + (col-1)
+    uint8_t  numModules;                     // kNumModules of the scanning board
+    Bits<8 * kMaxModules> board;             // debounced shift-register inputs, byte/bit as in §1.2;
+                                             // only 8 × numModules bits are sent
 
     // decoded (only what needs the scanning board's timing; toggles are just bits)
     uint8_t  numEncoders;                    // as configured in the wiring table
@@ -535,9 +538,12 @@ struct InputState {
     uint16_t analogMv[8];     // filtered, millivolts, 4051 channel order
 
     // diagnostics (cheap, very useful)
-    uint16_t invalidRotaryCodes, keypadSanityErrors, scanOverruns;
+    uint16_t invalidRotaryCodes, scanOverruns;
 };
 ```
+
+`kMaxModules` is a shared compile-time maximum (say 12), so the struct has a fixed size
+while the real chain length is still undecided.
 
 `READY` is set once every debouncer and filter has had time to fill (≈ 50 ms after boot).
 Until then, A treats the state as not valid yet.
@@ -548,21 +554,24 @@ This is where you describe what is physically connected where. It exists so that
 scanner knows which bits are encoder pairs, rotary switches, etc., and so that mappings can
 use names instead of bit numbers.
 
+`T(M3, 5)` means "module 3, terminal J1 pin 5" (module 1 is the one plugged into the main
+board, §1.2).
+
 ```cpp
 // wiring_b.h — example
 // Scanner part: needed by board B itself (B decodes these)
-constexpr EncoderDef  kEncoders[]  = { { T(J12,1), T(J12,2), StepsPerDetent{4} },
-                                       { T(J12,3), T(J12,4), StepsPerDetent{4} } };
-constexpr RotaryDef   kRotaries[]  = { { T(J14,1), T(J14,2), T(J14,3),
-                                         T(J14,4), T(J14,5), T(J14,6) } }; // pin1..pin6
+constexpr uint8_t     kNumModules  = 9;
+constexpr EncoderDef  kEncoders[]  = { { T(M3,1), T(M3,2), StepsPerDetent{4} },
+                                       { T(M3,3), T(M3,4), StepsPerDetent{4} } };
+constexpr RotaryDef   kRotaries[]  = { { T(M5,1), T(M5,2), T(M5,3),
+                                         T(M5,4), T(M5,5), T(M5,6) } };   // pin1..pin6
 constexpr AnalogDef   kAnalog[8]   = { {Use::Axis}, {Use::Axis}, {Use::Unused}, … };
 
 // Mapping part: only used by board A
-constexpr Toggle3Def  kToggle3[]   = { { T(J13,7), T(J13,8) } };
+constexpr Toggle3Def  kToggle3[]   = { { T(M4,7), T(M4,8) } };
 namespace B {
-    constexpr ButtonId   GEAR      = toggle(T(J10,1));       // on-off switch
-    constexpr ButtonId   FIRE      = momentary(T(J10,2));    // push button
-    constexpr ButtonId   KP_ENTER  = keypad(2, 8);           // row 3, col 8 (momentary)
+    constexpr ButtonId   GEAR      = toggle(T(M1,1));        // on-off switch
+    constexpr ButtonId   FIRE      = momentary(T(M1,2));     // push button
     constexpr EncoderId  HDG       = encoder(0);
     constexpr SelectorId RADIO     = rotary(0);
     constexpr SelectorId FLAPS     = toggle3(0);
@@ -574,7 +583,7 @@ Board A compiles **both** wiring files, since it needs B's names for the mapping
 only uses the scanner part of its own file.
 
 * `static_assert`s enforce the board's limits at compile time: ≤ 4 rotaries, ≤ 32 encoders,
-  no shift-register bit used twice, rotary pin-1 inputs present, and so on. Adding or
+  `kNumModules` ≤ `kMaxModules`, no terminal beyond module `kNumModules`, no shift-register bit used twice, rotary pin-1 inputs present, and so on. Adding or
   removing a switch is just a table edit.
 * B must be re-flashed only when the **scanner part** of `wiring_b.h` changes (encoders,
   rotaries, analog). The `wiringHash` covers just that part. If you forget to re-flash,
@@ -687,7 +696,7 @@ One **on-off switch per output class** decides whether that class is reported:
 |---|---|---|
 | `SYS_SHOW_POSITIONS` | `Position` | held outputs that reflect a switch's absolute position: on-off toggles, each position of an on-off-on or rotary switch |
 | `SYS_SHOW_PULSES` | `StepPulse` | pulses created from switch changes: on/off pulses of toggles, up/down pulses of on-off-on and rotary switches |
-| (always shown) | `Always` | momentary buttons, keypad keys, encoders, axes, anything the mode marks explicitly |
+| (always shown) | `Always` | momentary buttons, encoders, axes, anything the mode marks explicitly |
 
 Adding a filter later means one new class plus one row in a small table
 (`{ SYS_SHOW_xxx, Class::xxx }`). Nothing else changes.
@@ -1005,8 +1014,7 @@ B never waits for A and works the same whether or not A is listening.
 |---|---|
 | Boot (both boards) | `READY` only after ~50 ms of scanning. Edges, counters and positions are **baselined** from the first valid state, so nothing fires at power-up. |
 | B absent at boot / unplugged / rebooted | Remote inputs neutral; outputs driven by them release; re-baseline when B returns (§6). |
-| Keypad absent (sentinel byte = `0xFF`) | Keypad keys read as not pressed; `KEYPAD_PRESENT` flag clear. Works on A and B. |
-| Keypad sanity error (key "pressed" at addr 7) | Count it; ignore keypad data for that frame. |
+| Chain shorter than `kNumModules` (module missing, or the DS jumper on the wrong module) | The missing bytes read as "nothing pressed" (§1.3). Not detected automatically; the `raw` view shows it. |
 | USB not connected on A | Everything runs; HID sending is skipped. |
 | Scanner overrun (a tick took > T) | Count it; shows up in the console. That's a sign to move to SPI or drop to 5 kHz. |
 | Scanner stalls (watchdog) | A outputs neutral and the LED shows an error. |
@@ -1017,12 +1025,12 @@ B never waits for A and works the same whether or not A is listening.
 ## 10. Debug tooling (do this early, it pays for itself)
 
 * **USB CDC console** on both boards (on A it is part of the composite device):
-  * `raw`: live view of the 80 raw bits, grouped per terminal (J10…J18, keypad)
+  * `raw`: live view of the raw chain bits, one row per module (M1…MN), plus two extra bytes past the end that should always read `0xFF`
   * `inputs`: debounced named inputs, encoder counts, selector positions
   * `rotary`: every decoded rotary code (phase 1 + phase 2) with a timestamp while turning, to measure chatter and tune `kRotaryStableTime`
   * `analog`: per-channel mV, noise (min/max/stddev over 1 s), with the settle time adjustable live
   * `link`: frames/s, CRC errors, COBS errors, last-seen, B's bootId/wiringHash
-  * `stats`: scan rate, overruns, invalid rotary codes, keypad sanity errors
+  * `stats`: scan rate, overruns, invalid rotary codes
   * `ident`: prints the name of any input that changes, so you can find which wire is which
   * `cal`: interactive axis calibration and mode-ladder "learn", stored in NVS
   * `mode`: current mode, plus forcing a mode without turning the switch
@@ -1046,7 +1054,7 @@ B never waits for A and works the same whether or not A is listening.
 * **Record and replay:** a console command dumps the tagged raw scan stream to a file.
   Feed it to the native build to reproduce a real-world glitch on the PC, under a debugger.
 * **Bench checklist per board:** every terminal pin toggles exactly its bit (`ident`),
-  keypad presence detected/absent, all 8 analog channels respond, all rotary positions
+  the bytes past the last module read `0xFF`, all 8 analog channels respond, all rotary positions
   decode in both directions, link survives cable pull/re-plug and B reset.
 
 ---
@@ -1056,9 +1064,9 @@ B never waits for A and works the same whether or not A is listening.
 | # | Goal | Done when |
 |---|---|---|
 | M0 | Toolchain, both envs + native tests build, LED blinks, console works | `pio run` builds A and B |
-| M1 | Shift chain driver | `raw` shows correct bits for every terminal; keypad presence detection works; CP checked on a logic analyzer |
+| M1 | Shift chain driver | `raw` shows correct bits for every terminal of every module; bytes past the end read `0xFF`; CP and PL checked on a logic analyzer at the last module |
 | M2 | Mux + ADC | `analog` shows all channels; settle time and noise measured, defaults chosen |
-| M3 | Scanner schedule + all decoders (debounce, encoders, rotary, keypad, selectors, filters) | unit tests green; `inputs` correct on the bench at full scan rate |
+| M3 | Scanner schedule + all decoders (debounce, encoders, rotary, selectors, filters) | unit tests green; `inputs` correct on the bench at full scan rate |
 | M4 | USB HID on A with a simple hand-written 1:1 test mode, local inputs only | all inputs visible in a joystick tester |
 | M5 | Link | B's inputs appear on A; unplug/replug/reset of B behave as in §9; error counters ≈ 0 at the chosen baud |
 | M6 | Mapping API, pulse engine, master-mode, filter and zero switches | first real game profile works end-to-end |
@@ -1107,9 +1115,13 @@ B never waits for A and works the same whether or not A is listening.
 * **Mapping changes** are made in code and flashed; no runtime configuration (§14 keeps the
   idea parked).
 * **Master-mode switch** is on A's last analog input, channel 7 (§7.2).
-* **Rotary phase shares ADDR2** (GPIO3); pins re-arranged in the PCB (PL = GPIO4, CP = GPIO5,
-  Q7 = GPIO6, analog = GPIO7 = ADC1_CH6). That frees GPIO8–13 as AUX5–AUX0 on J3 (§1.1, §1.5).
-* **Keypad on B:** most probably. Already handled by automatic presence detection (§1.2).
+* **Rotary phase shares ADDR2** (GPIO1; ADDR0 is GPIO3, so the traces don't cross). PL = GPIO4,
+  CP = GPIO5, Q7 = GPIO6, analog = GPIO7 = ADC1_CH6. GPIO8–13 are AUX5–AUX0 on the expansion
+  header J4 (§1.1, §1.5).
+* **Digital inputs on shift-register modules:** one 74HC165 per module, chained edge to edge
+  off the main board's J3. The last module's DS is tied high with a jumper. The module count
+  (8–10) is not decided yet, so it's the `kNumModules` constant per board (§1.2, §1.3).
+* **Keypad:** obsolete, dropped from the design.
 * **Joystick vs pot** doesn't need deciding yet: the firmware treats all analog channels the
   same until a mode maps them (§5.5).
 * **Analog input caps** (100 nF) will be fitted (§4.3).
@@ -1120,7 +1132,8 @@ B never waits for A and works the same whether or not A is listening.
   two +5V wires (pins 4 and 7) cut; the GND wires can stay.
 * **Current hardware:** A has 3 rotaries, the mode switch and 1 encoder. B has 1 rotary and a
   few encoders. Counts will change, so everything comes from the wiring tables, with
-  compile-time checks against the board's limits (4 rotaries, 32 encoders, 64 bits, 128 buttons).
+  compile-time checks against the board's limits (4 rotaries, 32 encoders, 8 bits per module,
+  `kMaxModules` modules, 128 buttons).
 
 ### Still open
 

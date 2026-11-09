@@ -3523,7 +3523,7 @@
 				(pin passive line
 					(at -7.62 -2.54 0)
 					(length 3.81)
-					(name "Q7"
+					(name "SER"
 						(effects
 							(font
 								(size 1.27 1.27)

@@ -1,7 +1,8 @@
 I'm planning an HID device for games and whatnot. Indoors. Reads physical switches/buttons/joysticks/encoders and such. Two separate devices (A and B) with A connected to the computer and B connected to A.
 
-Two identical custom PCBs (boards A and B) + a keypad PCB closely tied to board A.
-Both boards should be identical in terms of layout (same manufactured board) but not necessarily components (I will be assembling them myself).
+Two identical main PCBs (boards A and B, KiCad project `PCBs/Shared_Main`), each with a chain of small shift-register modules (`PCBs/Shift_Register_Module`).
+Both main boards should be identical in terms of layout (same manufactured board) but not necessarily components (I will be assembling them myself).
+The keypad (`PCBs/Right_Keypad`) is obsolete and no longer part of the design.
 
 Both boards use ESP32-S3-Zero controllers. The two ESP32s will have different firmware built from one shared codebase. I want to only use the normal though-hole/header pins on the ESP32s, no POGO-pins or direct soldering to the PCB.
 
@@ -18,37 +19,46 @@ The Cat5 cable is at most 2 meters long.
 - Pair 1 (pins 1&2) carry data from ESP32 A's TX + GND.
 - Pair 2 (pins 3&6) carry data from ESP32 B's TX + GND.
 - Pairs 3&4 each carry +5V + GND.
-The two 100 Ω UART series resistors (R2/R3) are fitted crossed on board B ("Cross on board B" silkscreen), so both firmwares use the same TX/RX pins and no crossover cable is needed.
+The two 100 Ω UART series resistors (R2/R3) are fitted crossed on board B ("B: Cross" silkscreen), so both firmwares use the same TX/RX pins and no crossover cable is needed. How they are crossed is settled.
 
-The PCB's are 4-layer, with 3v3 and GND planes in the middle. The 5V to/from the Cat5 cable will have to run in its own trace between the RJ45 jack and the ESP32's 5V pin.
+The main PCB is 4-layer, with GND (In1) and 3v3 (In2) planes in the middle. The 5V to/from the Cat5 cable runs in its own trace between the RJ45 jack and the ESP32's 5V pin, through polyfuse F1 (0.5 A).
 
 All logic should be 3v3. 5V is only used to power the ESP32 currently not connected by USB (but instead the Cat5 cable).
 
-Both boards will have the following (each):
-8x 74HC165 with one 8-channel screw terminal bank and pull-up resistor network each for reading buttons and switches.
-4x BC547 NPN transistor (with base pull-down) for controlling a few pins (floating or GND) that are used for reading/scanning some weird rotary switches. Only signal level. Also has its own screw terminal bank. All four bases are driven together from ADDR2 (no separate phase pin).
-1x 74HC4051 for reading joysticks and other pots + screw terminals. 100 nF caps on the analog inputs will be fitted.
-1x RJ45 jack for connecting to the other board.
+Each main board (Shared_Main) has:
+- 1x ESP32-S3-Zero (U1), USB end at the board edge.
+- 1x 74HC4051 (U2) for reading joysticks and other pots, with an 8-channel screw terminal (J5). 100 nF caps on the analog inputs will be fitted.
+- 4x BC547 NPN transistor (with base pull-down R7) for controlling a few pins (floating or GND) that are used for reading/scanning some weird rotary switches. Only signal level. Own 4-channel screw terminal (J2). All four bases are driven together from ADDR2 through R1 (no separate phase pin).
+- 1x RJ45 jack (J16) for connecting to the other board.
+- 1x 3-pin power screw terminal (J1): +3V3_EXP (polyfuse F2, 0.1 A), GND, +5V_EXP (polyfuse F3, 0.2 A). The silkscreen labels sit between the screws on purpose (they don't fit in line).
+- 1x 5-pin right-angle socket (J3) at the left edge for the shift-register chain: 1 GND, 2 CP, 3 /PL, 4 Q7, 5 +3V3. CP and /PL have 47 Ω series resistors (R10/R9).
+- 1x 9-pin expansion header (J4): ADDR0-2 and AUX5-AUX0.
+- Mounting hole H1 is tied to GND (chassis), H2/H3 are unplated.
 
-Board A (and most probably board B too) has a short (10-20cm) IDC ribbon cable connecting an 8x3 keypad with its own shift register, chained "outside" the ones on the board so data only goes *from* the keypad.
-The cable transmits power, shift-register stuff and 3 lines for scanning the rows.
-Every other conductor in the IDC cable is GND.
+Shift-register modules (Shift_Register_Module, 2-layer): each has 1x 74HC165, 8x 10k pull-ups and an 8-channel screw terminal (J1) for buttons, switches and encoders. All inputs switch to GND, so raw 0 = active. J1 pin 1 is D7 (read first), pin 8 is D0.
+- J2 "Upstream" (right-angle socket, left edge): data comes in from the next module into DS.
+- J3 "Downstream" (right-angle header, right edge): Q7 goes out towards the main board.
+- Same 5-pin order as the main board's J3, so modules plug edge to edge, extending to the left of the main board: `[module N] … [module 2][module 1][main]`. Terminal rows line up with the main board's.
+- The last module in the chain has its DS tied to 3v3 with a jumper in its J2 socket (pin 4 to pin 5), so bits read past the end of the chain are 1 (= inactive).
+- Each main board will have 8-10 modules (not decided yet), and always at least one.
+- The modules are mounted by other means (no mounting holes on purpose).
 
-Reference GND and 3v3 for pots and switches will be taken from a single screw terminal and will be distributed by means of external terminal blocks or something like that.
+Reference GND and 3v3 for pots and switches will be taken from the single power screw terminal (J1) and will be distributed by means of external terminal blocks or something like that.
 
-The 3 lines for scanning the rows on the keypad are also the address lines of the 74HC4051, and ADDR2 also sets the rotary-switch phase.
+The rotary encoders (turned by hand) are read by the shift-register chain.
 
-The keypad Q7 line has a pull-up (R8), so the IDC header can be left unpopulated. The firmware detects whether a keypad is present.
-
-The rotary encoders (turned by hand) will be read by the main shift-register chain.
+The USB and RJ45 connectors don't go through the enclosure wall. They connect to separate panel-mounted counterparts inside the box.
 
 ESP32-S3-Zero pin map (both boards):
-- GPIO1-3: ADDR0-2 (4051 S0-S2, keypad rows 1-3; ADDR2 also drives the rotary-switch transistors)
+- GPIO1: ADDR2 (4051 S2, also drives the rotary-switch transistors)
+- GPIO2: ADDR1 (4051 S1)
+- GPIO3: ADDR0 (4051 S0)
 - GPIO4: SR_PL, GPIO5: SR_CP, GPIO6: SR_Q7
 - GPIO7: 4051 output, analog in (ADC1_CH6)
-- GPIO8-13: AUX5-AUX0, spare, on the expansion grid
+- GPIO8-13: AUX5-AUX0, spare, on the expansion header J4
 - GPIO43/44: UART TX/RX
 - GPIO21: on-module RGB LED
+(ADDR0 and ADDR2 are on GPIO3 and GPIO1 so the traces don't have to cross.)
 
 Weird rotary switches: 12 positions, 7 contacts, rotate infinitely (no end stops), make-before-break with a very wide wiper. Read in two phases (pin 1 pulled up / pin 1 sunk via the transistor). Transition readings are either garbage or one of the two adjacent positions, so a short debounce (~20 ms, tuned on the bench) is enough. Exception: halfway between 12 and 1 the contacts give the real code of position 6 for as long as the knob sits there, so non-adjacent jumps need a long stable time (~1 s, also blocks phase-mix artefacts).
 
